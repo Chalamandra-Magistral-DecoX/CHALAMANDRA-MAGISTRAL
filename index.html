@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insightify Chalamandra | De la Sobrecarga a la Claridad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --magenta: #FF00FF;
+            --neon-green: #39FF14;
+            --deep-black: #050505;
+        }
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--deep-black);
+            color: #f0f0f0;
+        }
+        h1, h2, h3 { font-family: 'Orbitron', sans-serif; }
+        
+        .text-glow-magenta {
+            text-shadow: 0 0 10px var(--magenta), 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+        .text-glow-green {
+            text-shadow: 0 0 10px var(--neon-green), 0 0 20px rgba(57, 255, 20, 0.5);
+        }
+        .card {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .card:hover { border-color: var(--neon-green); }
+        
+        .btn-magistral {
+            background: linear-gradient(135deg, var(--magenta), #9D00FF);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+        }
+        .btn-outline-green {
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+        }
+        .btn-outline-green:hover {
+            background: var(--neon-green);
+            color: black;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="relative min-h-screen overflow-hidden">
+        <main class="relative z-10 container mx-auto px-4 py-12">
+
+            <header class="text-center mb-24">
+                <h1 class="text-5xl md:text-7xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-magenta-500 to-[#FF00FF] uppercase tracking-tighter" style="background-image: linear-gradient(to right, #fff, var(--magenta), #7000ff);">
+                    Insightify Chalamandra
+                </h1>
+                <p class="text-xl md:text-2xl text-glow-green font-light tracking-widest">DECODIFICANDO EL CAOS CON IA MAGISTRAL</p>
+            </header>
+
+            <section class="mb-24">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-bold mb-8 text-glow-magenta text-center">EL MURO DE LA SOBRECARGA</h2>
+                    <div class="card p-8 rounded-2xl border-l-8 border-[#FF00FF] mb-12">
+                        <p class="text-2xl italic font-light leading-relaxed">
+                            "A las 2 AM, María cerró su laptop. Era la quinta vez que leía el mismo paper sin entenderlo. Su cerebro, saturado de ruido, pidió clemencia."
+                        </p>
+                        <p class="mt-4 text-right text-magenta-400 font-bold">— Metodología SRAP Aplicada</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="card p-8 rounded-xl"><div id="stat1" class="text-6xl font-black text-[#FF00FF] mb-2">0</div><p class="uppercase text-xs tracking-widest">Ansiedad Informativa</p></div>
+                    <div class="card p-8 rounded-xl"><div id="stat2" class="text-6xl font-black text-white mb-2">0</div><p class="uppercase text-xs tracking-widest">Horas Perdidas/Mes</p></div>
+                    <div class="card p-8 rounded-xl"><div id="stat3" class="text-6xl font-black text-[#39FF14] mb-2">0%</div><p class="uppercase text-xs tracking-widest">Claridad Lograda</p></div>
+                </div>
+            </section>
+
+            <section class="mb-24 text-center">
+                <h2 class="text-4xl font-black mb-12 text-glow-green uppercase">Motor de Claridad 3D</h2>
+                <div class="card rounded-3xl p-2 relative overflow-hidden group">
+                    <div id="demo-canvas-container" class="w-full h-[500px] rounded-2xl cursor-crosshair">
+                         <div id="demo-overlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center z-20">
+                            <h3 class="text-3xl font-bold mb-6">¿LISTA PARA DECODIFICAR?</h3>
+                            <button id="start-demo-btn" class="btn-magistral text-white font-black py-4 px-10 rounded-full text-xl hover:scale-110 transition-transform">
+                                ACTIVAR INSIGHTIFY
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-24">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="card p-10 rounded-3xl border-t-4 border-[#39FF14]">
+                        <h3 class="text-2xl font-bold text-[#39FF14] mb-6 uppercase tracking-tighter">🛡️ Local First (Chola Smart)</h3>
+                        <p class="text-slate-400 leading-relaxed mb-4">Privacidad absoluta. Tus datos no viajan, se procesan en tu terreno. Seguridad de barrio, tecnología de élite.</p>
+                    </div>
+                    <div class="card p-10 rounded-3xl border-t-4 border-[#FF00FF]">
+                        <h3 class="text-2xl font-bold text-[#FF00FF] mb-6 uppercase tracking-tighter">☁️ Cloud Boost (Fresa Tech)</h3>
+                        <p class="text-slate-400 leading-relaxed mb-4">Potencia extra con Gemini API para análisis profundos. Solo cuando tú decides subir el nivel.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="text-center py-20 border-t border-magenta-900/30">
+                <h2 class="text-4xl font-black mb-10 text-white uppercase italic">No te detengas. Sé Magistral.</h2>
+                <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <a href="#" class="btn-magistral text-white font-bold py-4 px-12 rounded-full text-lg">UNIRSE A LA BETA LATAM</a>
+                    <a href="https://github.com" class="btn-outline-green font-bold py-4 px-12 rounded-full text-lg transition-all">GITHUB REPO</a>
+                </div>
+                <p class="mt-12 text-slate-500 font-mono text-sm tracking-tighter">© 2026 CHALAMANDRA MAGISTRAL DECOX | ALL RIGHTS RESERVED</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Stats Animation
+            function animateValue(obj, start, end, duration, suffix = '') {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start) + suffix;
+                    if (progress < 1) window.requestAnimationFrame(step);
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        if(el.id === 'stat1') animateValue(el, 0, 85, 2000, '%');
+                        if(el.id === 'stat2') animateValue(el, 0, 40, 2000, '+');
+                        if(el.id === 'stat3') animateValue(el, 0, 100, 2000, '%');
+                        obs.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            document.querySelectorAll('[id^="stat"]').forEach(el => obs.observe(el));
+
+            // Three.js: Caos Magenta -> Claridad Verde
+            let scene, camera, renderer, chaosGroup, clarityGroup;
+            const container = document.getElementById('demo-canvas-container');
+
+            function init3D() {
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+                camera.position.z = 12;
+
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                container.appendChild(renderer.domElement);
+
+                // Chaos: Magenta Sparks
+                chaosGroup = new THREE.Group();
+                const geo = new THREE.SphereGeometry(0.08, 4, 4);
+                for(let i=0; i<700; i++) {
+                    const mat = new THREE.MeshBasicMaterial({ color: 0xFF00FF });
+                    const m = new THREE.Mesh(geo, mat);
+                    m.position.set((Math.random()-0.5)*25, (Math.random()-0.5)*25, (Math.random()-0.5)*25);
+                    chaosGroup.add(m);
+                }
+                scene.add(chaosGroup);
+
+                // Clarity: Green Nodes
+                clarityGroup = new THREE.Group();
+                const nodeGeo = new THREE.SphereGeometry(0.25, 12, 12);
+                const nodeMat = new THREE.MeshBasicMaterial({ color: 0x39FF14 });
+                const pts = [new THREE.Vector3(-4,2,0), new THREE.Vector3(4,2,0), new THREE.Vector3(0,-3,0), new THREE.Vector3(0,4,0)];
+                pts.forEach(p => {
+                    const n = new THREE.Mesh(nodeGeo, nodeMat);
+                    n.position.copy(p);
+                    clarityGroup.add(n);
+                });
+                clarityGroup.visible = false;
+                scene.add(clarityGroup);
+
+                animate();
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                chaosGroup.rotation.y += 0.002;
+                if(clarityGroup.visible) clarityGroup.rotation.y += 0.005;
+                renderer.render(scene, camera);
+            }
+
+            document.getElementById('start-demo-btn').addEventListener('click', () => {
+                document.getElementById('demo-overlay').classList.add('opacity-0');
+                setTimeout(() => {
+                    document.getElementById('demo-overlay').style.display = 'none';
+                    chaosGroup.visible = false;
+                    clarityGroup.visible = true;
+                }, 600);
+            });
+
+            init3D();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dado de Metodologías | Chalamandra DecoX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --magenta: #FF00FF;
+            --neon-green: #39FF14;
+            --deep-black: #050505;
+            --glass: rgba(15, 15, 15, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Exo 2', sans-serif; }
+
+        body {
+            background-color: var(--deep-black);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: radial-gradient(circle at 50% 50%, #1a001a 0%, #050505 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--glass);
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.1);
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        h1 { font-family: 'Orbitron', sans-serif; color: var(--magenta); font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Dado 3D */
+        .dice-container { width: 120px; height: 120px; margin: 40px auto; perspective: 1000px; }
+        .dice-3d {
+            width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
+            transform: rotateX(25deg) rotateY(25deg); transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .dice-face {
+            position: absolute; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--magenta), #7000ff);
+            border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 15px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-weight: bold; backface-visibility: hidden; font-size: 1.2rem;
+        }
+        .dice-face span { font-size: 0.7rem; margin-top: 5px; opacity: 0.8; text-transform: uppercase; }
+
+        .front  { transform: translateZ(60px); }
+        .back   { transform: rotateY(180deg) translateZ(60px); }
+        .right  { transform: rotateY(90deg) translateZ(60px); }
+        .left   { transform: rotateY(-90deg) translateZ(60px); }
+        .top    { transform: rotateX(90deg) translateZ(60px); }
+        .bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+        /* Controles */
+        button {
+            padding: 15px 40px; border-radius: 50px; border: none; cursor: pointer;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+        }
+        #rollButton { background: var(--magenta); color: white; box-shadow: 0 0 15px var(--magenta); }
+        #rollButton:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--magenta); }
+
+        .btn-back {
+            margin-top: 30px; background: transparent; color: var(--neon-green);
+            border: 1px solid var(--neon-green); font-size: 0.8rem;
+        }
+        .btn-back:hover { background: var(--neon-green); color: #000; }
+
+        #resultadoDado {
+            margin-top: 30px; padding: 20px; border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--neon-green);
+            min-height: 100px; line-height: 1.6;
+        }
+
+        .method-name { color: var(--neon-green); font-weight: bold; font-size: 1.3rem; display: block; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Laboratorio de Metodologías</h1>
+        <p style="color: #aaa; font-size: 0.9rem;">Lanza el dado y deja que la Chalamandra decida tu estrategia.</p>
+
+        <div class="dice-container">
+            <div class="dice-3d" id="dice3d">
+                <div class="dice-face front">🍰<span>Pastelote</span></div>
+                <div class="dice-face back">🎩<span>6 Looks</span></div>
+                <div class="dice-face right">🛠️<span>Kit Malandro</span></div>
+                <div class="dice-face left">🤪<span>Ideas Messi</span></div>
+                <div class="dice-face top">🗺️<span>Cartografía</span></div>
+                <div class="dice-face bottom">☕<span>Tertulia</span></div>
+            </div>
+        </div>
+
+        <button id="rollButton"><i class="fas fa-dice"></i> Lanzar Dado</button>
+        
+        <div id="resultadoDado">
+            <p>¡Hola, mi chama! Soy la Chalamandra. Lanza el dado para decodificar tu siguiente paso creativo.</p>
+        </div>
+
+        <button class="btn-back" onclick="location.href='../index.html'">
+            <i class="fas fa-arrow-left"></i> Volver al Inicio
+        </button>
+    </div>
+
+    <script>
+        const metodologias = [
+            { nombre: "🍰 El Pastelote", desc: "Analiza tu problema en rebanadas. Cada porción es una perspectiva distinta: práctica, emocional o creativa. ¡No te atragantes, decodifica!" },
+            { nombre: "🎩 Los 6 Looks", desc: "Ponte un outfit mental diferente. Del Look Hater al Look Jefa. ¿Desde qué mirada vas a resolver esto hoy?" },
+            { nombre: "🛠️ Kit del Malandro", desc: "Sustituye, combina y elimina lo que sobra. Es el SCAMPER de barrio para resetear proyectos que ya no caminan." },
+            { nombre: "🤪 Ideas más Messi", desc: "Busca la idea más ridícula y mala. Dale la vuelta como a un calcetín y encontrarás la solución más brillante." },
+            { nombre: "🗺️ Cartografía Mental", desc: "Mapea lo que la gente dice, lo que calla y lo que realmente necesita. Tu GPS emocional para no perderte." },
+            { nombre: "☕ Tertulia de Barrio", desc: "Conversación profunda entre compas. Rotación de ideas y sabiduría colectiva. El café está listo." }
+        ];
+
+        const diceElement = document.getElementById('dice3d');
+        const rollButton = document.getElementById('rollButton');
+        const resultadoDado = document.getElementById('resultadoDado');
+
+        const rotations = [
+            {x: 0, y: 0}, {x: 0, y: 180}, {x: 0, y: 90}, 
+            {x: 0, y: -90}, {x: 90, y: 0}, {x: -90, y: 0}
+        ];
+
+        rollButton.addEventListener("click", () => {
+            rollButton.disabled = true;
+            const resIndex = Math.floor(Math.random() * 6);
+            const {x, y} = rotations[resIndex];
+            
+            diceElement.style.transform = `rotateX(${x + 720}deg) rotateY(${y + 1080}deg)`;
+
+            setTimeout(() => {
+                const m = metodologias[resIndex];
+                resultadoDado.innerHTML = `<span class="method-name">${m.nombre}</span><p>${m.desc}</p>`;
+                rollButton.disabled = false;
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

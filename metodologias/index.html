@@ -3,154 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dado de Metodologías | Chalamandra DecoX</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+    <title>Chalamandra Magistral | DecoX Studio 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --magenta: #FF00FF;
-            --neon-green: #39FF14;
-            --deep-black: #050505;
-            --glass: rgba(15, 15, 15, 0.9);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Exo 2', sans-serif; }
-
-        body {
-            background-color: var(--deep-black);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+        :root { --neon-green: #39FF14; --magenta: #FF00FF; --dark: #050505; }
+        body { 
+            background-color: var(--dark); 
+            color: white; 
+            font-family: 'Exo 2', sans-serif;
             background-image: radial-gradient(circle at 50% 50%, #1a001a 0%, #050505 100%);
         }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: var(--glass);
-            border-radius: 30px;
-            padding: 40px;
-            border: 1px solid rgba(255, 0, 255, 0.2);
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.1);
-            margin-top: 40px;
-            text-align: center;
+        .font-magistral { font-family: 'Orbitron', sans-serif; }
+        .text-glow-green { text-shadow: 0 0 10px var(--neon-green); }
+        .text-glow-magenta { text-shadow: 0 0 10px var(--magenta); }
+        .card { 
+            background: rgba(15, 15, 15, 0.8); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-
-        h1 { font-family: 'Orbitron', sans-serif; color: var(--magenta); font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
-
-        /* Dado 3D */
-        .dice-container { width: 120px; height: 120px; margin: 40px auto; perspective: 1000px; }
-        .dice-3d {
-            width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
-            transform: rotateX(25deg) rotateY(25deg); transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .dice-face {
-            position: absolute; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--magenta), #7000ff);
-            border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 15px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-weight: bold; backface-visibility: hidden; font-size: 1.2rem;
-        }
-        .dice-face span { font-size: 0.7rem; margin-top: 5px; opacity: 0.8; text-transform: uppercase; }
-
-        .front  { transform: translateZ(60px); }
-        .back   { transform: rotateY(180deg) translateZ(60px); }
-        .right  { transform: rotateY(90deg) translateZ(60px); }
-        .left   { transform: rotateY(-90deg) translateZ(60px); }
-        .top    { transform: rotateX(90deg) translateZ(60px); }
-        .bottom { transform: rotateX(-90deg) translateZ(60px); }
-
-        /* Controles */
-        button {
-            padding: 15px 40px; border-radius: 50px; border: none; cursor: pointer;
-            font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
-        }
-        #rollButton { background: var(--magenta); color: white; box-shadow: 0 0 15px var(--magenta); }
-        #rollButton:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--magenta); }
-
-        .btn-back {
-            margin-top: 30px; background: transparent; color: var(--neon-green);
-            border: 1px solid var(--neon-green); font-size: 0.8rem;
-        }
-        .btn-back:hover { background: var(--neon-green); color: #000; }
-
-        #resultadoDado {
-            margin-top: 30px; padding: 20px; border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--neon-green);
-            min-height: 100px; line-height: 1.6;
-        }
-
-        .method-name { color: var(--neon-green); font-weight: bold; font-size: 1.3rem; display: block; margin-bottom: 10px; }
+        .card:hover { border-color: var(--magenta); transform: translateY(-5px); }
+        input:focus { outline: none; }
+        /* Scrollbar Neón */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-green); }
     </style>
 </head>
-<body>
+<body class="min-h-screen">
 
-    <div class="container">
-        <h1>Laboratorio de Metodologías</h1>
-        <p style="color: #aaa; font-size: 0.9rem;">Lanza el dado y deja que la Chalamandra decida tu estrategia.</p>
+    <header class="py-20 px-6 text-center">
+        <h1 id="main-title" class="font-magistral text-5xl md:text-7xl font-black mb-4 italic tracking-tighter text-glow-green italic">
+            CHALAMANDRA MAGISTRAL
+        </h1>
+        <p class="text-magenta-500 font-mono tracking-widest uppercase text-sm">Decodificando el Caos | Est. 2026</p>
+    </header>
 
-        <div class="dice-container">
-            <div class="dice-3d" id="dice3d">
-                <div class="dice-face front">🍰<span>Pastelote</span></div>
-                <div class="dice-face back">🎩<span>6 Looks</span></div>
-                <div class="dice-face right">🛠️<span>Kit Malandro</span></div>
-                <div class="dice-face left">🤪<span>Ideas Messi</span></div>
-                <div class="dice-face top">🗺️<span>Cartografía</span></div>
-                <div class="dice-face bottom">☕<span>Tertulia</span></div>
-            </div>
-        </div>
-
-        <button id="rollButton"><i class="fas fa-dice"></i> Lanzar Dado</button>
+    <main class="max-w-6xl mx-auto px-6 pb-20">
         
-        <div id="resultadoDado">
-            <p>¡Hola, mi chama! Soy la Chalamandra. Lanza el dado para decodificar tu siguiente paso creativo.</p>
-        </div>
+        <section class="mb-32">
+            <h2 class="font-magistral text-3xl mb-12 text-center uppercase tracking-tighter">Unidades de Negocio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="card p-8 rounded-3xl border-t-4 border-[#39FF14]">
+                    <span class="text-[10px] font-mono text-[#39FF14] uppercase tracking-widest">IA Studio</span>
+                    <h3 class="text-2xl font-black mt-2 mb-4">INSIGHTIFY™</h3>
+                    <p class="text-slate-400 text-sm mb-6">Soberanía tecnológica y procesamiento local. Tus datos, bajo tu control total.</p>
+                    <button onclick="playCyberSound()" class="w-full py-3 border border-[#39FF14]/30 rounded-xl text-xs font-bold hover:bg-[#39FF14] hover:text-black transition-all">ACCESO BETA</button>
+                </div>
 
-        <button class="btn-back" onclick="location.href='../index.html'">
-            <i class="fas fa-arrow-left"></i> Volver al Inicio
-        </button>
-    </div>
+                <div class="card p-8 rounded-3xl border-t-4 border-[#FF00FF]">
+                    <span class="text-[10px] font-mono text-[#FF00FF] uppercase tracking-widest">Laboratorio</span>
+                    <h3 class="text-2xl font-black mt-2 mb-4">DADO MAGISTRAL</h3>
+                    <p class="text-slate-400 text-sm mb-6">Gamifica tu estrategia. Deja que el azar decodifique tu siguiente movimiento.</p>
+                    <a href="./metodologias/index.html" onclick="playCyberSound()" class="block text-center w-full py-3 bg-[#FF00FF] text-white rounded-xl text-xs font-bold hover:shadow-[0_0_20px_#FF00FF] transition-all">LANZAR DADO</a>
+                </div>
+
+                <div class="card p-8 rounded-3xl border-t-4 border-white">
+                    <span class="text-[10px] font-mono text-white uppercase tracking-widest">Editorial</span>
+                    <h3 class="text-2xl font-black mt-2 mb-4">BLOGCHAL</h3>
+                    <p class="text-slate-400 text-sm mb-6">Bitácora de guerra tecnológica y reflexiones sobre el Top 1%.</p>
+                    <a href="https://decodificadorachalamandramagis.blogspot.com/" target="_blank" onclick="playCyberSound()" class="block text-center w-full py-3 border border-white/30 rounded-xl text-xs font-bold hover:bg-white hover:text-black transition-all">LEER BITÁCORA</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto">
+            <div class="bg-black border border-[#39FF14]/30 rounded-2xl overflow-hidden shadow-2xl">
+                <div class="bg-[#111] px-4 py-2 flex items-center gap-2 border-b border-white/5">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 ml-2 uppercase">CHALAMANDRA_OS_V.2026</span>
+                </div>
+                <div id="terminal-output" class="p-6 h-64 overflow-y-auto font-mono text-sm text-[#39FF14] leading-relaxed">
+                    > SISTEMA OPERATIVO DECOX LISTO...<br>
+                    > BIENVENIDA, JEFA. ESCRIBE 'AYUDA' PARA EMPEZAR.
+                </div>
+                <div class="p-4 border-t border-[#39FF14]/10 flex bg-black">
+                    <span class="text-[#39FF14] font-mono mr-2">>></span>
+                    <input type="text" id="terminal-input" class="bg-transparent w-full text-[#39FF14] font-mono uppercase" placeholder="INTRODUCE COMANDO..." autocomplete="off">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-10 text-center border-t border-white/5 text-[10px] font-mono text-slate-600 tracking-[0.5em] uppercase">
+        Chalamandra Magistral DecoX © 2026 | Hecho en Xalapa
+    </footer>
 
     <script>
-        const metodologias = [
-            { nombre: "🍰 El Pastelote", desc: "Analiza tu problema en rebanadas. Cada porción es una perspectiva distinta: práctica, emocional o creativa. ¡No te atragantes, decodifica!" },
-            { nombre: "🎩 Los 6 Looks", desc: "Ponte un outfit mental diferente. Del Look Hater al Look Jefa. ¿Desde qué mirada vas a resolver esto hoy?" },
-            { nombre: "🛠️ Kit del Malandro", desc: "Sustituye, combina y elimina lo que sobra. Es el SCAMPER de barrio para resetear proyectos que ya no caminan." },
-            { nombre: "🤪 Ideas más Messi", desc: "Busca la idea más ridícula y mala. Dale la vuelta como a un calcetín y encontrarás la solución más brillante." },
-            { nombre: "🗺️ Cartografía Mental", desc: "Mapea lo que la gente dice, lo que calla y lo que realmente necesita. Tu GPS emocional para no perderte." },
-            { nombre: "☕ Tertulia de Barrio", desc: "Conversación profunda entre compas. Rotación de ideas y sabiduría colectiva. El café está listo." }
-        ];
+        // 🔊 EFECTO DE SONIDO CYBER-CLICK
+        const playCyberSound = () => {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(120, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+        };
 
-        const diceElement = document.getElementById('dice3d');
-        const rollButton = document.getElementById('rollButton');
-        const resultadoDado = document.getElementById('resultadoDado');
+        // 🧠 TERMINAL INTERACTIVA
+        const input = document.getElementById('terminal-input');
+        const output = document.getElementById('terminal-output');
 
-        const rotations = [
-            {x: 0, y: 0}, {x: 0, y: 180}, {x: 0, y: 90}, 
-            {x: 0, y: -90}, {x: 90, y: 0}, {x: -90, y: 0}
-        ];
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = input.value.toUpperCase();
+                playCyberSound();
+                input.value = '';
+                let response = `> ERROR: COMANDO '${cmd}' NO RECONOCIDO.`;
 
-        rollButton.addEventListener("click", () => {
-            rollButton.disabled = true;
-            const resIndex = Math.floor(Math.random() * 6);
-            const {x, y} = rotations[resIndex];
-            
-            diceElement.style.transform = `rotateX(${x + 720}deg) rotateY(${y + 1080}deg)`;
+                if (cmd === 'AYUDA') response = "> COMANDOS: [RETO] [ESTADO] [SABIDURIA] [ORDEN]";
+                if (cmd === 'RETO') response = "> RETO: IDENTIFICA EL CAOS EN TU AGENDA Y DECODIFÍCALO AHORA.";
+                if (cmd === 'ESTADO') response = "> SISTEMA: OPERATIVO. MAGISTRALIDAD: 100%. MODO: JEFA.";
+                if (cmd === 'SABIDURIA') response = "> EL CAOS ES SOLO INFORMACIÓN SIN ORDENAR.";
+                if (cmd === 'ORDEN') response = "> DECODIFICANDO ESTRATEGIA... TODO FLUYE AL NIVEL DECOX.";
 
-            setTimeout(() => {
-                const m = metodologias[resIndex];
-                setTimeout(() => {
-    const m = metodologias[resIndex];
-    const textoFinal = m.nombre.toUpperCase(); // El nombre de la metodología
-    let iteracion = 0;
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@&%*";
+                output.innerHTML += `<br><span class="text-[#FF00FF]">> ${cmd}</span><br>${response}`;
+                output.scrollTop = output.scrollHeight;
+            }
+        });
 
-    const intervalo = setInterval(() => {
-        resultadoDado.innerHTML = `<span class="method-name">` + 
-            textoFinal.split("")
-                .map((letra, index) => {
-                    if(index < iteracion) return textoFinal[index];
+        // 🦎 EFECTO DECODIFICADOR INICIAL
+        window.onload = () => {
+            const title = document.getElementById('main-title');
+            const originalText = title.innerText;
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%@#$";
+            let iter = 0;
+            const interval = setInterval(() => {
+                title.innerText = originalText.split("").map((l, i) => {
+                    if(i < iter) return originalText[i];
                     return chars[Math.floor(Math.random() * chars.length)];
+                }).join("");
+                if(iter >= originalText.length) clearInterval(interval);
+                iter += 1/3;
+            }, 30);
+        };
+    </script>
+</body>
+</html>

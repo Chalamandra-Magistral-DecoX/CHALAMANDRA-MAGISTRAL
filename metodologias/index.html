@@ -142,10 +142,15 @@
 
             setTimeout(() => {
                 const m = metodologias[resIndex];
-                resultadoDado.innerHTML = `<span class="method-name">${m.nombre}</span><p>${m.desc}</p>`;
-                rollButton.disabled = false;
-            }, 1500);
-        });
-    </script>
-</body>
-</html>
+                setTimeout(() => {
+    const m = metodologias[resIndex];
+    const textoFinal = m.nombre.toUpperCase(); // El nombre de la metodología
+    let iteracion = 0;
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@&%*";
+
+    const intervalo = setInterval(() => {
+        resultadoDado.innerHTML = `<span class="method-name">` + 
+            textoFinal.split("")
+                .map((letra, index) => {
+                    if(index < iteracion) return textoFinal[index];
+                    return chars[Math.floor(Math.random() * chars.length)];

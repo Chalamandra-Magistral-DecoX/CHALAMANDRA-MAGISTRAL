@@ -3,149 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dado Magistral | DecoX Lab</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+    <title>Dado de Metodologías | Chalamandra DecoX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root { --neon-green: #39FF14; --magenta: #FF00FF; --dark: #050505; }
-        body { 
-            background-color: var(--dark); 
-            color: white; 
-            font-family: 'Exo 2', sans-serif;
+        :root {
+            --magenta: #FF00FF;
+            --neon-green: #39FF14;
+            --deep-black: #050505;
+            --glass: rgba(15, 15, 15, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Exo 2', sans-serif; }
+
+        body {
+            background-color: var(--deep-black);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
             background-image: radial-gradient(circle at 50% 50%, #1a001a 0%, #050505 100%);
-            overflow: hidden;
-        }
-        .font-magistral { font-family: 'Orbitron', sans-serif; }
-        
-        /* --- LÓGICA DEL DADO 3D --- */
-        .scene { width: 200px; height: 200px; perspective: 600px; margin: 40px auto; }
-        .cube {
-            width: 100%; height: 100%; position: relative;
-            transform-style: preserve-3d;
-            transform: translateZ(-100px);
-            transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .cube__face {
-            position: absolute; width: 200px; height: 200px;
-            border: 2px solid var(--neon-green);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            font-weight: bold; font-family: 'Orbitron', sans-serif;
-            background: rgba(0, 0, 0, 0.8); color: var(--neon-green);
-            box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.2);
         }
 
-        .cube__face--1 { transform: rotateY(  0deg) translateZ(100px); }
-        .cube__face--2 { transform: rotateY(180deg) translateZ(100px); }
-        .cube__face--3 { transform: rotateY( 90deg) translateZ(100px); }
-        .cube__face--4 { transform: rotateY(-90deg) translateZ(100px); }
-        .cube__face--5 { transform: rotateX( 90deg) translateZ(100px); }
-        .cube__face--6 { transform: rotateX(-90deg) translateZ(100px); }
-
-        .btn-magistral {
-            background: var(--magenta);
-            box-shadow: 0 0 20px var(--magenta);
-            transition: all 0.3s ease;
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--glass);
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.1);
+            margin-top: 40px;
+            text-align: center;
         }
-        .btn-magistral:hover { transform: scale(1.05); box-shadow: 0 0 40px var(--magenta); }
-        .btn-magistral:disabled { background: #333; box-shadow: none; opacity: 0.5; }
+
+        h1 { font-family: 'Orbitron', sans-serif; color: var(--magenta); font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Dado 3D */
+        .dice-container { width: 120px; height: 120px; margin: 40px auto; perspective: 1000px; }
+        .dice-3d {
+            width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
+            transform: rotateX(25deg) rotateY(25deg); transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .dice-face {
+            position: absolute; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--magenta), #7000ff);
+            border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 15px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-weight: bold; backface-visibility: hidden; font-size: 1.2rem;
+        }
+        .dice-face span { font-size: 0.7rem; margin-top: 5px; opacity: 0.8; text-transform: uppercase; }
+
+        .front  { transform: translateZ(60px); }
+        .back   { transform: rotateY(180deg) translateZ(60px); }
+        .right  { transform: rotateY(90deg) translateZ(60px); }
+        .left   { transform: rotateY(-90deg) translateZ(60px); }
+        .top    { transform: rotateX(90deg) translateZ(60px); }
+        .bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+        /* Controles */
+        button {
+            padding: 15px 40px; border-radius: 50px; border: none; cursor: pointer;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+        }
+        #rollButton { background: var(--magenta); color: white; box-shadow: 0 0 15px var(--magenta); }
+        #rollButton:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--magenta); }
+
+        .btn-back {
+            margin-top: 30px; background: transparent; color: var(--neon-green);
+            border: 1px solid var(--neon-green); font-size: 0.8rem;
+        }
+        .btn-back:hover { background: var(--neon-green); color: #000; }
+
+        #resultadoDado {
+            margin-top: 30px; padding: 20px; border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--neon-green);
+            min-height: 100px; line-height: 1.6;
+        }
+
+        .method-name { color: var(--neon-green); font-weight: bold; font-size: 1.3rem; display: block; margin-bottom: 10px; }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-6">
+<body>
 
-    <h1 class="font-magistral text-2xl text-glow-magenta mb-8 uppercase tracking-widest text-[#FF00FF]">
-        Laboratorio de Metodologías
-    </h1>
+    <div class="container">
+        <h1>Laboratorio de Metodologías</h1>
+        <p style="color: #aaa; font-size: 0.9rem;">Lanza el dado y deja que la Chalamandra decida tu estrategia.</p>
 
-    <div class="scene">
-        <div class="cube" id="cube">
-            <div class="cube__face cube__face--1 text-3xl">🍰<span class="text-[10px] mt-2">PASTELOTE</span></div>
-            <div class="cube__face cube__face--2 text-3xl">🎩<span class="text-[10px] mt-2">6 LOOKS</span></div>
-            <div class="cube__face cube__face--3 text-3xl">🛠️<span class="text-[10px] mt-2">KIT</span></div>
-            <div class="cube__face cube__face--4 text-3xl">🤪<span class="text-[10px] mt-2">MESSI</span></div>
-            <div class="cube__face cube__face--5 text-3xl">🗺️<span class="text-[10px] mt-2">MAPA</span></div>
-            <div class="cube__face cube__face--6 text-3xl">☕<span class="text-[10px] mt-2">TERTULIA</span></div>
+        <div class="dice-container">
+            <div class="dice-3d" id="dice3d">
+                <div class="dice-face front">🍰<span>Pastelote</span></div>
+                <div class="dice-face back">🎩<span>6 Looks</span></div>
+                <div class="dice-face right">🛠️<span>Kit Malandro</span></div>
+                <div class="dice-face left">🤪<span>Ideas Messi</span></div>
+                <div class="dice-face top">🗺️<span>Cartografía</span></div>
+                <div class="dice-face bottom">☕<span>Tertulia</span></div>
+            </div>
         </div>
-    </div>
 
-    <div id="resultado" class="max-w-md text-center h-24 mb-8">
-        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest">Esperando comando...</p>
-    </div>
+        <button id="rollButton"><i class="fas fa-dice"></i> Lanzar Dado</button>
+        
+        <div id="resultadoDado">
+            <p>¡Hola, mi chama! Soy la Chalamandra. Lanza el dado para decodificar tu siguiente paso creativo.</p>
+        </div>
 
-    <div class="flex gap-4">
-        <button id="roll-button" onclick="rollDice()" class="btn-magistral px-8 py-3 rounded-full font-bold uppercase tracking-tighter text-sm">
-            Lanzar Dado
-        </button>
-        <button onclick="window.location.href='../index.html'" class="border border-white/20 px-8 py-3 rounded-full font-bold uppercase tracking-tighter text-sm hover:bg-white hover:text-black">
-            Volver
+        <button class="btn-back" onclick="location.href='../index.html'">
+            <i class="fas fa-arrow-left"></i> Volver al Inicio
         </button>
     </div>
 
     <script>
-        const cube = document.getElementById('cube');
-        const rollBtn = document.getElementById('roll-button');
-        const resDiv = document.getElementById('resultado');
-        
         const metodologias = [
-            { n: "🍰 EL PASTELOTE", d: "Divide el problema en rebanadas manejables." },
-            { n: "🎩 LOS 6 LOOKS", d: "Cambia de perspectiva: del hater a la jefa." },
-            { n: "🛠️ KIT MALANDRO", d: "Sustituye y combina lo que ya tienes." },
-            { n: "🤪 IDEAS MÁS MESSI", d: "La idea más loca es la que ganará el mundial." },
-            { n: "🗺️ CARTOGRAFÍA", d: "Mapea el terreno antes de atacar." },
-            { n: "☕ TERTULIA", d: "Conversación estratégica para decodificar." }
+            { nombre: "🍰 El Pastelote", desc: "Analiza tu problema en rebanadas. Cada porción es una perspectiva distinta: práctica, emocional o creativa. ¡No te atragantes, decodifica!" },
+            { nombre: "🎩 Los 6 Looks", desc: "Ponte un outfit mental diferente. Del Look Hater al Look Jefa. ¿Desde qué mirada vas a resolver esto hoy?" },
+            { nombre: "🛠️ Kit del Malandro", desc: "Sustituye, combina y elimina lo que sobra. Es el SCAMPER de barrio para resetear proyectos que ya no caminan." },
+            { nombre: "🤪 Ideas más Messi", desc: "Busca la idea más ridícula y mala. Dale la vuelta como a un calcetín y encontrarás la solución más brillante." },
+            { nombre: "🗺️ Cartografía Mental", desc: "Mapea lo que la gente dice, lo que calla y lo que realmente necesita. Tu GPS emocional para no perderte." },
+            { nombre: "☕ Tertulia de Barrio", desc: "Conversación profunda entre compas. Rotación de ideas y sabiduría colectiva. El café está listo." }
         ];
 
-        // 🔊 SONIDO CYBER-CLICK
-        const playSound = () => {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'square'; osc.frequency.setValueAtTime(150, ctx.currentTime);
-            gain.gain.setValueAtTime(0.05, ctx.currentTime);
-            osc.connect(gain); gain.connect(ctx.destination);
-            osc.start(); osc.stop(ctx.currentTime + 0.1);
-        };
+        const diceElement = document.getElementById('dice3d');
+        const rollButton = document.getElementById('rollButton');
+        const resultadoDado = document.getElementById('resultadoDado');
 
-        function rollDice() {
-            playSound();
-            rollBtn.disabled = true;
-            resDiv.innerHTML = '<p class="text-[#39FF14] font-mono text-xs animate-pulse">PROCESANDO CAOS...</p>';
+        const rotations = [
+            {x: 0, y: 0}, {x: 0, y: 180}, {x: 0, y: 90}, 
+            {x: 0, y: -90}, {x: 90, y: 0}, {x: -90, y: 0}
+        ];
 
-            const index = Math.floor(Math.random() * 6);
+        rollButton.addEventListener("click", () => {
+            rollButton.disabled = true;
+            const resIndex = Math.floor(Math.random() * 6);
+            const {x, y} = rotations[resIndex];
             
-            // Rotaciones para cada cara
-            const coords = [
-                {x: 0, y: 0},     // Cara 1
-                {x: 0, y: 180},   // Cara 2
-                {x: 0, y: -90},   // Cara 3
-                {x: 0, y: 90},    // Cara 4
-                {x: -90, y: 0},   // Cara 5
-                {x: 90, y: 0}     // Cara 6
-            ];
-
-            const rotation = coords[index];
-            // Añadimos vueltas extras para el efecto de giro veloz
-            cube.style.transform = `translateZ(-100px) rotateX(${rotation.x + 1080}deg) rotateY(${rotation.y + 1080}deg)`;
+            diceElement.style.transform = `rotateX(${x + 720}deg) rotateY(${y + 1080}deg)`;
 
             setTimeout(() => {
-                decodificarTexto(metodologias[index]);
-                rollBtn.disabled = false;
+                const m = metodologias[resIndex];
+                resultadoDado.innerHTML = `<span class="method-name">${m.nombre}</span><p>${m.desc}</p>`;
+                rollButton.disabled = false;
             }, 1500);
-        }
-
-        function decodificarTexto(metodo) {
-            let iter = 0;
-            const chars = "ABCDEFGHIJKLMN0123456789%@#$";
-            const interval = setInterval(() => {
-                resDiv.innerHTML = `<h2 class="font-magistral text-xl text-[#39FF14]">` + 
-                    metodo.n.split("").map((l, i) => {
-                        if(i < iter) return metodo.n[i];
-                        return chars[Math.floor(Math.random() * chars.length)];
-                    }).join("") + `</h2><p class="text-slate-400 text-[10px] mt-2 uppercase tracking-widest">${metodo.d}</p>`;
-                
-                if(iter >= metodo.n.length) clearInterval(interval);
-                iter += 1/2;
-            }, 40);
-        }
+        });
     </script>
 </body>
 </html>

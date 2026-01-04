@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insightify Chalamandra | Decodificación Magistral</title>
+    <title>Insightify Chalamandra | Soberanía Cognitiva</title>
     
+    <meta name="description" content="Decodificación Magistral mediante IA Local y Framework SRAP. Protege tu energía mental en el búnker de la Chalamandra.">
+    <meta property="og:title" content="Insightify Chalamandra | Búnker de Claridad">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/preview-hologram.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -28,142 +32,129 @@
             background-color: var(--dark-bg);
             color: #e0e0ff;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        h1, h2, h3, .btn {
-            font-family: 'Orbitron', sans-serif;
+        h1, h2, h3, .font-orbitron { font-family: 'Orbitron', sans-serif; }
+
+        /* Optimización de Renderizado */
+        .will-change-gpu { will-change: transform, opacity; }
+
+        /* Efectos Neón con Glitch Reactivo */
+        .text-glow { text-shadow: 0 0 10px var(--cyber-cyan), 0 0 20px rgba(0, 255, 234, 0.3); }
+        .glitch-hover:hover {
+            animation: text-glitch 0.3s cubic-bezier(.25,.46,.45,.94) both;
+            text-shadow: 2px 0 var(--cyber-cyan), -2px 0 var(--chaos-red);
         }
 
-        /* Efectos de Texto Neón */
-        .text-glow {
-            text-shadow: 0 0 10px rgba(0, 255, 234, 0.5), 0 0 20px rgba(0, 255, 234, 0.3);
-        }
-        
-        .text-glow-red {
-            text-shadow: 0 0 10px rgba(255, 0, 60, 0.5), 0 0 20px rgba(255, 0, 60, 0.3);
+        @keyframes text-glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
 
-        /* Glassmorphism Cards */
+        /* Glassmorphism Cards de Alta Gama */
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(0, 255, 234, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .glass-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: var(--cyber-cyan);
+            box-shadow: 0 20px 40px rgba(0, 255, 234, 0.15);
         }
 
-        /* Botones */
-        .btn-primary {
+        .btn-magistral {
             background: linear-gradient(90deg, var(--chaos-red), #9D00FF);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
         }
-        
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.5s;
-        }
-        
-        .btn-primary:hover::before { left: 100%; }
-        .btn-primary:hover { box-shadow: 0 0 20px rgba(255, 0, 60, 0.6); }
 
-        /* Animaciones */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+        .btn-magistral:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 60, 0.5);
+            transform: scale(1.02);
         }
-        
-        .floating { animation: float 6s ease-in-out infinite; }
 
-        /* Canvas Container */
         #canvas-container {
             position: relative;
             width: 100%;
-            height: 500px;
+            height: 550px;
             overflow: hidden;
-            border-radius: 1rem;
+            border-radius: 1.5rem;
             border: 1px solid rgba(0, 255, 234, 0.2);
-        }
-        
-        .overlay-content {
-            background: linear-gradient(to top, var(--dark-bg), transparent);
+            background: radial-gradient(circle at center, #0a0a20 0%, #050510 100%);
         }
     </style>
 </head>
+
 <body class="antialiased selection:bg-cyan-500 selection:text-black">
 
-    <nav class="fixed w-full z-50 top-0 start-0 border-b border-gray-800 bg-black/80 backdrop-blur-md">
+    <nav class="fixed w-full z-50 top-0 start-0 border-b border-white/5 bg-black/80 backdrop-blur-xl">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <span class="text-3xl">🦎</span>
-                <span class="self-center text-2xl font-bold whitespace-nowrap text-white tracking-widest">CHALAMANDRA</span>
+            <a href="#" class="flex items-center space-x-3 group">
+                <span class="text-3xl group-hover:rotate-12 transition-transform">🦎</span>
+                <span class="self-center text-2xl font-bold text-white tracking-widest font-orbitron">CHALAMANDRA</span>
             </a>
-            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                <a href="#download" class="text-black bg-[#00FFEA] hover:bg-[#39FF14] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-4 py-2 text-center transition-colors">
-                    <i class="fab fa-chrome mr-2"></i> Instalar
+            <div class="flex md:order-2 space-x-3">
+                <a href="#download" class="btn-magistral text-white font-bold rounded-lg text-sm px-6 py-2.5 text-center">
+                    <i class="fab fa-chrome mr-2"></i> INSTALAR BÚNKER
                 </a>
             </div>
         </div>
     </nav>
 
-    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-[#050510] to-[#050510] -z-10"></div>
-        <div class="absolute top-20 right-20 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div class="absolute top-20 left-20 w-72 h-72 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-
+    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
         <div class="container mx-auto px-4 text-center z-10">
-            <div class="inline-block mb-4 px-4 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-sm font-bold tracking-wider">
-            Insightify Chalamandra
+            <div class="inline-block mb-6 px-4 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-bold tracking-[0.2em] uppercase">
+                Protocolo de Soberanía v4.5.1
             </div>
             
-            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF003C] to-[#FF6600]">CAOS</span>
-                <span class="block text-white text-2xl my-2 font-light tracking-[1em]">TRANSFORMADO EN</span>
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFEA] to-[#39FF14] text-glow">CLARIDAD</span>
+            <h1 class="text-6xl md:text-9xl font-black mb-8 leading-tight tracking-tighter">
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF003C] to-[#FF6600] glitch-hover cursor-default">CAOS</span>
+                <span class="block text-white text-base md:text-xl my-4 font-light tracking-[1.2em] opacity-60">DECODIFICADO EN</span>
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFEA] to-[#39FF14] text-glow glitch-hover cursor-default">CLARIDAD</span>
             </h1>
             
-            <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto">
-                La extensión SRAP que decodifica la web, protege tu energía mental y convierte el ruido en mapas mentales visuales.
+            <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+                La extensión <span class="text-white font-medium italic">SRAP</span> que utiliza IA local para filtrar el ruido, blindar tu atención y proyectar mapas mentales en tiempo real.
             </p>
             
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#demo" class="btn-primary text-white font-bold py-4 px-8 rounded-lg text-lg flex items-center justify-center gap-2">
-                    <i class="fas fa-play"></i> Ver Demo Interactiva
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="#demo" class="bg-white text-black font-bold py-4 px-10 rounded-xl hover:bg-cyan-400 transition-all flex items-center justify-center gap-3 shadow-xl">
+                    <i class="fas fa-play"></i> EXPERIENCIA 3D
                 </a>
-                <a href="https://github.com/tu-usuario/insightify" target="_blank" class="border border-gray-600 hover:border-[#00FFEA] text-gray-300 hover:text-white font-bold py-4 px-8 rounded-lg text-lg transition-all flex items-center justify-center gap-2">
-                    <i class="fab fa-github"></i> Código Fuente
+                <a href="https://github.com/tu-usuario/insightify-chalamandra-pro" class="border border-white/10 hover:border-cyan-500/50 text-white font-bold py-4 px-10 rounded-xl transition-all flex items-center justify-center gap-3">
+                    <i class="fab fa-github"></i> REPOSITORIO
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="demo" class="py-20 bg-[#080818]">
+    
+    <section id="demo" class="py-24 bg-[#080818]/50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Motor de Decodificación <span class="text-[#00FFEA]">SRAP</span></h2>
-                <p class="text-gray-400">Toca el botón para ver cómo la IA local estructura el caos.</p>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 text-white uppercase tracking-tighter">Motor <span class="text-[#00FFEA]">SRAP</span></h2>
+                <p class="text-gray-500 max-w-lg mx-auto">Visualiza la transición del ruido informativo a la estructura cognitiva.</p>
             </div>
 
-            <div class="glass-card p-2 rounded-2xl max-w-5xl mx-auto">
+            <div class="glass-card p-3 rounded-3xl max-w-6xl mx-auto will-change-gpu">
                 <div id="canvas-container">
-                    <div id="demo-ui" class="absolute bottom-0 left-0 w-full p-6 overlay-content flex justify-between items-end z-10 pointer-events-none">
-                        <div class="text-left pointer-events-auto">
-                            <h3 id="demo-status" class="text-2xl font-bold text-[#FF003C] mb-2">ESTADO: CAOS NO PROCESADO</h3>
-                            <p id="demo-desc" class="text-sm text-gray-300 max-w-md">La información en la web es ruidosa y dispersa. Consume energía mental innecesaria.</p>
+                    <div class="absolute bottom-0 left-0 w-full p-8 overlay-content flex flex-col md:flex-row justify-between items-end z-20 pointer-events-none">
+                        <div class="text-left pointer-events-auto bg-black/40 p-4 rounded-xl backdrop-blur-md border border-white/5">
+                            <h3 id="demo-status" class="text-2xl font-bold text-[#FF003C] mb-2 tracking-tighter">SISTEMA: CAOS</h3>
+                            <p id="demo-desc" class="text-xs text-gray-400 max-w-xs">Partículas desordenadas. Carga cognitiva crítica. El ruido bloquea el insight.</p>
                         </div>
-                        <button id="toggle-demo" class="pointer-events-auto bg-white text-black hover:bg-[#00FFEA] font-bold py-3 px-6 rounded-full transition-colors shadow-lg shadow-cyan-500/50">
-                            <i class="fas fa-bolt"></i> ACTIVAR INSIGHTIFY
+                        <button id="toggle-demo" class="pointer-events-auto btn-magistral text-white font-black py-4 px-10 rounded-full tracking-widest text-xs mt-6 md:mt-0">
+                            ACTIVAR DECODIFICACIÓN
                         </button>
                     </div>
                 </div>
@@ -171,121 +162,39 @@
         </div>
     </section>
 
-    <section class="py-20 relative">
+    <section class="py-32 relative">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <h2 class="text-5xl font-black mb-20 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#00FFEA] to-[#39FF14] uppercase italic tracking-tighter">
+                Ecosistema de Soberanía
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
                 
-                <div class="glass-card p-8 rounded-xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-6xl text-gray-800 group-hover:text-[#FF003C]/20 transition-colors">
-                        <i class="fas fa-shield-alt"></i>
+                <div class="glass-card p-12 rounded-[3rem] border-l-8 border-[#FF003C] flex flex-col justify-between group will-change-gpu">
+                    <div>
+                        <div class="text-xs font-mono text-[#FF003C] mb-6 uppercase tracking-[0.4em]">Laboratorio</div>
+                        <h3 class="text-4xl font-black text-white mb-6 uppercase italic">Dado de Metodologías</h3>
+                        <p class="text-gray-400 text-lg leading-relaxed mb-10">¿Bloqueo estratégico? Lanza el dado y deja que la Chalamandra dicte tu siguiente movimiento magistral.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-[#FF003C] mb-3">Firewall Cognitivo</h3>
-                    <p class="text-gray-400 text-sm">Detecta clickbait y "basura cognitiva" antes de que leas. Protege tu atención.</p>
+                    <a href="./metodologias/index.html" class="btn-magistral text-center py-5 w-full rounded-2xl font-bold uppercase tracking-widest text-white">LANZAR DADO</a>
                 </div>
 
-                <div class="glass-card p-8 rounded-xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-6xl text-gray-800 group-hover:text-[#00FFEA]/20 transition-colors">
-                        <i class="fas fa-brain"></i>
+                <div class="glass-card p-12 rounded-[3rem] border-l-8 border-[#00FFEA] flex flex-col justify-between group">
+                    <div>
+                        <div class="text-xs font-mono text-[#00FFEA] mb-6 uppercase tracking-[0.4em]">Editorial</div>
+                        <h3 class="text-4xl font-black text-white mb-6 uppercase italic">BLOGchal Magis</h3>
+                        <p class="text-gray-400 text-lg leading-relaxed mb-10">Notas desde el penthouse. Teoría SRAP, IA local y tácticas para el Top 1% de pensadores.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-[#00FFEA] mb-3">Mapas Neuronales</h3>
-                    <p class="text-gray-400 text-sm">Transforma texto plano en visualizaciones interactivas. Entiende la estructura al instante.</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-6xl text-gray-800 group-hover:text-[#39FF14]/20 transition-colors">
-                        <i class="fas fa-wave-square"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#39FF14] mb-3">SRAP Audio Beats</h3>
-                    <p class="text-gray-400 text-sm">Sintetización de voz rítmica para mantener el flow mientras consumes información.</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-6xl text-gray-800 group-hover:text-purple-500/20 transition-colors">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-purple-400 mb-3">100% Local AI</h3>
-                    <p class="text-gray-400 text-sm">Potenciado por Gemini Nano. Tus datos nunca salen de tu navegador. Privacidad total.</p>
+                    <a href="https://decodificadorachalamandramagis.blogspot.com/" target="_blank" class="border-2 border-[#00FFEA] text-[#00FFEA] hover:bg-[#00FFEA] hover:text-black text-center py-5 w-full rounded-2xl font-bold uppercase tracking-widest transition-all">ACCEDER A BITÁCORA</a>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-black/50">
-        <div class="container mx-auto px-4 max-w-4xl text-center">
-            <h2 class="text-3xl font-bold mb-12 text-white">Metodología <span class="text-purple-500">SRAP</span></h2>
-            
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8 relative">
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-cyan-500 to-green-500 -z-10 opacity-30"></div>
-
-                <div class="glass-card p-6 rounded-full w-40 h-40 flex flex-col justify-center items-center border-red-500/50">
-                    <div class="text-2xl font-bold text-red-500">S</div>
-                    <div class="text-xs text-gray-300 mt-1">SCAN</div>
-                </div>
-                <div class="glass-card p-6 rounded-full w-40 h-40 flex flex-col justify-center items-center border-orange-500/50">
-                    <div class="text-2xl font-bold text-orange-500">R</div>
-                    <div class="text-xs text-gray-300 mt-1">RITMO</div>
-                </div>
-                <div class="glass-card p-6 rounded-full w-40 h-40 flex flex-col justify-center items-center border-cyan-500/50">
-                    <div class="text-2xl font-bold text-cyan-500">A</div>
-                    <div class="text-xs text-gray-300 mt-1">ANÁLISIS</div>
-                </div>
-                <div class="glass-card p-6 rounded-full w-40 h-40 flex flex-col justify-center items-center border-green-500/50">
-                    <div class="text-2xl font-bold text-green-500">P</div>
-                    <div class="text-xs text-gray-300 mt-1">PRESENCIA</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="py-20 relative border-t border-cyan-900/20">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-black mb-16 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#00FFEA] to-[#39FF14] uppercase italic tracking-tighter">
-            Explora el Ecosistema
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            
-            <div class="glass-card p-10 rounded-[2.5rem] border-l-4 border-[#FF003C] flex flex-col justify-between group">
-                <div>
-                    <div class="text-xs font-mono text-[#FF003C] mb-4 uppercase tracking-[0.3em]">Laboratorio Magistral</div>
-                    <h3 class="text-3xl font-black text-white mb-4 uppercase italic">Dado de Metodologías</h3>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-8">¿Atascada en la toma de decisiones? Deja que la Chalamandra decida tu siguiente movimiento estratégico.</p>
-                </div>
-                <a href="./metodologias/index.html" class="btn-primary text-center py-4 w-full rounded-xl font-bold uppercase tracking-widest text-white shadow-lg">Lanzar Dado</a>
-            </div>
-
-            <div class="glass-card p-10 rounded-[2.5rem] border-l-4 border-[#00FFEA] flex flex-col justify-between group">
-                <div>
-                    <div class="text-xs font-mono text-[#00FFEA] mb-4 uppercase tracking-[0.3em]">Bitácora Editorial</div>
-                    <h3 class="text-3xl font-black text-white mb-4 uppercase italic">BLOGchal Magis</h3>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-8">Decodificación profunda sobre IA, soberanía de datos y tácticas para el Top 1%.</p>
-                </div>
-                <a href="https://decodificadorachalamandramagis.blogspot.com/" target="_blank" class="border-2 border-[#00FFEA] text-[#00FFEA] hover:bg-[#00FFEA] hover:text-black text-center py-4 w-full rounded-xl font-bold uppercase tracking-widest transition-all">Leer Bitácora</a>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-    <footer id="download" class="py-20 border-t border-gray-800 mt-20">
+    <footer class="py-20 border-t border-white/5 bg-black/20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-8 text-white">¿Listo para la <span class="text-[#39FF14]">Claridad</span>?</h2>
-            
-            <div class="flex flex-col items-center gap-4">
-                <button class="bg-[#39FF14] hover:bg-green-400 text-black font-black py-4 px-12 rounded-lg text-xl shadow-[0_0_20px_rgba(57,255,20,0.4)] transition-all transform hover:scale-105">
-                    <i class="fab fa-chrome mr-2"></i> AGREGAR A CHROME
-                </button>
-                <p class="text-gray-500 text-sm mt-4">Requiere Chrome Canary con Flags de Gemini Nano activados.</p>
-            </div>
-
-            <div class="mt-20 flex justify-center space-x-8 text-gray-600">
-                <a href="#" class="hover:text-white"><i class="fab fa-twitter text-2xl"></i></a>
-                <a href="#" class="hover:text-white"><i class="fab fa-github text-2xl"></i></a>
-                <a href="#" class="hover:text-white"><i class="fab fa-discord text-2xl"></i></a>
-            </div>
-            
-            <p class="mt-8 text-gray-700 text-sm">
-                © 2026 Insightify Chalamandra. Built for the Chrome AI Challenge. <br>
-                Hecho con 🔥 y 🦎 en el Laboratorio Magistral.
+            <p class="text-gray-600 text-xs font-mono tracking-widest uppercase">
+                © 2026 Insightify Chalamandra • Hecho con 🔥 y 🦎 • Privacidad Zero-Egress
             </p>
         </div>
     </footer>
@@ -299,184 +208,84 @@
 
             let scene, camera, renderer, chaosParticles, clarityNetwork;
             let isClarity = false;
-            let animationId;
 
             function init() {
-                // 1. Scene Setup
                 scene = new THREE.Scene();
-                // Niebla suave para profundidad
                 scene.fog = new THREE.FogExp2(0x050510, 0.05);
-
-                // 2. Camera
                 camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 100);
-                camera.position.z = 10;
+                camera.position.z = 12;
 
-                // 3. Renderer
                 renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
                 renderer.setSize(container.clientWidth, container.clientHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 container.appendChild(renderer.domElement);
 
-                // 4. Objetos
                 createChaos();
                 createClarity();
 
-                // 5. Event Listeners
                 window.addEventListener('resize', onWindowResize);
                 toggleBtn.addEventListener('click', toggleMode);
-
                 animate();
             }
 
             function createChaos() {
-                const geometry = new THREE.BufferGeometry();
-                const count = 1500;
-                const positions = new Float32Array(count * 3);
-                const colors = new Float32Array(count * 3);
-
-                const colorChaos = new THREE.Color(0xFF003C); // Rojo Caos
-
-                for(let i = 0; i < count * 3; i+=3) {
-                    positions[i] = (Math.random() - 0.5) * 25; // X
-                    positions[i+1] = (Math.random() - 0.5) * 25; // Y
-                    positions[i+2] = (Math.random() - 0.5) * 25; // Z
-                    
-                    colors[i] = colorChaos.r;
-                    colors[i+1] = colorChaos.g;
-                    colors[i+2] = colorChaos.b;
-                }
-
-                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-                const material = new THREE.PointsMaterial({
-                    size: 0.15,
-                    vertexColors: true,
-                    transparent: true,
-                    opacity: 0.8,
-                    blending: THREE.AdditiveBlending
-                });
-
-                chaosParticles = new THREE.Points(geometry, material);
+                const geo = new THREE.BufferGeometry();
+                const count = 2500;
+                const pos = new Float32Array(count * 3);
+                for(let i=0; i<count*3; i++) pos[i] = (Math.random() - 0.5) * 35;
+                geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+                const mat = new THREE.PointsMaterial({ size: 0.1, color: 0xFF003C, transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending });
+                chaosParticles = new THREE.Points(geo, mat);
                 scene.add(chaosParticles);
             }
 
             function createClarity() {
                 clarityNetwork = new THREE.Group();
-                
-                // Nodos organizados (Esfera)
-                const nodeGeo = new THREE.SphereGeometry(0.15, 16, 16);
-                const nodeMat = new THREE.MeshBasicMaterial({ color: 0x39FF14 }); // Verde Claridad
-                const nodes = [];
+                const nodeGeo = new THREE.SphereGeometry(0.12, 12, 12);
+                const nodeMat = new THREE.MeshBasicMaterial({ color: 0x39FF14 });
                 const radius = 6;
-                const nodeCount = 40;
-
-                for(let i=0; i<nodeCount; i++) {
-                    const phi = Math.acos(-1 + (2 * i) / nodeCount);
-                    const theta = Math.sqrt(nodeCount * Math.PI) * phi;
-                    
+                const count = 50;
+                for(let i=0; i<count; i++){
                     const mesh = new THREE.Mesh(nodeGeo, nodeMat);
+                    const phi = Math.acos(-1 + (2 * i) / count);
+                    const theta = Math.sqrt(count * Math.PI) * phi;
                     mesh.position.setFromSphericalCoords(radius, phi, theta);
-                    
-                    // Velocidad aleatoria pequeña para "respiración"
-                    mesh.userData = {
-                        originalPos: mesh.position.clone(),
-                        speed: Math.random() * 0.02,
-                        offset: Math.random() * Math.PI
-                    };
-
-                    nodes.push(mesh);
                     clarityNetwork.add(mesh);
                 }
-
-                // Conexiones
-                const lineMat = new THREE.LineBasicMaterial({ color: 0x00FFEA, transparent: true, opacity: 0.3 });
-                
-                for(let i=0; i<nodes.length; i++) {
-                    for(let j=i+1; j<nodes.length; j++) {
-                        if(nodes[i].position.distanceTo(nodes[j].position) < 4) {
-                            const points = [nodes[i].position, nodes[j].position];
-                            const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
-                            const line = new THREE.Line(lineGeo, lineMat);
-                            // Guardamos referencia a los nodos para actualizar la linea
-                            line.userData = { source: nodes[i], target: nodes[j] };
-                            clarityNetwork.add(line);
-                        }
-                    }
-                }
-
                 clarityNetwork.visible = false;
-                clarityNetwork.scale.set(0.1, 0.1, 0.1); // Empieza pequeño
+                clarityNetwork.scale.set(0.1, 0.1, 0.1);
                 scene.add(clarityNetwork);
             }
 
             function toggleMode() {
                 isClarity = !isClarity;
-                
                 if(isClarity) {
-                    // Animación a CLARIDAD
-                    statusText.innerText = "ESTADO: CLARIDAD MAGISTRAL";
-                    statusText.className = "text-2xl font-bold text-[#39FF14] mb-2 text-glow";
-                    descText.innerText = "La IA ha estructurado los datos en nodos de conocimiento interconectados.";
-                    toggleBtn.innerText = "REINICIAR";
-                    toggleBtn.className = "pointer-events-auto bg-transparent border border-white text-white hover:bg-white hover:text-black font-bold py-3 px-6 rounded-full transition-colors";
-                    
-                    // Transición simple
+                    statusText.innerText = "SISTEMA: CLARIDAD";
+                    statusText.style.color = "#39FF14";
+                    descText.innerText = "Estructura nodal detectada. Ruido filtrado. Insight disponible.";
+                    toggleBtn.innerText = "REINICIAR ESCANEO";
                     chaosParticles.visible = false;
                     clarityNetwork.visible = true;
-                    // Efecto de expansión
                     let s = 0.1;
-                    const expand = setInterval(() => {
-                        s += 0.05;
+                    const interval = setInterval(() => {
+                        s += 0.1;
                         clarityNetwork.scale.set(s,s,s);
-                        if(s >= 1) clearInterval(expand);
-                    }, 16);
-
+                        if(s >= 1) clearInterval(interval);
+                    }, 20);
                 } else {
-                    // Animación a CAOS
-                    statusText.innerText = "ESTADO: CAOS NO PROCESADO";
-                    statusText.className = "text-2xl font-bold text-[#FF003C] mb-2";
-                    descText.innerText = "La información en la web es ruidosa y dispersa. Consume energía mental innecesaria.";
-                    toggleBtn.innerText = "ACTIVAR INSIGHTIFY";
-                    toggleBtn.className = "pointer-events-auto bg-white text-black hover:bg-[#00FFEA] font-bold py-3 px-6 rounded-full transition-colors shadow-lg shadow-cyan-500/50";
-                    
-                    chaosParticles.visible = true;
-                    clarityNetwork.visible = false;
+                    location.reload(); // Simplificado para reinicio limpio de WebGL
                 }
             }
 
             function animate() {
                 requestAnimationFrame(animate);
-
-                const time = Date.now() * 0.001;
-
                 if(chaosParticles.visible) {
-                    chaosParticles.rotation.y += 0.002;
+                    chaosParticles.rotation.y += 0.003;
                     chaosParticles.rotation.x += 0.001;
                 }
-
                 if(clarityNetwork.visible) {
                     clarityNetwork.rotation.y -= 0.002;
-                    
-                    // Efecto de respiración en nodos
-                    clarityNetwork.children.forEach(child => {
-                        if(child.type === 'Mesh') {
-                            const ud = child.userData;
-                            // Movimiento suave oscilatorio
-                            child.position.multiplyScalar(1 + Math.sin(time * 2 + ud.offset) * 0.001);
-                        } else if (child.type === 'Line') {
-                            // Actualizar lineas (necesario si los nodos se mueven)
-                            const positions = child.geometry.attributes.position.array;
-                            const v1 = child.userData.source.position;
-                            const v2 = child.userData.target.position;
-                            
-                            positions[0] = v1.x; positions[1] = v1.y; positions[2] = v1.z;
-                            positions[3] = v2.x; positions[4] = v2.y; positions[5] = v2.z;
-                            child.geometry.attributes.position.needsUpdate = true;
-                        }
-                    });
                 }
-
                 renderer.render(scene, camera);
             }
 

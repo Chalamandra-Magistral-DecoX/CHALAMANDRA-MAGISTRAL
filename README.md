@@ -2,7 +2,7 @@
 
 ![Status](https://img.shields.io/badge/Status-Beta_Q1_2026-blueviolet) ![Challenge](https://img.shields.io/badge/Chrome_Challenge-2025-orange) ![License](https://img.shields.io/badge/License-Proprietary-lightgrey)
 
-**Insightify** es una plataforma de inteligencia artificial diseñada para transformar la sobrecarga cognitiva en claridad accionable. Utilizando una arquitectura híbrida de vanguardia y la metodología propietaria **SRAP**, Insightify permite a investigadores, estudiantes y profesionales decodificar grandes volúmenes de información en segundos.
+**Insightify Chalamandra** es una plataforma de inteligencia artificial diseñada para transformar la sobrecarga cognitiva en claridad accionable. Utilizando una arquitectura híbrida de vanguardia y la metodología propietaria **SRAP**, Insightify permite a investigadores, estudiantes y profesionales decodificar grandes volúmenes de información en segundos.
 
 ---
 
@@ -38,12 +38,12 @@ Diseñado para reducir la carga cognitiva no solo a través de la IA, sino tambi
 
 ## 🧠 Metodología SRAP
 
-El núcleo algorítmico de Insightify implementa la metodología **SRAP**, un pipeline de procesamiento de información propietario:
+El núcleo algorítmico de Insightify implementa la metodología **SRAP**, un protocolo cíclico para la gestión de flujo y energía en entornos de alta incertidumbre:
 
-1.  **S**implify (Simplificar): Reducción de ruido y extracción de entidades clave.
-2.  **R**educe (Reducir): Compresión semántica de textos largos.
-3.  **A**nalyze (Analizar): Detección de patrones y conexiones latentes.
-4.  **P**rioritize (Priorizar): Jerarquización de la información basada en relevancia contextual.
+1.  **S — SCAN (Escaneo Total):** Lectura sensorial y auditoría de datos. Identificar qué es ruido y qué es señal.
+2.  **R — RITMO (Ajuste de Cadencia):** Sincronización con la velocidad del sistema. "Frenar para acelerar".
+3.  **A — ANÁLISIS (Reconocimiento de Patrones):** Decodificación profunda mediante lógica inversa para ver la matriz tras la interfaz.
+4.  **P — PRESENCIA (Ejecución Absoluta):** Intervención quirúrgica. Aplicar la mínima fuerza para el máximo efecto ("Mano firme").
 
 ---
 
@@ -59,11 +59,15 @@ El núcleo algorítmico de Insightify implementa la metodología **SRAP**, un pi
 
 ---
 
-## 🚀 Roadmap
+## 🚀 Roadmap (Ecosistema Vivo)
 
-*   **Q4 2025:** Finalización de prototipo Alpha (Chrome Challenge 2025).
-*   **Q1 2026:** Lanzamiento de Beta Pública (LATAM).
-*   **Q3 2026:** Integración de SRAP v2.0 con soporte multimodal (Audio/Video).
+Proyectos clave en desarrollo para el Q1 2026:
+
+*   **Insightify Chalamandra™ / Quantummind-XYZ:** Extensión de Chrome con IA Local-First (Persona Chola).
+*   **SRAP Beats Folklore Edition:** App de TinyML para análisis de música folclórica en dispositivos ARM.
+*   **Pirinola Neuronal (NeuroSpin):** Gamificación 3D para aprendizaje de redes neuronales.
+*   **BLOGchal:** Plataforma premium de pensamiento vinculada a AdSense.
+*   **Kit Chalamandra:** Activador SRAP y Decodificador Magistral.
 
 ---
 

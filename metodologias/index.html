@@ -3,438 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Chalamandra Arcade SRAP: Metodologías creativas chola-fresa para mapear el flow y potenciar ideas.">
-    <title>Chalamandra Arcade SRAP ULTRA</title>
-    
+    <title>Chalamandra: Kit de Autoconocimiento</title>
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Bangers&family=Press+Start+2P&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Bangers&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
             --rosa: #ff4d9e;
             --verde: #00ff99;
             --purple: #9933ff;
-            --naranja: #ff8500;
-            --azul: #3399ff;
-            --fondo: #0a0a0a;
-            --card-bg: rgba(20, 20, 35, 0.85);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            --fondo: #080808;
         }
 
         body {
-            background: var(--fondo);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
+            background-color: var(--fondo);
+            font-family: 'Montserrat', sans-serif;
+            color: white;
             overflow-x: hidden;
             background-image: 
                 radial-gradient(circle at 10% 10%, rgba(153, 51, 255, 0.1) 0%, transparent 40%),
                 radial-gradient(circle at 90% 90%, rgba(255, 77, 158, 0.1) 0%, transparent 40%);
         }
 
-        .container { width: 100%; max-width: 960px; }
+        .font-bangers { font-family: 'Bangers', cursive; }
 
-        .stats-bar {
-            width: 100%;
-            background: rgba(0,0,0,0.9);
-            padding: 12px 20px;
-            border-radius: 15px;
-            border: 1px solid var(--verde);
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.65rem;
-            color: var(--verde);
-            box-shadow: 0 5px 15px rgba(0, 255, 153, 0.2);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background: var(--card-bg);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 77, 158, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        header h1 {
-            font-family: 'Bangers', cursive;
-            color: var(--rosa);
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            letter-spacing: 4px;
-            text-shadow: 4px 4px 0px var(--purple);
-            margin-bottom: 10px;
-        }
-
-        .arcade-badge {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.6rem;
-            color: #000;
-            background: var(--verde);
-            padding: 8px 15px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-bottom: 15px;
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-        .dice-section {
-            background: var(--card-bg);
-            padding: 40px 20px;
-            border-radius: 30px;
-            margin-bottom: 40px;
-            text-align: center;
-            border: 1px solid rgba(153, 51, 255, 0.3);
-        }
-
-        .scene { width: 150px; height: 150px; margin: 30px auto; perspective: 800px; }
+        /* Estilos del Dado 3D */
+        .perspective-1000 { perspective: 1000px; }
         .dice {
-            width: 100%; height: 100%; position: relative;
+            width: 120px;
+            height: 120px;
+            position: relative;
             transform-style: preserve-3d;
             transition: transform 2s cubic-bezier(0.17, 0.67, 0.14, 1.03);
             transform: rotateX(-20deg) rotateY(-20deg);
         }
-
         .dice-face {
-            position: absolute; width: 150px; height: 150px;
-            border: 3px solid rgba(255, 255, 255, 0.4);
-            display: flex; justify-content: center; align-items: center;
-            font-size: 3rem; border-radius: 20px; backface-visibility: hidden;
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            backface-visibility: hidden;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
+        .face-1 { transform: rotateY(0deg) translateZ(60px); background: var(--rosa); }
+        .face-2 { transform: rotateY(180deg) translateZ(60px); background: var(--purple); }
+        .face-3 { transform: rotateY(90deg) translateZ(60px); background: var(--verde); }
+        .face-4 { transform: rotateY(-90deg) translateZ(60px); background: #3399ff; }
+        .face-5 { transform: rotateX(90deg) translateZ(60px); background: #ff8500; }
+        .face-6 { transform: rotateX(-90deg) translateZ(60px); background: #ef4444; }
 
-        .face-1 { transform: rotateY(0deg) translateZ(75px); background: var(--rosa); }
-        .face-2 { transform: rotateY(180deg) translateZ(75px); background: var(--purple); }
-        .face-3 { transform: rotateY(90deg) translateZ(75px); background: var(--verde); }
-        .face-4 { transform: rotateY(-90deg) translateZ(75px); background: var(--azul); }
-        .face-5 { transform: rotateX(90deg) translateZ(75px); background: var(--naranja); }
-        .face-6 { transform: rotateX(-90deg) translateZ(75px); background: #333; }
-
-        .btn-action {
-            padding: 18px 40px; font-size: 1.2rem; font-weight: 900;
-            background: linear-gradient(45deg, var(--rosa), var(--purple));
-            color: white; border: none; border-radius: 100px; cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 77, 158, 0.4); transition: 0.3s;
-            text-transform: uppercase; letter-spacing: 1px;
+        /* Animaciones */
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-action:hover:not(:disabled) { transform: scale(1.05); filter: brightness(1.2); }
-        .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .section-title {
-            font-family: 'Bangers', cursive; font-size: 2.8rem; color: var(--verde);
-            text-align: center; margin-bottom: 30px; text-shadow: 2px 2px 0px #000;
+        /* Notificación Custom */
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(255, 77, 158, 0.9);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            z-index: 5000;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        #toast.show { transform: translateX(-50%) translateY(0); }
 
-        .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .game-card {
-            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px; padding: 30px; cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; flex-direction: column; gap: 15px;
-        }
-
-        .game-card:hover { border-color: var(--verde); transform: translateY(-10px); background: rgba(255, 255, 255, 0.08); }
-        .game-card i { font-size: 2.5rem; color: var(--rosa); }
-        .game-card h3 { font-family: 'Press Start 2P', cursive; font-size: 0.75rem; color: #fff; line-height: 1.4; }
-        .game-card p { font-size: 0.95rem; color: #ccc; line-height: 1.5; }
-
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.98); z-index: 2000; display: none;
-            justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(15px);
-        }
-
-        .modal {
-            background: #111122; width: 100%; max-width: 750px; border-radius: 35px;
-            border: 2px solid var(--verde); padding: clamp(20px, 5vw, 40px);
-            position: relative; max-height: 90vh; overflow-y: auto;
-            box-shadow: 0 0 50px rgba(0, 255, 153, 0.3);
-        }
-
-        .close-btn { position: absolute; top: 25px; right: 25px; font-size: 2.2rem; color: var(--rosa); cursor: pointer; }
-
-        /* --- Minigame Specific Styles --- */
-        .pastel-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 25px 0; }
-        .slice {
-            width: 100px; height: 100px; background: var(--purple); border-radius: 50% 50% 5px 50%;
-            display: flex; justify-content: center; align-items: center; cursor: pointer;
-            transition: 0.3s; font-weight: 800; text-align: center; border: 2px solid rgba(255,255,255,0.1);
-        }
-        .slice.done { opacity: 0.2; transform: scale(0.8); pointer-events: none; }
-
-        #canvas-caos { background: #000; border: 2px solid #333; border-radius: 20px; display: block; margin: 20px auto; touch-action: none; max-width: 100%; }
-
-        .inventory-box { display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 10px; margin: 20px 0; }
-        .slot {
-            aspect-ratio: 1; background: rgba(255,255,255,0.05); border: 2px dashed #555;
-            border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem; cursor: pointer;
-        }
-        .slot.equipped { border: 2px solid var(--verde); background: rgba(0, 255, 153, 0.2); }
-
-        .soccer-field {
-            background: linear-gradient(to bottom, #1b4d1b, #0e2b0e); height: 280px;
-            border: 3px solid #fff; border-radius: 15px; position: relative; margin: 20px 0; overflow: hidden;
-        }
-        .player-idea {
-            position: absolute; background: var(--rosa); padding: 6px 12px; border-radius: 6px;
-            font-weight: bold; font-size: 0.75rem; cursor: move; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .flame-container { height: 80px; display: none; margin: 20px auto; }
-        .flame {
-            width: 40px; height: 60px; background: linear-gradient(to top, var(--naranja), var(--rosa));
-            border-radius: 50% 50% 20% 20%; margin: 0 auto; filter: blur(4px);
-            animation: burn 0.2s infinite alternate;
-        }
-        @keyframes burn { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
-
-        textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid #444; border-radius: 15px; padding: 15px; color: #fff; margin-top: 15px; resize: none; transition: 1s; }
-        textarea.burning { opacity: 0; transform: translateY(-20px); filter: blur(10px); }
-
-        .choice-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid #444; padding: 12px;
-            border-radius: 10px; text-align: left; cursor: pointer; color: #fff; width: 100%; margin-bottom: 8px;
-        }
-
-        footer { margin-top: 80px; padding: 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); color: #666; font-size: 0.85rem; }
-
-        .glow { box-shadow: 0 0 15px var(--verde), 0 0 30px var(--verde); }
+        .tool-view { display: none; }
+        .tool-view.active { display: block; }
     </style>
 </head>
-<body>
+<body class="p-6 md:p-12">
 
-    <div class="container">
-        <div class="stats-bar">
-            <span>STREET CRED: <span id="cred-count">0</span></span>
-            <span id="rank-name">LVL: NOVATO</span>
-        </div>
+    <!-- Notificación -->
+    <div id="toast">¡Mensaje de barrio activado!</div>
 
-        <header>
-            <div class="arcade-badge">PRO SRAP v3.0</div>
-            <h1>CHALAMANDRA</h1>
-            <p>Mapeando el flow creativo con sabiduría callejera y glitch estético.</p>
+    <div id="main-menu" class="tool-view active max-w-5xl mx-auto fade-in">
+        <header class="text-center mb-10">
+            <h1 class="text-5xl md:text-7xl font-bangers italic text-[#ff4d9e] mb-2 tracking-tighter drop-shadow-[0_0_15px_rgba(255,77,158,0.4)] uppercase">
+                CHALAMANDRA
+            </h1>
+            <p class="text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">
+                Dashboard de Introspección y Autoconocimiento
+            </p>
         </header>
 
-        <section class="dice-section">
-            <div class="scene">
-                <div class="dice glow" id="main-dice" aria-hidden="true">
-                    <div class="dice-face face-1">🎂</div>
-                    <div class="dice-face face-2">🎩</div>
-                    <div class="dice-face face-3">🎒</div>
-                    <div class="dice-face face-4">🗺️</div>
-                    <div class="dice-face face-5">⚽</div>
-                    <div class="dice-face face-6">✨</div>
+        <div class="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
+            <!-- Sección del Dado -->
+            <div class="w-full lg:w-1/3 bg-zinc-900/40 p-8 rounded-[2.5rem] border border-zinc-800 flex flex-col items-center">
+                <h3 class="font-black italic text-zinc-500 uppercase text-xs mb-8 tracking-widest text-center">¿No sabes por dónde empezar?</h3>
+                
+                <div class="perspective-1000 mb-10">
+                    <div class="dice" id="dice">
+                        <div class="dice-face face-1">🍰</div>
+                        <div class="dice-face face-2">🎩</div>
+                        <div class="dice-face face-3">🎒</div>
+                        <div class="dice-face face-4">🗺️</div>
+                        <div class="dice-face face-5">⚽</div>
+                        <div class="dice-face face-6">✨</div>
+                    </div>
+                </div>
+
+                <button onclick="rollDice()" id="roll-btn" class="w-full py-4 bg-gradient-to-r from-pink-600 to-purple-600 rounded-2xl font-black italic uppercase tracking-tighter hover:scale-105 transition-all shadow-lg active:scale-95 flex items-center justify-center gap-3">
+                    <i class="fas fa-dice"></i> <span id="roll-text">Chalamandrazo</span>
+                </button>
+
+                <div id="dice-suggestion" class="hidden mt-6 p-4 bg-zinc-800/80 border border-zinc-700 rounded-2xl text-center fade-in">
+                    <p class="text-[10px] text-zinc-500 uppercase font-bold mb-1">El destino dice:</p>
+                    <button onclick="openSuggestedView()" id="suggestion-link" class="text-sm font-black uppercase italic hover:underline"></button>
                 </div>
             </div>
-            <button class="btn-action glow" id="roll-btn"><i class="fas fa-bolt"></i> CHALAMANDRAZO</button>
-            <div id="dice-result" style="margin-top:20px; font-weight:bold; color:var(--verde); height:1.5rem;"></div>
-        </section>
 
-        <main class="arcade-section">
-            <h2 class="section-title">ZONA DE ARCADE</h2>
-            <div class="game-grid">
-                <article class="game-card glow" onclick="openGame(0)"><i class="fas fa-birthday-cake"></i><h3>EL PASTELOTE EMOCIONAL</h3><p>Libera emociones rebanada por rebanada.</p></article>
-                <article class="game-card glow" onclick="openGame(1)"><i class="fas fa-hat-wizard"></i><h3>LOS 6 LOOKS DE LA TERCIA</h3><p>Cambia la perspectiva con outfits cognitivos.</p></article>
-                <article class="game-card glow" onclick="openGame(2)"><i class="fas fa-suitcase"></i><h3>KIT DEL MALANDRO (INV)</h3><p>Equipa tus habilidades y herramientas.</p></article>
-                <article class="game-card glow" onclick="openGame(3)"><i class="fas fa-spray-can"></i><h3>EL MAPA DEL CAOS (TAGGER)</h3><p>Traza tus rutas y zonas de peligro.</p></article>
-                <article class="game-card glow" onclick="openGame(4)"><i class="fas fa-futbol"></i><h3>TERRENO DE IDEAS</h3><p>Planifica jugadas estratégicas maestras.</p></article>
-                <article class="game-card glow" onclick="openGame(5)"><i class="fas fa-fire-alt"></i><h3>EL ALTAR DE LO ROTO</h3><p>Ritual para transmutar hábitos caducos.</p></article>
-                <article class="game-card glow" onclick="openGame(6)"><i class="fas fa-skull-crossbones"></i><h3>LABERINTO DE LA TRAMPA</h3><p>Encuentra tus llaves de autoconocimiento.</p></article>
+            <!-- Grid de Herramientas -->
+            <div class="w-full lg:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-zinc-900/60 border border-pink-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-pink-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('pastelote')">
+                    <i class="fas fa-chart-pie text-pink-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600 text-xl uppercase italic">Pastelote</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                </div>
+                <div class="bg-zinc-900/60 border border-purple-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-purple-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('looks')">
+                    <i class="fas fa-sparkles text-purple-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600 text-xl uppercase italic">6 Looks</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                </div>
+                <div class="bg-zinc-900/60 border border-green-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-green-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('mochila')">
+                    <i class="fas fa-shopping-bag text-green-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 text-xl uppercase italic">Mochila</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                </div>
+                <div class="bg-zinc-900/60 border border-blue-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-blue-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('mapa')">
+                    <i class="fas fa-map text-blue-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 text-xl uppercase italic">Mapa Caos</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                </div>
+                <div class="bg-zinc-900/60 border border-orange-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-orange-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('cancha')">
+                    <i class="fas fa-bullseye text-orange-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 text-xl uppercase italic">La Cancha</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                </div>
+                <div class="bg-zinc-900/60 border border-red-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-red-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('altar')">
+                    <i class="fas fa-fire text-red-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600 text-xl uppercase italic">El Altar</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                </div>
+                <div class="col-span-2 md:col-span-3 bg-zinc-800/20 border border-emerald-500/20 rounded-3xl p-6 shadow-xl hover:border-emerald-500/60 transition-all cursor-pointer flex items-center justify-between" onclick="changeView('laberinto')">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-shoe-prints text-emerald-400 text-3xl"></i>
+                        <div>
+                            <h2 class="font-black text-emerald-400 text-xl uppercase italic">Laberinto de la Trampa</h2>
+                            <p class="text-[10px] text-zinc-500 uppercase font-medium">Estrategia Mental</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-zinc-700"></i>
+                </div>
             </div>
-        </main>
+        </div>
+
+        <footer class="mt-12 text-center text-zinc-700 text-[10px] font-bold uppercase tracking-[0.5em] italic">
+            "No es suerte, mi chama, es sincronía."
+        </footer>
     </div>
 
-    <div class="overlay" id="overlay">
-        <div class="modal" role="dialog" aria-modal="true">
-            <span class="close-btn" onclick="closeGame()">&times;</span>
-            <div id="modal-content"></div>
+    <!-- Vistas de Herramientas -->
+
+    <!-- El Pastelote -->
+    <div id="view-pastelote" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver
+        </button>
+        <div class="bg-zinc-900 border-2 border-pink-500/40 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
+            <h2 class="text-4xl font-black italic text-pink-500 mb-6 uppercase tracking-tighter">El Pastelote</h2>
+            <p class="text-zinc-400 mb-6 text-sm">¿Qué rebanada te vas a comer hoy? Haz clic en una emoción para procesar su ciclo.</p>
+            <div class="grid grid-cols-2 gap-3 mb-8">
+                <button onclick="showToast('Analiza: ¿Qué alimentó tu Enojo hoy?')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Enojo</button>
+                <button onclick="showToast('Analiza: ¿Qué momento te dio Ternura?')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Ternura</button>
+                <button onclick="showToast('Analiza: Celebra tu Gozo del día.')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Gozo</button>
+                <button onclick="showToast('Analiza: Suelta ese Drama Queen interno.')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Drama</button>
+                <button onclick="showToast('Analiza: ¿Qué Duda te detiene?')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Duda</button>
+                <button onclick="showToast('Analiza: Abraza tu Miedo.')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Miedo</button>
+            </div>
+            <textarea class="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-sm focus:border-pink-500 outline-none h-32 text-white" placeholder="Escribe aquí tu reflexión del barrio..."></textarea>
         </div>
     </div>
 
-    <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2023/09/21/audio_6b932c9d3a.mp3?filename=arcade-loop-112bpm-10981.mp3" loop></audio>
+    <!-- 6 Looks -->
+    <div id="view-looks" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver
+        </button>
+        <div class="bg-zinc-900 border-2 border-purple-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <h2 class="text-4xl font-black italic text-purple-500 mb-6 uppercase tracking-tighter">6 Looks Mentales</h2>
+            <p class="text-zinc-400 mb-6 text-sm">Cambia de outfit cognitivo para ver tu situación desde otra esquina.</p>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-zinc-100 text-black p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Cuáles son los datos fríos?')">
+                    <div class="font-black text-xs uppercase italic">Bibliotecaria</div>
+                </div>
+                <div class="bg-red-500 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Qué grita tu herida?')">
+                    <div class="font-black text-xs uppercase italic">Drama Queen</div>
+                </div>
+                <div class="bg-zinc-950 text-white border border-zinc-800 p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Qué es lo peor que pasará?')">
+                    <div class="font-black text-xs uppercase italic">Hater</div>
+                </div>
+                <div class="bg-yellow-400 text-black p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Qué es lo que sí sirve?')">
+                    <div class="font-black text-xs uppercase italic">Optimista</div>
+                </div>
+                <div class="bg-green-500 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Qué idea loca harías?')">
+                    <div class="font-black text-xs uppercase italic">Creativa</div>
+                </div>
+                <div class="bg-blue-600 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Cuál es la orden de hoy?')">
+                    <div class="font-black text-xs uppercase italic">Jefa</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- El Altar -->
+    <div id="view-altar" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver
+        </button>
+        <div class="bg-zinc-900 border-2 border-red-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <h2 class="text-4xl font-black italic text-red-500 mb-6 uppercase tracking-tighter">El Altar</h2>
+            <p class="text-zinc-400 mb-6 text-sm">Honra lo que se rompió. Escribe lo que dejas ir para transmutarlo en luz.</p>
+            <textarea id="altar-text" class="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-sm focus:border-red-500 outline-none h-48 mb-6 text-white transition-all duration-1000" placeholder="¿Qué estás soltando hoy, mi chama?"></textarea>
+            <button onclick="burnRitual()" class="w-full bg-red-600 hover:bg-red-500 text-white font-black italic uppercase py-4 rounded-2xl transition-all shadow-xl">
+                Encender Llama Ritual
+            </button>
+        </div>
+    </div>
+
+    <!-- La Mochila -->
+    <div id="view-mochila" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver
+        </button>
+        <div class="bg-zinc-900 border-2 border-green-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <h2 class="text-4xl font-black italic text-green-500 mb-6 uppercase tracking-tighter">La Mochila</h2>
+            <p class="text-zinc-400 mb-6 text-sm">¿Qué superpoderes llevas hoy en tu inventario para enfrentar el barrio?</p>
+            <div class="grid grid-cols-4 gap-2 mb-8" id="backpack-grid">
+                <!-- Se generan botones de inventario -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapa Caos -->
+    <div id="view-mapa" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver
+        </button>
+        <div class="bg-zinc-900 border-2 border-blue-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <h2 class="text-4xl font-black italic text-blue-500 mb-6 uppercase tracking-tighter">Mapa del Caos</h2>
+            <div class="w-full aspect-video bg-black border-2 border-zinc-800 rounded-[2rem] relative flex items-center justify-center overflow-hidden">
+                <div class="absolute top-6 left-6 text-red-500 font-black italic text-[10px] uppercase">Peligro 🚩</div>
+                <div class="absolute bottom-6 right-6 text-green-500 font-black italic text-[10px] uppercase">Seguro 🏠</div>
+                <div class="text-zinc-800 font-black italic text-5xl uppercase opacity-20 rotate-12 select-none">Flow Map</div>
+            </div>
+            <p class="mt-6 text-center text-zinc-500 italic text-sm">Visualiza tus rutas de escape y detecta tus callejones sin salida.</p>
+        </div>
+    </div>
+
+    <!-- La Cancha -->
+    <div id="view-cancha" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver
+        </button>
+        <div class="bg-zinc-900 border-2 border-orange-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <h2 class="text-4xl font-black italic text-orange-500 mb-6 uppercase tracking-tighter">La Cancha</h2>
+            <div class="w-full h-80 bg-emerald-950/20 border-2 border-white/10 rounded-3xl relative overflow-hidden">
+                <div class="absolute top-10 left-10 bg-pink-500 p-2 rounded-lg text-[10px] font-black italic shadow-2xl cursor-move">SOLUCIÓN CRACK</div>
+                <div class="absolute bottom-10 right-10 bg-blue-500 p-2 rounded-lg text-[10px] font-black italic shadow-2xl cursor-move">DEFENSA DE MIEDOS</div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-white/10 w-32 h-32 rounded-full flex items-center justify-center">
+                    <span class="text-[10px] text-white/10 font-black uppercase italic">Centro del Flow</span>
+                </div>
+            </div>
+            <p class="mt-6 text-center text-zinc-500 italic text-sm">Posiciona tus ideas como un equipo de primera división.</p>
+        </div>
+    </div>
+
+    <!-- Laberinto -->
+    <div id="view-laberinto" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver
+        </button>
+        <div class="bg-zinc-900 border-2 border-emerald-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <h2 class="text-4xl font-black italic text-emerald-500 mb-6 uppercase tracking-tighter">Laberinto</h2>
+            <div class="bg-zinc-800/30 p-6 rounded-2xl border border-emerald-500/20 mb-6">
+                <p class="text-sm italic font-medium">"Topaste con pared: Sientes que tu bloqueo es más grande que tus ganas."</p>
+            </div>
+            <div class="space-y-2">
+                <button onclick="showToast('¡Esa grieta era la clave! Tu curiosidad te liberó.')" class="w-full p-4 bg-zinc-800 hover:bg-emerald-500/20 rounded-xl text-left text-xs font-bold uppercase italic border border-zinc-700">A. Buscas una grieta (Curiosidad)</button>
+                <button onclick="showToast('El silencio disolvió el muro. Laberinto superado.')" class="w-full p-4 bg-zinc-800 hover:bg-emerald-500/20 rounded-xl text-left text-xs font-bold uppercase italic border border-zinc-700">B. Meditas ante el muro (Aceptación)</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // --- Game State ---
-        let points = 0;
-        const ranks = ["NOVATO", "BATO", "MALANDRO", "CRACK", "CHALA-MASTER", "DECODIFICADOR"];
-        
-        function updatePoints(p) {
-            points += p;
-            document.getElementById('cred-count').innerText = points;
-            const rankIdx = Math.min(Math.floor(points / 150), ranks.length - 1);
-            document.getElementById('rank-name').innerText = `LVL: ${ranks[rankIdx]}`;
+        // --- Navegación ---
+        function changeView(viewId) {
+            document.querySelectorAll('.tool-view').forEach(view => view.classList.remove('active'));
+            const target = document.getElementById('view-' + viewId) || document.getElementById('main-menu');
+            target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // --- Dice Logic ---
-        const dice = document.getElementById('main-dice');
-        const rollBtn = document.getElementById('roll-btn');
-        const resultText = document.getElementById('dice-result');
-        const diceRotations = [{x:0,y:0}, {x:0,y:180}, {x:0,y:-90}, {x:0,y:90}, {x:-90,y:0}, {x:90,y:0}];
-        const methodTitles = ["🎂 Pastelote", "🎩 6 Looks", "🎒 Kit Malandro", "🗺️ Mapa Caos", "⚽ Terreno", "✨ Altar Roto"];
+        // --- Toast System ---
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
 
-        rollBtn.addEventListener('click', () => {
-            document.getElementById('bg-music').play().catch(() => {});
-            let idx = Math.floor(Math.random() * 6);
-            let target = diceRotations[idx];
-            let extra = 1440;
-            rollBtn.disabled = true;
-            dice.style.transform = `rotateX(${target.x + extra}deg) rotateY(${target.y + extra}deg)`;
-            resultText.innerText = "¡DÁNDOLE...";
-            setTimeout(() => {
-                resultText.innerText = `¡SORPRESA: ${methodTitles[idx]}!`;
-                rollBtn.disabled = false;
-                updatePoints(20);
-                setTimeout(() => openGame(idx), 800);
-            }, 2000);
-        });
-
-        // --- Game Data & Modal Logic ---
-        const overlay = document.getElementById('overlay');
-        const modalContent = document.getElementById('modal-content');
-
-        const gameData = [
-            {
-                title: "TABLERO DEL PASTELOTE EMOCIONAL",
-                intro: "Haz clic en cada rebanada para 'comértela' y liberar la emoción.",
-                html: `<div class="pastel-grid">
-                    <div class="slice" onclick="eatSlice(this, 'Enojo')">💢<br>ENOJO</div>
-                    <div class="slice" onclick="eatSlice(this, 'Ternura')">🧸<br>TERNURA</div>
-                    <div class="slice" onclick="eatSlice(this, 'Drama')">😭<br>DRAMA</div>
-                    <div class="slice" onclick="eatSlice(this, 'Gozo')">✨<br>GOZO</div>
-                    <div class="slice" style="background:var(--verde); color:#000" onclick="eatSlice(this, 'Pastelazo')">🤡<br>PASTELAZO</div>
-                </div><textarea placeholder="¿Qué sientes al liberar este ciclo?"></textarea>`
-            },
-            {
-                title: "LOS 6 LOOKS DE LA TERCIA",
-                intro: "Selecciona un look mental para cambiar tu perspectiva actual.",
-                html: `<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin:15px 0;">
-                    <button class="choice-btn" onclick="lookInfo('Look Datos: Solo hechos reales.')">⚪ DATOS</button>
-                    <button class="choice-btn" onclick="lookInfo('Look Drama: ¡Suelta el sentimiento!')">🔴 SENTIR</button>
-                    <button class="choice-btn" onclick="lookInfo('Look Hater: ¿Qué va a fallar?')">⚫ CRÍTICA</button>
-                    <button class="choice-btn" onclick="lookInfo('Look Optimista: ¿Qué ganamos?')">🟡 BENEFICIO</button>
-                </div><div id="look-out" style="padding:15px; background:rgba(255,255,255,0.05); border-radius:10px;">Elige un outfit mental...</div>`
-            },
-            {
-                title: "KIT DEL MALANDRO (INVENTARIO)",
-                intro: "Equipa tus herramientas para enfrentar el desafío de hoy.",
-                html: `<div class="inventory-box">
-                    <div class="slot" onclick="equip(this, '💣')"></div>
-                    <div class="slot" onclick="equip(this, '🕶️')"></div>
-                    <div class="slot" onclick="equip(this, '❤️')"></div>
-                    <div class="slot" onclick="equip(this, '🔥')"></div>
-                    <div class="slot" onclick="equip(this, '🧿')"></div>
-                    <div class="slot" onclick="equip(this, '⚡')"></div>
-                </div>`
-            },
-            {
-                title: "EL MAPA DEL CAOS (TAGGER)",
-                intro: "Dibuja tus zonas: Rojo (Peligro), Verde (Seguro), Azul (Escape).",
-                html: `<canvas id="canvas-caos" width="450" height="250"></canvas>
-                <div style="display:flex; justify-content:center; gap:8px">
-                    <button class="choice-btn" style="width:auto" onclick="setBrush('red')">ROJO</button>
-                    <button class="choice-btn" style="width:auto" onclick="setBrush('#00ff99')">VERDE</button>
-                    <button class="choice-btn" style="width:auto" onclick="setBrush('#3399ff')">AZUL</button>
-                    <button class="choice-btn" style="width:auto" onclick="clearCanvas()">LIMPIAR</button>
-                </div>`
-            },
-            {
-                title: "EL TERRENO DE JUEGO DE IDEAS",
-                intro: "Arrastra a tus 'jugadores' (ideas) para planear la estrategia ganadora.",
-                html: `<div class="soccer-field" id="field">
-                    <div class="player-idea" style="top:20%; left:40%" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">SOLUCIÓN</div>
-                    <div class="player-idea" style="bottom:20%; left:20%; background:var(--azul)" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">OBSTÁCULO</div>
-                    <div class="player-idea" style="top:45%; left:65%; background:var(--purple)" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">CREATIVIDAD</div>
-                </div>`
-            },
-            {
-                title: "EL ALTAR DE LA HERRAMIENTA ROTA",
-                intro: "Escribe lo que quieres soltar. Al encender la llama, se transmutará.",
-                html: `<textarea id="burn-ta" placeholder="¿Qué quieres dejar ir?"></textarea>
-                <div class="flame-container" id="f-box"><div class="flame"></div></div>
-                <button class="btn-action" style="width:100%; margin-top:15px" onclick="burnProcess()">ENCENDER LLAMA</button>`
-            },
-            {
-                title: "EL LABERINTO DE LA TRAMPA",
-                intro: "Estás frente a un bloqueo mental. ¿Cómo decides avanzar?",
-                html: `<div id="maze-narrative" style="padding:15px; background:rgba(0,0,0,0.2); border-radius:15px; margin-bottom:15px">Muro detectado: PERFECCIONISMO.</div>
-                <button class="choice-btn" onclick="mazeStep('Intentas saltarlo.', 'Muro muy alto. Necesitas la llave de la AUTENTICIDAD.')">Saltar</button>
-                <button class="choice-btn" onclick="mazeStep('Buscas una grieta.', '¡Encontraste la llave! La curiosidad te abre el paso.')">Explorar</button>`
-            }
+        // --- Lógica del Dado ---
+        let isRolling = false;
+        let lastSuggestion = null;
+        const tools = [
+            { id: 'pastelote', name: 'Pastelote', color: 'pink', rotations: {x: 0, y: 0} },
+            { id: 'looks', name: '6 Looks', color: 'purple', rotations: {x: 0, y: 180} },
+            { id: 'mochila', name: 'Mochila', color: 'green', rotations: {x: 0, y: -90} },
+            { id: 'mapa', name: 'Mapa Caos', color: 'blue', rotations: {x: 0, y: 90} },
+            { id: 'cancha', name: 'Cancha', color: 'orange', rotations: {x: -90, y: 0} },
+            { id: 'altar', name: 'El Altar', color: 'red', rotations: {x: 90, y: 0} }
         ];
 
-        function openGame(idx) {
-            const data = gameData[idx];
-            modalContent.innerHTML = `<h2 style="font-family:'Bangers';font-size:2.2rem;color:var(--rosa);margin-bottom:10px">${data.title}</h2><p style="color:#aaa;font-size:0.95rem">${data.intro}</p><div style="margin-top:20px">${data.html}</div>`;
-            overlay.style.display = 'flex';
-            if (idx === 3) initCanvas();
-        }
-        function closeGame() { overlay.style.display = 'none'; }
+        function rollDice() {
+            if (isRolling) return;
+            isRolling = true;
+            
+            const btn = document.getElementById('roll-btn');
+            const dice = document.getElementById('dice');
+            const suggDiv = document.getElementById('dice-suggestion');
+            const rollText = document.getElementById('roll-text');
 
-        // --- Handlers ---
-        function eatSlice(el, t) { el.classList.add('done'); updatePoints(15); }
-        function lookInfo(t) { document.getElementById('look-out').innerText = t; updatePoints(5); }
-        function equip(el, i) { el.classList.toggle('equipped'); el.innerText = el.classList.contains('equipped') ? i : ''; updatePoints(10); }
-        
-        let paint = false, bColor = '#00ff99';
-        function initCanvas() {
-            const c = document.getElementById('canvas-caos'); if (!c) return;
-            const ctx = c.getContext('2d');
-            const start = (e) => { paint = true; draw(e); };
-            const stop = () => { paint = false; ctx.beginPath(); };
-            const draw = (e) => {
-                if (!paint) return;
-                const r = c.getBoundingClientRect();
-                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - r.left;
-                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - r.top;
-                ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.strokeStyle = bColor;
-                ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
-            };
-            c.addEventListener('mousedown', start); c.addEventListener('mouseup', stop); c.addEventListener('mousemove', draw);
-            c.addEventListener('touchstart', (e) => { e.preventDefault(); start(e); });
-            c.addEventListener('touchend', stop); c.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
-        }
-        window.setBrush = (c) => bColor = c;
-        window.clearCanvas = () => { const c = document.getElementById('canvas-caos'); c.getContext('2d').clearRect(0,0,450,250); };
+            suggDiv.classList.add('hidden');
+            rollText.innerText = "Decodificando...";
+            btn.disabled = true;
 
-        function dragIdea(el, e) {
-            const isT = e.type === 'touchstart', mEv = isT ? 'touchmove' : 'mousemove', uEv = isT ? 'touchend' : 'mouseup';
-            const f = document.getElementById('field');
-            const onM = (mE) => {
-                const r = f.getBoundingClientRect();
-                const cX = isT ? mE.touches[0].clientX : mE.clientX, cY = isT ? mE.touches[0].clientY : mE.clientY;
-                el.style.left = `${Math.max(0, Math.min(cX - r.left - 30, r.width - 60))}px`;
-                el.style.top = `${Math.max(0, Math.min(cY - r.top - 15, r.height - 30))}px`;
-            };
-            document.addEventListener(mEv, onM);
-            document.addEventListener(uEv, () => { document.removeEventListener(mEv, onM); updatePoints(5); }, {once:true});
+            const randomIdx = Math.floor(Math.random() * tools.length);
+            const selection = tools[randomIdx];
+            lastSuggestion = selection.id;
+
+            const extraSpins = 1440;
+            const targetX = selection.rotations.x + extraSpins;
+            const targetY = selection.rotations.y + extraSpins;
+
+            dice.style.transform = `rotateX(${targetX}deg) rotateY(${targetY}deg)`;
+
+            setTimeout(() => {
+                isRolling = false;
+                btn.disabled = false;
+                rollText.innerText = "Chalamandrazo";
+                
+                const suggLink = document.getElementById('suggestion-link');
+                suggLink.innerText = "Abrir " + selection.name + " →";
+                suggLink.className = `text-sm font-black uppercase italic hover:underline text-${selection.color}-400`;
+                suggDiv.classList.remove('hidden');
+            }, 2000);
         }
 
-        function burnProcess() {
-            const ta = document.getElementById('burn-ta'); if (!ta.value) return;
-            document.getElementById('f-box').style.display = 'block';
-            ta.classList.add('burning'); updatePoints(50);
-            setTimeout(() => { alert("Transmutado. El peso se fue, el aprendizaje se queda."); closeGame(); }, 2500);
+        function openSuggestedView() {
+            if (lastSuggestion) changeView(lastSuggestion);
         }
 
-        function mazeStep(c, r) { document.getElementById('maze-narrative').innerHTML = `<strong>${c}</strong><br>${r}`; updatePoints(20); }
+        // --- Altar Ritual ---
+        function burnRitual() {
+            const ta = document.getElementById('altar-text');
+            if (!ta.value.trim()) {
+                showToast("Escribe algo para soltar, mi chama.");
+                return;
+            }
+            ta.style.filter = "blur(15px)";
+            ta.style.opacity = "0.2";
+            showToast("Ritual completado. Has honrado el cierre.");
+        }
 
-        document.getElementById('bg-music').volume = 0.2;
+        // --- Mochila Init ---
+        const items = ['💣 Audacia', '🕶️ Estilo', '❤️ Lealtad', '🔥 Aguante', '🧿 Calma', '💰 Valor', '🧠 Maña', '⚡ Chispa'];
+        const grid = document.getElementById('backpack-grid');
+        items.forEach(item => {
+            const btn = document.createElement('button');
+            btn.innerText = item;
+            btn.className = "aspect-square bg-zinc-800 border border-zinc-700 rounded-xl flex flex-col items-center justify-center text-[9px] font-black uppercase hover:border-green-500 transition-all";
+            btn.onclick = () => btn.classList.toggle('bg-green-500/20');
+            grid.appendChild(btn);
+        });
+
     </script>
 </body>
 </html>

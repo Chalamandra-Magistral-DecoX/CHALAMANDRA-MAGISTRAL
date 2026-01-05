@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Chalamandra Arcade: Metodologías creativas con actitud chola-fresa para mapear el flow, resolver conflictos y potenciar ideas.">
-    <meta name="keywords" content="creatividad, metodologías, chalamandra, diseño de pensamiento, flujo emocional, arcade creativo">
-    <title>Chalamandra: El Arcade del Flow Pro Ultra</title>
+    <meta name="description" content="Chalamandra Arcade SRAP: Metodologías creativas chola-fresa para mapear el flow y potenciar ideas.">
+    <title>Chalamandra Arcade SRAP ULTRA</title>
     
-    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Bangers&family=Press+Start+2P&display=swap" rel="stylesheet">
     
@@ -20,7 +18,6 @@
             --azul: #3399ff;
             --fondo: #0a0a0a;
             --card-bg: rgba(20, 20, 35, 0.85);
-            --neon-shadow: 0 0 15px rgba(255, 77, 158, 0.6);
         }
 
         * {
@@ -32,9 +29,8 @@
         }
 
         body {
-            background-color: var(--fondo);
+            background: var(--fondo);
             color: #fff;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -45,13 +41,8 @@
                 radial-gradient(circle at 90% 90%, rgba(255, 77, 158, 0.1) 0%, transparent 40%);
         }
 
-        .container {
-            width: 100%;
-            max-width: 960px;
-            z-index: 1;
-        }
+        .container { width: 100%; max-width: 960px; }
 
-        /* --- UX: Stats Bar --- */
         .stats-bar {
             width: 100%;
             background: rgba(0,0,0,0.9);
@@ -68,7 +59,6 @@
             box-shadow: 0 5px 15px rgba(0, 255, 153, 0.2);
         }
 
-        /* --- Header --- */
         header {
             text-align: center;
             margin-bottom: 40px;
@@ -102,7 +92,6 @@
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        /* --- Dice Section --- */
         .dice-section {
             background: var(--card-bg);
             padding: 40px 20px;
@@ -112,33 +101,19 @@
             border: 1px solid rgba(153, 51, 255, 0.3);
         }
 
-        .scene {
-            width: 150px;
-            height: 150px;
-            margin: 30px auto;
-            perspective: 800px;
-        }
-
+        .scene { width: 150px; height: 150px; margin: 30px auto; perspective: 800px; }
         .dice {
-            width: 100%;
-            height: 100%;
-            position: relative;
+            width: 100%; height: 100%; position: relative;
             transform-style: preserve-3d;
             transition: transform 2s cubic-bezier(0.17, 0.67, 0.14, 1.03);
             transform: rotateX(-20deg) rotateY(-20deg);
         }
 
         .dice-face {
-            position: absolute;
-            width: 150px;
-            height: 150px;
+            position: absolute; width: 150px; height: 150px;
             border: 3px solid rgba(255, 255, 255, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3rem;
-            border-radius: 20px;
-            backface-visibility: hidden;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 3rem; border-radius: 20px; backface-visibility: hidden;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
@@ -150,237 +125,115 @@
         .face-6 { transform: rotateX(-90deg) translateZ(75px); background: #333; }
 
         .btn-action {
-            padding: 18px 40px;
-            font-size: 1.2rem;
-            font-weight: 900;
+            padding: 18px 40px; font-size: 1.2rem; font-weight: 900;
             background: linear-gradient(45deg, var(--rosa), var(--purple));
-            color: white;
-            border: none;
-            border-radius: 100px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 77, 158, 0.4);
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: white; border: none; border-radius: 100px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 77, 158, 0.4); transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .btn-action:hover:not(:disabled) { transform: scale(1.05); filter: brightness(1.2); box-shadow: 0 15px 30px rgba(255, 77, 158, 0.6); }
+        .btn-action:hover:not(:disabled) { transform: scale(1.05); filter: brightness(1.2); }
         .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* --- Arcade Grid --- */
         .section-title {
-            font-family: 'Bangers', cursive;
-            font-size: 2.8rem;
-            color: var(--verde);
-            text-align: center;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 0px #000;
+            font-family: 'Bangers', cursive; font-size: 2.8rem; color: var(--verde);
+            text-align: center; margin-bottom: 30px; text-shadow: 2px 2px 0px #000;
         }
 
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .game-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 30px;
-            cursor: pointer;
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px; padding: 30px; cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            display: flex; flex-direction: column; gap: 15px;
         }
 
-        .game-card:hover {
-            border-color: var(--verde);
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px rgba(0, 255, 153, 0.2);
-        }
-
+        .game-card:hover { border-color: var(--verde); transform: translateY(-10px); background: rgba(255, 255, 255, 0.08); }
         .game-card i { font-size: 2.5rem; color: var(--rosa); }
         .game-card h3 { font-family: 'Press Start 2P', cursive; font-size: 0.75rem; color: #fff; line-height: 1.4; }
         .game-card p { font-size: 0.95rem; color: #ccc; line-height: 1.5; }
 
-        /* --- Overlay & Modals --- */
         .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.98);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(15px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.98); z-index: 2000; display: none;
+            justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(15px);
         }
 
         .modal {
-            background: #111122;
-            width: 100%;
-            max-width: 750px;
-            border-radius: 35px;
-            border: 2px solid var(--verde);
-            padding: clamp(20px, 5vw, 40px);
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
+            background: #111122; width: 100%; max-width: 750px; border-radius: 35px;
+            border: 2px solid var(--verde); padding: clamp(20px, 5vw, 40px);
+            position: relative; max-height: 90vh; overflow-y: auto;
             box-shadow: 0 0 50px rgba(0, 255, 153, 0.3);
         }
 
-        .close-btn {
-            position: absolute;
-            top: 25px; right: 25px;
-            font-size: 2.2rem;
-            color: var(--rosa);
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .close-btn { position: absolute; top: 25px; right: 25px; font-size: 2.2rem; color: var(--rosa); cursor: pointer; }
 
-        /* --- Minigame Assets --- */
-        .pastel-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin: 25px 0;
-        }
-
+        /* --- Minigame Specific Styles --- */
+        .pastel-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 25px 0; }
         .slice {
-            width: 110px; height: 110px;
-            background: var(--purple);
-            border-radius: 50% 50% 5px 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.4s;
-            font-weight: 800;
-            font-size: 0.8rem;
-            text-align: center;
-            border: 2px solid rgba(255,255,255,0.1);
+            width: 100px; height: 100px; background: var(--purple); border-radius: 50% 50% 5px 50%;
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            transition: 0.3s; font-weight: 800; text-align: center; border: 2px solid rgba(255,255,255,0.1);
         }
-
-        .slice:hover { transform: scale(1.1) rotate(5deg); background: var(--rosa); }
         .slice.done { opacity: 0.2; transform: scale(0.8); pointer-events: none; }
 
-        #canvas-caos {
-            background: #000;
-            border: 2px solid #333;
-            border-radius: 20px;
-            cursor: crosshair;
-            display: block;
-            margin: 20px auto;
-            touch-action: none;
-        }
+        #canvas-caos { background: #000; border: 2px solid #333; border-radius: 20px; display: block; margin: 20px auto; touch-action: none; max-width: 100%; }
 
-        .inventory-box {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 12px;
-            margin: 20px 0;
-        }
-
+        .inventory-box { display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 10px; margin: 20px 0; }
         .slot {
-            aspect-ratio: 1;
-            background: rgba(255,255,255,0.05);
-            border: 2px dashed #555;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: 0.3s;
+            aspect-ratio: 1; background: rgba(255,255,255,0.05); border: 2px dashed #555;
+            border-radius: 12px; display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; cursor: pointer;
+        }
+        .slot.equipped { border: 2px solid var(--verde); background: rgba(0, 255, 153, 0.2); }
+
+        .soccer-field {
+            background: linear-gradient(to bottom, #1b4d1b, #0e2b0e); height: 280px;
+            border: 3px solid #fff; border-radius: 15px; position: relative; margin: 20px 0; overflow: hidden;
+        }
+        .player-idea {
+            position: absolute; background: var(--rosa); padding: 6px 12px; border-radius: 6px;
+            font-weight: bold; font-size: 0.75rem; cursor: move; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .slot.equipped { border: 2px solid var(--verde); background: rgba(0, 255, 153, 0.15); box-shadow: 0 0 10px var(--verde); }
-
-        .flame-container { height: 100px; display: none; margin: 20px auto; position: relative; }
+        .flame-container { height: 80px; display: none; margin: 20px auto; }
         .flame {
-            width: 50px; height: 70px;
-            background: linear-gradient(to top, var(--naranja), var(--rosa));
-            border-radius: 50% 50% 20% 20%;
-            margin: 0 auto;
-            filter: blur(4px);
+            width: 40px; height: 60px; background: linear-gradient(to top, var(--naranja), var(--rosa));
+            border-radius: 50% 50% 20% 20%; margin: 0 auto; filter: blur(4px);
             animation: burn 0.2s infinite alternate;
         }
-        @keyframes burn { 0% { transform: scale(1) skewX(-2deg); } 100% { transform: scale(1.2) skewX(2deg); } }
+        @keyframes burn { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
 
-        /* Soccer Field Logic */
-        .soccer-field {
-            background: linear-gradient(to bottom, #1b4d1b, #0e2b0e);
-            height: 300px;
-            border: 3px solid #fff;
-            border-radius: 15px;
-            position: relative;
-            margin: 20px 0;
-            overflow: hidden;
-        }
+        textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid #444; border-radius: 15px; padding: 15px; color: #fff; margin-top: 15px; resize: none; transition: 1s; }
+        textarea.burning { opacity: 0; transform: translateY(-20px); filter: blur(10px); }
 
-        .player-idea {
-            position: absolute;
-            background: var(--rosa);
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            cursor: move;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        /* Narrative/Maze */
-        .maze-choices { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         .choice-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid #444;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: left;
-            cursor: pointer;
-            transition: 0.3s;
+            background: rgba(255,255,255,0.05); border: 1px solid #444; padding: 12px;
+            border-radius: 10px; text-align: left; cursor: pointer; color: #fff; width: 100%; margin-bottom: 8px;
         }
-        .choice-btn:hover { background: var(--purple); border-color: var(--rosa); }
 
-        /* SEO & Utils */
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-        
-        footer {
-            margin-top: 80px;
-            padding: 40px;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #666;
-            font-size: 0.85rem;
-        }
+        footer { margin-top: 80px; padding: 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); color: #666; font-size: 0.85rem; }
+
+        .glow { box-shadow: 0 0 15px var(--verde), 0 0 30px var(--verde); }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Arcade HUD -->
-        <div class="stats-bar" role="status">
+        <div class="stats-bar">
             <span>STREET CRED: <span id="cred-count">0</span></span>
-            <span id="rank-name">LVL: PRINCIPIANTE</span>
+            <span id="rank-name">LVL: NOVATO</span>
         </div>
 
         <header>
-            <div class="arcade-badge">PRO EDITION v2.0</div>
+            <div class="arcade-badge">PRO SRAP v3.0</div>
             <h1>CHALAMANDRA</h1>
-            <p>Mapeando el flow creativo con la sabiduría del barrio y la estética del glitch.</p>
+            <p>Mapeando el flow creativo con sabiduría callejera y glitch estético.</p>
         </header>
 
-        <!-- Dice: The Entry Point -->
-        <section class="dice-section" aria-labelledby="dice-heading">
-            <h2 id="dice-heading" class="sr-only">Lanzador de Metodologías</h2>
+        <section class="dice-section">
             <div class="scene">
-                <div class="dice" id="main-dice" aria-hidden="true">
+                <div class="dice glow" id="main-dice" aria-hidden="true">
                     <div class="dice-face face-1">🎂</div>
                     <div class="dice-face face-2">🎩</div>
                     <div class="dice-face face-3">🎒</div>
@@ -389,80 +242,38 @@
                     <div class="dice-face face-6">✨</div>
                 </div>
             </div>
-            <button class="btn-action" id="roll-btn" aria-label="Lanzar metodología aleatoria">
-                <i class="fas fa-bolt"></i> CHALAMANDRAZO
-            </button>
-            <div id="dice-result" style="margin-top: 20px; font-weight: bold; color: var(--verde); height: 1.5rem;"></div>
+            <button class="btn-action glow" id="roll-btn"><i class="fas fa-bolt"></i> CHALAMANDRAZO</button>
+            <div id="dice-result" style="margin-top:20px; font-weight:bold; color:var(--verde); height:1.5rem;"></div>
         </section>
 
-        <!-- Main Arcade Section -->
         <main class="arcade-section">
             <h2 class="section-title">ZONA DE ARCADE</h2>
             <div class="game-grid">
-                
-                <article class="game-card" onclick="openGame(0)">
-                    <i class="fas fa-birthday-cake" aria-hidden="true"></i>
-                    <h3>EL PASTELOTE EMOCIONAL</h3>
-                    <p>Tablero para liberar ciclos emocionales rebanada por rebanada.</p>
-                </article>
-
-                <article class="game-card" onclick="openGame(1)">
-                    <i class="fas fa-hat-wizard" aria-hidden="true"></i>
-                    <h3>LOS 6 LOOKS DE LA TERCIA</h3>
-                    <p>Cambio de perspectiva mental mediante el uso de outfits cognitivos.</p>
-                </article>
-
-                <article class="game-card" onclick="openGame(2)">
-                    <i class="fas fa-suitcase" aria-hidden="true"></i>
-                    <h3>KIT DEL MALANDRO (INV)</h3>
-                    <p>Inventario de habilidades y herramientas para el caos creativo.</p>
-                </article>
-
-                <article class="game-card" onclick="openGame(3)">
-                    <i class="fas fa-spray-can" aria-hidden="true"></i>
-                    <h3>EL MAPA DEL CAOS (TAGGER)</h3>
-                    <p>Lienzo interactivo para trazar rutas y detectar zonas de peligro.</p>
-                </article>
-
-                <article class="game-card" onclick="openGame(4)">
-                    <i class="fas fa-futbol" aria-hidden="true"></i>
-                    <h3>TERRENO DE JUEGO DE IDEAS</h3>
-                    <p>Planificación de jugadas estratégicas sobre el campo de ideas.</p>
-                </article>
-
-                <article class="game-card" onclick="openGame(5)">
-                    <i class="fas fa-fire-alt" aria-hidden="true"></i>
-                    <h3>EL ALTAR DE LO ROTO</h3>
-                    <p>Ritual de cierre y transmutación para hábitos u objetos caducos.</p>
-                </article>
-
-                <article class="game-card" onclick="openGame(6)">
-                    <i class="fas fa-skull-crossbones" aria-hidden="true"></i>
-                    <h3>LABERINTO DE LA TRAMPA</h3>
-                    <p>Supera bloqueos mentales encontrando llaves de autoconocimiento.</p>
-                </article>
-
+                <article class="game-card glow" onclick="openGame(0)"><i class="fas fa-birthday-cake"></i><h3>EL PASTELOTE EMOCIONAL</h3><p>Libera emociones rebanada por rebanada.</p></article>
+                <article class="game-card glow" onclick="openGame(1)"><i class="fas fa-hat-wizard"></i><h3>LOS 6 LOOKS DE LA TERCIA</h3><p>Cambia la perspectiva con outfits cognitivos.</p></article>
+                <article class="game-card glow" onclick="openGame(2)"><i class="fas fa-suitcase"></i><h3>KIT DEL MALANDRO (INV)</h3><p>Equipa tus habilidades y herramientas.</p></article>
+                <article class="game-card glow" onclick="openGame(3)"><i class="fas fa-spray-can"></i><h3>EL MAPA DEL CAOS (TAGGER)</h3><p>Traza tus rutas y zonas de peligro.</p></article>
+                <article class="game-card glow" onclick="openGame(4)"><i class="fas fa-futbol"></i><h3>TERRENO DE IDEAS</h3><p>Planifica jugadas estratégicas maestras.</p></article>
+                <article class="game-card glow" onclick="openGame(5)"><i class="fas fa-fire-alt"></i><h3>EL ALTAR DE LO ROTO</h3><p>Ritual para transmutar hábitos caducos.</p></article>
+                <article class="game-card glow" onclick="openGame(6)"><i class="fas fa-skull-crossbones"></i><h3>LABERINTO DE LA TRAMPA</h3><p>Encuentra tus llaves de autoconocimiento.</p></article>
             </div>
         </main>
     </div>
 
-    <!-- Modals -->
     <div class="overlay" id="overlay">
         <div class="modal" role="dialog" aria-modal="true">
-            <span class="close-btn" onclick="closeGame()" aria-label="Cerrar juego">&times;</span>
+            <span class="close-btn" onclick="closeGame()">&times;</span>
             <div id="modal-content"></div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 CHALAMANDRA LABS | Sabiduría Callejera & UX Fresa</p>
-    </footer>
+    <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2023/09/21/audio_6b932c9d3a.mp3?filename=arcade-loop-112bpm-10981.mp3" loop></audio>
 
     <script>
-        // --- Game State & Points ---
+        // --- Game State ---
         let points = 0;
         const ranks = ["NOVATO", "BATO", "MALANDRO", "CRACK", "CHALA-MASTER", "DECODIFICADOR"];
-
+        
         function updatePoints(p) {
             points += p;
             document.getElementById('cred-count').innerText = points;
@@ -474,27 +285,17 @@
         const dice = document.getElementById('main-dice');
         const rollBtn = document.getElementById('roll-btn');
         const resultText = document.getElementById('dice-result');
-
-        const diceRotations = [
-            { x: 0, y: 0 }, { x: 0, y: 180 }, { x: 0, y: -90 },
-            { x: 0, y: 90 }, { x: -90, y: 0 }, { x: 90, y: 0 }
-        ];
-
-        const methodTitles = [
-            "🎂 Pastelote Emocional", "🎩 6 Looks de la Tercia", 
-            "🎒 Kit del Malandro", "🗺️ Mapa del Caos", 
-            "⚽ Terreno de Ideas", "✨ Altar de lo Roto"
-        ];
+        const diceRotations = [{x:0,y:0}, {x:0,y:180}, {x:0,y:-90}, {x:0,y:90}, {x:-90,y:0}, {x:90,y:0}];
+        const methodTitles = ["🎂 Pastelote", "🎩 6 Looks", "🎒 Kit Malandro", "🗺️ Mapa Caos", "⚽ Terreno", "✨ Altar Roto"];
 
         rollBtn.addEventListener('click', () => {
-            const idx = Math.floor(Math.random() * 6);
-            const target = diceRotations[idx];
-            const extraRounds = 1440; // 4 full turns
-
+            document.getElementById('bg-music').play().catch(() => {});
+            let idx = Math.floor(Math.random() * 6);
+            let target = diceRotations[idx];
+            let extra = 1440;
             rollBtn.disabled = true;
-            dice.style.transform = `rotateX(${target.x + extraRounds}deg) rotateY(${target.y + extraRounds}deg)`;
+            dice.style.transform = `rotateX(${target.x + extra}deg) rotateY(${target.y + extra}deg)`;
             resultText.innerText = "¡DÁNDOLE...";
-
             setTimeout(() => {
                 resultText.innerText = `¡SORPRESA: ${methodTitles[idx]}!`;
                 rollBtn.disabled = false;
@@ -503,227 +304,137 @@
             }, 2000);
         });
 
-        // --- Minigame Logic ---
+        // --- Game Data & Modal Logic ---
         const overlay = document.getElementById('overlay');
         const modalContent = document.getElementById('modal-content');
 
         const gameData = [
             {
                 title: "TABLERO DEL PASTELOTE EMOCIONAL",
-                intro: "Haz clic en cada rebanada para 'comértela' y procesar la emoción asociada.",
-                html: `
-                    <div class="pastel-grid">
-                        <div class="slice" onclick="eatSlice(this, 'Enojo')">💢<br>ENOJO</div>
-                        <div class="slice" onclick="eatSlice(this, 'Ternura')">🧸<br>TERNURA</div>
-                        <div class="slice" onclick="eatSlice(this, 'Drama')">😭<br>DRAMA</div>
-                        <div class="slice" onclick="eatSlice(this, 'Gozo')">✨<br>GOZO</div>
-                        <div class="slice" style="background:var(--verde); color:#000;" onclick="eatSlice(this, 'Pastelazo')">🤡<br>PASTELAZO</div>
-                    </div>
-                    <textarea placeholder="¿Qué sientes al liberar esta rebanada? Escríbelo aquí..."></textarea>
-                    <div id="pastel-status" style="text-align:center; color:var(--verde); font-weight:bold; margin-top:10px"></div>
-                `
+                intro: "Haz clic en cada rebanada para 'comértela' y liberar la emoción.",
+                html: `<div class="pastel-grid">
+                    <div class="slice" onclick="eatSlice(this, 'Enojo')">💢<br>ENOJO</div>
+                    <div class="slice" onclick="eatSlice(this, 'Ternura')">🧸<br>TERNURA</div>
+                    <div class="slice" onclick="eatSlice(this, 'Drama')">😭<br>DRAMA</div>
+                    <div class="slice" onclick="eatSlice(this, 'Gozo')">✨<br>GOZO</div>
+                    <div class="slice" style="background:var(--verde); color:#000" onclick="eatSlice(this, 'Pastelazo')">🤡<br>PASTELAZO</div>
+                </div><textarea placeholder="¿Qué sientes al liberar este ciclo?"></textarea>`
             },
             {
                 title: "LOS 6 LOOKS DE LA TERCIA",
-                intro: "Selecciona una zona para activar una perspectiva diferente sobre tu conflicto.",
-                html: `
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin:20px 0;">
-                        <button class="btn-action" style="background:#fff; color:#000; font-size:0.9rem" onclick="lookInfo('Look Bibliotecaria: Datos fríos, sin drama.')">⚪ BIBLIOTECARIA</button>
-                        <button class="btn-action" style="background:#f00; font-size:0.9rem" onclick="lookInfo('Look Drama: ¡Suelta todo el sentimiento!')">🔴 DRAMA QUEEN</button>
-                        <button class="btn-action" style="background:#000; font-size:0.9rem" onclick="lookInfo('Look Hater: ¿Qué va a fallar aquí?')">⚫ HATER</button>
-                        <button class="btn-action" style="background:#ff0; color:#000; font-size:0.9rem" onclick="lookInfo('Look Todo Bien: ¿Cuál es el beneficio real?')">🟡 TODO BIEN</button>
-                        <button class="btn-action" style="background:var(--verde); color:#000; font-size:0.9rem" onclick="lookInfo('Look Arte Urbano: ¡Invéntate algo nuevo!')">🟢 ARTE URBANO</button>
-                        <button class="btn-action" style="background:var(--azul); font-size:0.9rem" onclick="lookInfo('Look Jefa: Organiza el plan de acción.')">🔵 JEFA</button>
-                    </div>
-                    <div id="look-output" style="padding:15px; background:rgba(255,255,255,0.05); border-radius:10px; border-left:4px solid var(--rosa)">Selecciona un look mental...</div>
-                `
+                intro: "Selecciona un look mental para cambiar tu perspectiva actual.",
+                html: `<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin:15px 0;">
+                    <button class="choice-btn" onclick="lookInfo('Look Datos: Solo hechos reales.')">⚪ DATOS</button>
+                    <button class="choice-btn" onclick="lookInfo('Look Drama: ¡Suelta el sentimiento!')">🔴 SENTIR</button>
+                    <button class="choice-btn" onclick="lookInfo('Look Hater: ¿Qué va a fallar?')">⚫ CRÍTICA</button>
+                    <button class="choice-btn" onclick="lookInfo('Look Optimista: ¿Qué ganamos?')">🟡 BENEFICIO</button>
+                </div><div id="look-out" style="padding:15px; background:rgba(255,255,255,0.05); border-radius:10px;">Elige un outfit mental...</div>`
             },
             {
                 title: "KIT DEL MALANDRO (INVENTARIO)",
-                intro: "Equipa tus superpoderes haciendo clic en los slots. Arma tu mochila para el desafío.",
-                html: `
-                    <div class="inventory-box">
-                        <div class="slot" onclick="equip(this, '💣')"></div>
-                        <div class="slot" onclick="equip(this, '🕶️')"></div>
-                        <div class="slot" onclick="equip(this, '❤️')"></div>
-                        <div class="slot" onclick="equip(this, '🔥')"></div>
-                        <div class="slot" onclick="equip(this, '🧿')"></div>
-                        <div class="slot" onclick="equip(this, '💰')"></div>
-                        <div class="slot" onclick="equip(this, '🧠')"></div>
-                        <div class="slot" onclick="equip(this, '⚡')"></div>
-                    </div>
-                    <p style="font-size:0.8rem; color:#888">Simbología: Energía (💣), Estilo (🕶️), Lealtad (❤️), Resiliencia (🔥)...</p>
-                `
+                intro: "Equipa tus herramientas para enfrentar el desafío de hoy.",
+                html: `<div class="inventory-box">
+                    <div class="slot" onclick="equip(this, '💣')"></div>
+                    <div class="slot" onclick="equip(this, '🕶️')"></div>
+                    <div class="slot" onclick="equip(this, '❤️')"></div>
+                    <div class="slot" onclick="equip(this, '🔥')"></div>
+                    <div class="slot" onclick="equip(this, '🧿')"></div>
+                    <div class="slot" onclick="equip(this, '⚡')"></div>
+                </div>`
             },
             {
                 title: "EL MAPA DEL CAOS (TAGGER)",
-                intro: "Usa el pincel para marcar tu situación. Rojo = Peligro, Verde = Seguro, Azul = Escape.",
-                html: `
-                    <canvas id="canvas-caos" width="500" height="300"></canvas>
-                    <div style="display:flex; justify-content:center; gap:10px">
-                        <button class="btn-action" style="padding:10px 20px; font-size:0.8rem; background:red" onclick="setBrush('red')">🚩 PELIGRO</button>
-                        <button class="btn-action" style="padding:10px 20px; font-size:0.8rem; background:var(--verde); color:#000" onclick="setBrush('#00ff99')">🏠 SEGURO</button>
-                        <button class="btn-action" style="padding:10px 20px; font-size:0.8rem; background:var(--azul)" onclick="setBrush('#3399ff')">➡️ ESCAPE</button>
-                        <button class="btn-action" style="padding:10px 20px; font-size:0.8rem; background:#555" onclick="clearCanvas()">🗑️ LIMPIAR</button>
-                    </div>
-                `
+                intro: "Dibuja tus zonas: Rojo (Peligro), Verde (Seguro), Azul (Escape).",
+                html: `<canvas id="canvas-caos" width="450" height="250"></canvas>
+                <div style="display:flex; justify-content:center; gap:8px">
+                    <button class="choice-btn" style="width:auto" onclick="setBrush('red')">ROJO</button>
+                    <button class="choice-btn" style="width:auto" onclick="setBrush('#00ff99')">VERDE</button>
+                    <button class="choice-btn" style="width:auto" onclick="setBrush('#3399ff')">AZUL</button>
+                    <button class="choice-btn" style="width:auto" onclick="clearCanvas()">LIMPIAR</button>
+                </div>`
             },
             {
                 title: "EL TERRENO DE JUEGO DE IDEAS",
-                intro: "Posiciona a tus jugadores (conceptos) para planear la jugada maestra.",
-                html: `
-                    <div class="soccer-field" id="soccer-field">
-                        <div class="player-idea" style="top:20%; left:40%" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">SOLUCIÓN</div>
-                        <div class="player-idea" style="bottom:20%; left:20%; background:var(--azul)" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">OBJECIÓN</div>
-                        <div class="player-idea" style="top:45%; left:65%; background:var(--purple)" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">CREATIVIDAD</div>
-                    </div>
-                    <p style="text-align:center; font-size:0.8rem">¡Arrastra las ideas para armar tu estrategia!</p>
-                `
+                intro: "Arrastra a tus 'jugadores' (ideas) para planear la estrategia ganadora.",
+                html: `<div class="soccer-field" id="field">
+                    <div class="player-idea" style="top:20%; left:40%" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">SOLUCIÓN</div>
+                    <div class="player-idea" style="bottom:20%; left:20%; background:var(--azul)" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">OBSTÁCULO</div>
+                    <div class="player-idea" style="top:45%; left:65%; background:var(--purple)" onmousedown="dragIdea(this, event)" ontouchstart="dragIdea(this, event)">CREATIVIDAD</div>
+                </div>`
             },
             {
                 title: "EL ALTAR DE LA HERRAMIENTA ROTA",
-                intro: "Escribe lo que quieres soltar. Al encender la llama, tu texto se desvanecerá con honor.",
-                html: `
-                    <textarea id="burn-text" placeholder="¿Qué hábito o pensamiento quieres dejar ir hoy?"></textarea>
-                    <div class="flame-container" id="flame-box"><div class="flame"></div></div>
-                    <button class="btn-action" style="width:100%; margin-top:15px" onclick="burnProcess()">ENCENDER LLAMA RITUAL</button>
-                `
+                intro: "Escribe lo que quieres soltar. Al encender la llama, se transmutará.",
+                html: `<textarea id="burn-ta" placeholder="¿Qué quieres dejar ir?"></textarea>
+                <div class="flame-container" id="f-box"><div class="flame"></div></div>
+                <button class="btn-action" style="width:100%; margin-top:15px" onclick="burnProcess()">ENCENDER LLAMA</button>`
             },
             {
                 title: "EL LABERINTO DE LA TRAMPA",
-                intro: "Estás atrapado en un bloqueo. Elige tu camino para encontrar la salida.",
-                html: `
-                    <div id="maze-narrative" style="min-height:100px; padding:15px; background:rgba(0,0,0,0.3); border-radius:15px;">
-                        Te encuentras frente a un muro llamado <strong>MIEDO AL QUÉ DIRÁN</strong>. ¿Cómo procedes?
-                    </div>
-                    <div class="maze-choices">
-                        <button class="choice-btn" onclick="mazeStep('Intentas saltar el muro.', 'Te cansas. El miedo es muy alto. Necesitas la llave de la AUTENTICIDAD.')">🦘 Intentar saltar</button>
-                        <button class="choice-btn" onclick="mazeStep('Buscas una grieta.', '¡Encontraste la llave! La curiosidad te abre el paso. +50 Street Cred.')">🔍 Buscar una grieta</button>
-                        <button class="choice-btn" onclick="mazeStep('Pintar un graffiti.', 'El muro ahora es arte. Ya no te detiene, te inspira. Has salido del laberinto.')">🎨 Transformar el muro</button>
-                    </div>
-                `
+                intro: "Estás frente a un bloqueo mental. ¿Cómo decides avanzar?",
+                html: `<div id="maze-narrative" style="padding:15px; background:rgba(0,0,0,0.2); border-radius:15px; margin-bottom:15px">Muro detectado: PERFECCIONISMO.</div>
+                <button class="choice-btn" onclick="mazeStep('Intentas saltarlo.', 'Muro muy alto. Necesitas la llave de la AUTENTICIDAD.')">Saltar</button>
+                <button class="choice-btn" onclick="mazeStep('Buscas una grieta.', '¡Encontraste la llave! La curiosidad te abre el paso.')">Explorar</button>`
             }
         ];
 
         function openGame(idx) {
             const data = gameData[idx];
-            modalContent.innerHTML = `
-                <h2 style="font-family:'Bangers'; font-size:2.2rem; color:var(--rosa); margin-bottom:10px">${data.title}</h2>
-                <p style="color:#aaa; font-size:0.95rem; line-height:1.4">${data.intro}</p>
-                <div style="margin-top:20px">${data.html}</div>
-            `;
+            modalContent.innerHTML = `<h2 style="font-family:'Bangers';font-size:2.2rem;color:var(--rosa);margin-bottom:10px">${data.title}</h2><p style="color:#aaa;font-size:0.95rem">${data.intro}</p><div style="margin-top:20px">${data.html}</div>`;
             overlay.style.display = 'flex';
-            if(idx === 3) initCanvas();
+            if (idx === 3) initCanvas();
         }
-
         function closeGame() { overlay.style.display = 'none'; }
 
-        // --- Minigame Handlers ---
-
-        // 1. Pastelote
-        function eatSlice(el, type) {
-            el.classList.add('done');
-            updatePoints(15);
-            const status = document.getElementById('pastel-status');
-            status.innerText = `¡${type} Procesado!`;
-            if(document.querySelectorAll('.slice.done').length === 5) {
-                status.innerText = "¡TODO EL DRAMA FUE CONSUMIDO! 🔥";
-            }
-        }
-
-        // 2. 6 Looks
-        function lookInfo(text) {
-            document.getElementById('look-output').innerText = text;
-            updatePoints(5);
-        }
-
-        // 3. Inventory
-        function equip(el, icon) {
-            el.classList.toggle('equipped');
-            el.innerText = el.classList.contains('equipped') ? icon : '';
-            updatePoints(10);
-        }
-
-        // 4. Canvas Drawing
-        let painting = false;
-        let color = '#00ff99';
+        // --- Handlers ---
+        function eatSlice(el, t) { el.classList.add('done'); updatePoints(15); }
+        function lookInfo(t) { document.getElementById('look-out').innerText = t; updatePoints(5); }
+        function equip(el, i) { el.classList.toggle('equipped'); el.innerText = el.classList.contains('equipped') ? i : ''; updatePoints(10); }
+        
+        let paint = false, bColor = '#00ff99';
         function initCanvas() {
-            const canvas = document.getElementById('canvas-caos');
-            const ctx = canvas.getContext('2d');
-            const start = (e) => { painting = true; draw(e); };
-            const stop = () => { painting = false; ctx.beginPath(); };
+            const c = document.getElementById('canvas-caos'); if (!c) return;
+            const ctx = c.getContext('2d');
+            const start = (e) => { paint = true; draw(e); };
+            const stop = () => { paint = false; ctx.beginPath(); };
             const draw = (e) => {
-                if(!painting) return;
-                const rect = canvas.getBoundingClientRect();
-                const x = (e.clientX || e.touches[0].clientX) - rect.left;
-                const y = (e.clientY || e.touches[0].clientY) - rect.top;
-                ctx.lineWidth = 6;
-                ctx.lineCap = 'round';
-                ctx.strokeStyle = color;
-                ctx.lineTo(x, y);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(x, y);
+                if (!paint) return;
+                const r = c.getBoundingClientRect();
+                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - r.left;
+                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - r.top;
+                ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.strokeStyle = bColor;
+                ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
             };
-            canvas.addEventListener('mousedown', start);
-            canvas.addEventListener('mouseup', stop);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); start(e); });
-            canvas.addEventListener('touchend', stop);
-            canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
+            c.addEventListener('mousedown', start); c.addEventListener('mouseup', stop); c.addEventListener('mousemove', draw);
+            c.addEventListener('touchstart', (e) => { e.preventDefault(); start(e); });
+            c.addEventListener('touchend', stop); c.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
         }
-        window.setBrush = (c) => color = c;
-        window.clearCanvas = () => {
-            const canvas = document.getElementById('canvas-caos');
-            canvas.getContext('2d').clearRect(0,0, canvas.width, canvas.height);
-        };
+        window.setBrush = (c) => bColor = c;
+        window.clearCanvas = () => { const c = document.getElementById('canvas-caos'); c.getContext('2d').clearRect(0,0,450,250); };
 
-        // 5. Drag Idea
         function dragIdea(el, e) {
-            const isTouch = e.type === 'touchstart';
-            const moveEvent = isTouch ? 'touchmove' : 'mousemove';
-            const upEvent = isTouch ? 'touchend' : 'mouseup';
-            const field = document.getElementById('soccer-field');
-            
-            const onMove = (moveE) => {
-                const rect = field.getBoundingClientRect();
-                const clientX = isTouch ? moveE.touches[0].clientX : moveE.clientX;
-                const clientY = isTouch ? moveE.touches[0].clientY : moveE.clientY;
-                let x = clientX - rect.left - (el.offsetWidth / 2);
-                let y = clientY - rect.top - (el.offsetHeight / 2);
-                el.style.left = `${Math.max(0, Math.min(x, rect.width - el.offsetWidth))}px`;
-                el.style.top = `${Math.max(0, Math.min(y, rect.height - el.offsetHeight))}px`;
+            const isT = e.type === 'touchstart', mEv = isT ? 'touchmove' : 'mousemove', uEv = isT ? 'touchend' : 'mouseup';
+            const f = document.getElementById('field');
+            const onM = (mE) => {
+                const r = f.getBoundingClientRect();
+                const cX = isT ? mE.touches[0].clientX : mE.clientX, cY = isT ? mE.touches[0].clientY : mE.clientY;
+                el.style.left = `${Math.max(0, Math.min(cX - r.left - 30, r.width - 60))}px`;
+                el.style.top = `${Math.max(0, Math.min(cY - r.top - 15, r.height - 30))}px`;
             };
-            
-            document.addEventListener(moveEvent, onMove);
-            document.addEventListener(upEvent, () => {
-                document.removeEventListener(moveEvent, onMove);
-                updatePoints(5);
-            }, { once: true });
+            document.addEventListener(mEv, onM);
+            document.addEventListener(uEv, () => { document.removeEventListener(mEv, onM); updatePoints(5); }, {once:true});
         }
 
-        // 6. Burn
         function burnProcess() {
-            const ta = document.getElementById('burn-text');
-            if(!ta.value) return;
-            document.getElementById('flame-box').style.display = 'block';
-            ta.style.transition = '2s';
-            ta.style.opacity = '0';
-            ta.style.transform = 'translateY(-20px) scale(0.8)';
-            ta.style.filter = 'blur(10px)';
-            updatePoints(50);
-            setTimeout(() => {
-                alert("Liberado con éxito. El aprendizaje se queda, el peso se va.");
-                closeGame();
-            }, 2500);
+            const ta = document.getElementById('burn-ta'); if (!ta.value) return;
+            document.getElementById('f-box').style.display = 'block';
+            ta.classList.add('burning'); updatePoints(50);
+            setTimeout(() => { alert("Transmutado. El peso se fue, el aprendizaje se queda."); closeGame(); }, 2500);
         }
 
-        // 7. Maze
-        function mazeStep(choice, result) {
-            document.getElementById('maze-narrative').innerHTML = `<strong>${choice}</strong><br><br>${result}`;
-            updatePoints(30);
-        }
+        function mazeStep(c, r) { document.getElementById('maze-narrative').innerHTML = `<strong>${c}</strong><br>${r}`; updatePoints(20); }
 
+        document.getElementById('bg-music').volume = 0.2;
     </script>
 </body>
 </html>

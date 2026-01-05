@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insightify Chalamandra | Soberanía Cognitiva</title>
+    <title>Insightify Chalamandra | Transformando Caos en Claridad Magistral</title>
     
-    <meta name="description" content="Decodificación Magistral mediante IA Local y Framework SRAP. Protege tu energía mental en el búnker de la Chalamandra.">
-    <meta property="og:title" content="Insightify Chalamandra | Búnker de Claridad">
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Decodificación Magistral. Implementamos el Framework SRAP para transformar el caos en soberanía cognitiva. IA Local para mentes del Top 1%.">
+    <meta name="keywords" content="Decodificación Magistral, Framework SRAP, Soberanía Cognitiva, IA Local, Consultoría Estratégica, Chalamandra">
+    <meta name="author" content="Insightify Chalamandra">
+    <link rel="canonical" href="https://insightifychalamandra.com/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Insightify Chalamandra | Magistral Pro">
+    <meta property="og:description" content="Transformando el Caos en Claridad Magistral. La metodología SRAP para la soberanía mental.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="assets/preview-hologram.jpg">
-    <meta name="twitter:card" content="summary_large_image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,281 +26,519 @@
 
     <style>
         :root {
-            --chaos-red: #FF003C;
-            --clarity-green: #39FF14;
-            --cyber-cyan: #00FFEA;
-            --dark-bg: #050510;
+            /* Paleta Chalamandra Magistral */
+            --chala-mandala: #FFB300;
+            --chala-rosa:    #D5006C;
+            --chala-verde:   #00FF5E;
+            --chala-tinta:   #050505;
+            --chala-rojo:    #FF0000;
+            --chala-azul:    #1A237E;
+            --chala-gris:    #B0BEC5;
         }
 
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: var(--dark-bg);
-            color: #e0e0ff;
+            background-color: var(--chala-tinta);
+            color: var(--chala-gris);
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
         h1, h2, h3, .font-orbitron { font-family: 'Orbitron', sans-serif; }
 
-        /* Optimización de Renderizado */
-        .will-change-gpu { will-change: transform, opacity; }
-
-        /* Efectos Neón con Glitch Reactivo */
-        .text-glow { text-shadow: 0 0 10px var(--cyber-cyan), 0 0 20px rgba(0, 255, 234, 0.3); }
-        .glitch-hover:hover {
-            animation: text-glitch 0.3s cubic-bezier(.25,.46,.45,.94) both;
-            text-shadow: 2px 0 var(--cyber-cyan), -2px 0 var(--chaos-red);
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(to right, var(--chala-mandala), var(--chala-rosa));
+            z-index: 1000;
         }
 
-        @keyframes text-glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+        .scanline {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 179, 0, 0.08), transparent);
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            pointer-events: none;
+            animation: scan 10s linear infinite;
         }
 
-        /* Glassmorphism Cards de Alta Gama */
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        .text-glow-mandala { text-shadow: 0 0 20px var(--chala-mandala); }
+        .text-glow-verde { text-shadow: 0 0 20px var(--chala-verde); }
+
         .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 255, 234, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--cyber-cyan);
-            box-shadow: 0 20px 40px rgba(0, 255, 234, 0.15);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(5, 5, 5, 0.95) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 179, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-magistral {
-            background: linear-gradient(90deg, var(--chaos-red), #9D00FF);
+            background: linear-gradient(90deg, var(--chala-rosa), var(--chala-rojo));
+            color: white;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(213, 0, 108, 0.3);
+            border: none;
         }
 
         .btn-magistral:hover {
-            box-shadow: 0 0 25px rgba(255, 0, 60, 0.5);
-            transform: scale(1.02);
+            box-shadow: 0 0 30px var(--chala-rosa);
+            transform: translateY(-2px) scale(1.02);
         }
 
+        /* Altura dinámica optimizada para UX fluida */
         #canvas-container {
             position: relative;
             width: 100%;
-            height: 550px;
+            height: 75vh;
+            min-height: 400px;
+            max-height: 800px;
             overflow: hidden;
-            border-radius: 1.5rem;
-            border: 1px solid rgba(0, 255, 234, 0.2);
-            background: radial-gradient(circle at center, #0a0a20 0%, #050510 100%);
+            border-radius: 2.5rem;
+            background: #000;
+            border: 2px solid rgba(255, 179, 0, 0.15);
+        }
+
+        .arquetipo-border {
+            border: 1px solid transparent;
+            background: linear-gradient(var(--chala-tinta), var(--chala-tinta)) padding-box,
+                        linear-gradient(45deg, var(--chala-rosa), var(--chala-mandala)) border-box;
+        }
+
+        .bg-urban {
+            background-image: 
+                radial-gradient(circle at 2px 2px, rgba(176, 190, 197, 0.05) 1px, transparent 0);
+            background-size: 50px 50px;
+        }
+
+        .title-magistral {
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            font-weight: 900;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 
-<body class="antialiased selection:bg-cyan-500 selection:text-black">
+<body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban">
+    <div id="scroll-progress"></div>
+    <div class="scanline"></div>
 
-    <nav class="fixed w-full z-50 top-0 start-0 border-b border-white/5 bg-black/80 backdrop-blur-xl">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-[#1A237E]/95 backdrop-blur-xl">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4 md:px-8">
             <a href="#" class="flex items-center space-x-3 group">
-                <span class="text-3xl group-hover:rotate-12 transition-transform">🦎</span>
-                <span class="self-center text-2xl font-bold text-white tracking-widest font-orbitron">CHALAMANDRA</span>
+                <span class="text-3xl">🦎</span>
+                <span class="text-xl md:text-2xl font-bold text-white tracking-widest font-orbitron uppercase">CHALAMANDRA MAGISTRAL</span>
             </a>
-            <div class="flex md:order-2 space-x-3">
-                <a href="#download" class="btn-magistral text-white font-bold rounded-lg text-sm px-6 py-2.5 text-center">
-                    <i class="fab fa-chrome mr-2"></i> INSTALAR BÚNKER
-                </a>
+            <div class="hidden md:flex space-x-8 font-bold text-[10px] tracking-[0.3em] text-[#B0BEC5]">
+                <a href="#srap" class="hover:text-[#FFB300] transition-colors uppercase">Protocolo SRAP</a>
+                <a href="#arquetipo" class="hover:text-[#FFB300] transition-colors uppercase">La Decodificadora</a>
+                <a href="#ecosistema" class="hover:text-[#FFB300] transition-colors uppercase">Ecosistema</a>
+                <a href="#experiencia" class="hover:text-[#FFB300] transition-colors uppercase">Búnker 3D</a>
             </div>
+            <a href="#experiencia" class="btn-magistral font-black rounded-lg text-[10px] px-6 py-2.5 text-center tracking-tighter uppercase">
+                INICIAR PROYECCIÓN
+            </a>
         </div>
     </nav>
 
-    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
-        <div class="container mx-auto px-4 text-center z-10">
-            <div class="inline-block mb-6 px-4 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-bold tracking-[0.2em] uppercase">
-                Protocolo de Soberanía v4.5.1
-            </div>
-            
-            <h1 class="text-6xl md:text-9xl font-black mb-8 leading-tight tracking-tighter">
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF003C] to-[#FF6600] glitch-hover cursor-default">CAOS</span>
-                <span class="block text-white text-base md:text-xl my-4 font-light tracking-[1.2em] opacity-60">DECODIFICADO EN</span>
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#00FFEA] to-[#39FF14] text-glow glitch-hover cursor-default">CLARIDAD</span>
-            </h1>
-            
-            <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
-                La extensión <span class="text-white font-medium italic">SRAP</span> que utiliza IA local para filtrar el ruido, blindar tu atención y proyectar mapas mentales en tiempo real.
-            </p>
-            
-            <div class="flex flex-col md:flex-row justify-center gap-6">
-                <a href="#demo" class="bg-white text-black font-bold py-4 px-10 rounded-xl hover:bg-cyan-400 transition-all flex items-center justify-center gap-3 shadow-xl">
-                    <i class="fas fa-play"></i> EXPERIENCIA 3D
-                </a>
-                <a href="https://github.com/tu-usuario/insightify-chalamandra-pro" class="border border-white/10 hover:border-cyan-500/50 text-white font-bold py-4 px-10 rounded-xl transition-all flex items-center justify-center gap-3">
-                    <i class="fab fa-github"></i> REPOSITORIO
-                </a>
-            </div>
-        </div>
-    </section>
+    <main>
+        <!-- Hero Section -->
+        <header class="relative min-h-screen flex items-center justify-center pt-24 px-4 overflow-hidden">
+            <div class="container mx-auto text-center z-10">
+                <div class="inline-block mb-8 px-6 py-2 rounded-full border border-[#FFB300]/30 bg-[#FFB300]/10 text-[#FFB300] text-[11px] font-black tracking-[0.5em] uppercase">
+                    Protocolo de Decodificación Magistral • v4.5.1
+                </div>
+                
+                <h1 class="text-6xl md:text-[8rem] font-black mb-10 leading-none tracking-tighter title-magistral">
+                    <span class="block text-white mb-2 font-light tracking-widest text-lg md:text-2xl opacity-60">TRANSFORMANDO EL</span>
+                    <span class="block text-[#FF0000] italic leading-tight">CAOS</span>
+                    <span class="block text-white text-xs md:text-base my-4 font-light tracking-[1.5em] opacity-30 italic">EN</span>
+                    <span class="block text-[#00FF5E] text-glow-verde leading-tight">CLARIDAD</span>
+                    <span class="block text-white mt-4 font-bold tracking-tighter text-3xl md:text-5xl opacity-90">MAGISTRAL</span>
+                </h1>
+                
+                <p class="text-base md:text-xl text-[#B0BEC5] mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+                    Bienvenido al búnker de la <span class="text-white font-bold">Soberanía Cognitiva</span>. 
+                    Implementamos el framework <span class="text-[#FFB300] font-bold italic">SRAP</span> para decodificar sistemas saturados y restaurar el flujo de la verdad estratégica.
+                </p>
 
-    
-    <section id="demo" class="py-24 bg-[#080818]/50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4 text-white uppercase tracking-tighter">Motor <span class="text-[#00FFEA]">SRAP</span></h2>
-                <p class="text-gray-500 max-w-lg mx-auto">Visualiza la transición del ruido informativo a la estructura cognitiva.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="#experiencia" class="bg-[#FFB300] text-black font-black py-4 px-12 rounded-full uppercase tracking-widest text-xs hover:bg-white transition-all shadow-xl">
+                        Ver Proyección 3D
+                    </a>
+                </div>
             </div>
+        </header>
 
-            <div class="glass-card p-3 rounded-3xl max-w-6xl mx-auto will-change-gpu">
-                <div id="canvas-container">
-                    <div class="absolute bottom-0 left-0 w-full p-8 overlay-content flex flex-col md:flex-row justify-between items-end z-20 pointer-events-none">
-                        <div class="text-left pointer-events-auto bg-black/40 p-4 rounded-xl backdrop-blur-md border border-white/5">
-                            <h3 id="demo-status" class="text-2xl font-bold text-[#FF003C] mb-2 tracking-tighter">SISTEMA: CAOS</h3>
-                            <p id="demo-desc" class="text-xs text-gray-400 max-w-xs">Partículas desordenadas. Carga cognitiva crítica. El ruido bloquea el insight.</p>
+        <!-- SRAP Section -->
+        <section id="srap" class="py-32 bg-black/60 relative reveal">
+            <div class="container mx-auto px-4">
+                <div class="mb-24 text-center">
+                    <h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase italic title-magistral">
+                        Framework <span class="text-[#FFB300]">S.R.A.P.</span> ©
+                    </h2>
+                    <p class="text-[#B0BEC5] mt-6 max-w-2xl mx-auto border-t border-[#FFB300]/30 pt-8 text-lg font-light italic">
+                        Protocolo magistral de ingeniería inversa para sistemas de alta incertidumbre.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- SCAN -->
+                    <article class="glass-card p-10 rounded-[2.5rem] border-t-4 border-[#FFB300]">
+                        <div class="text-6xl font-black text-[#FFB300] mb-8 font-orbitron">S</div>
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-tighter">SCAN</h3>
+                        <div class="space-y-4 text-sm leading-relaxed text-[#B0BEC5]">
+                            <p><strong class="text-[#FFB300] uppercase text-[10px] block mb-1">Lectura Total</strong> No se asume nada. Auditoría profunda de mercado, código y entorno emocional.</p>
+                            <p class="italic">"¿Qué es ruido y qué es señal?"</p>
                         </div>
-                        <button id="toggle-demo" class="pointer-events-auto btn-magistral text-white font-black py-4 px-10 rounded-full tracking-widest text-xs mt-6 md:mt-0">
-                            ACTIVAR DECODIFICACIÓN
+                    </article>
+                    <!-- RITMO -->
+                    <article class="glass-card p-10 rounded-[2.5rem] border-t-4 border-[#D5006C]">
+                        <div class="text-6xl font-black text-[#D5006C] mb-8 font-orbitron">R</div>
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-tighter">RITMO</h3>
+                        <div class="space-y-4 text-sm leading-relaxed text-[#B0BEC5]">
+                            <p><strong class="text-[#D5006C] uppercase text-[10px] block mb-1">Cadencia Magistral</strong> Sincronización con la velocidad real. Frenar para acelerar con solidez.</p>
+                            <p class="italic">"¿Sprint o resistencia de maratón?"</p>
+                        </div>
+                    </article>
+                    <!-- ANÁLISIS -->
+                    <article class="glass-card p-10 rounded-[2.5rem] border-t-4 border-[#00FF5E]">
+                        <div class="text-6xl font-black text-[#00FF5E] mb-8 font-orbitron">A</div>
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-tighter">ANÁLISIS</h3>
+                        <div class="space-y-4 text-sm leading-relaxed text-[#B0BEC5]">
+                            <p><strong class="text-[#00FF5E] uppercase text-[10px] block mb-1">Patrones Ocultos</strong> Decodificación de la matriz. Identificación de la causa raíz invisible.</p>
+                            <p class="italic">"¿Cuál es el patrón que rompe el sistema?"</p>
+                        </div>
+                    </article>
+                    <!-- PRESENCIA -->
+                    <article class="glass-card p-10 rounded-[2.5rem] border-t-4 border-[#1A237E]">
+                        <div class="text-6xl font-black text-[#1A237E] mb-8 font-orbitron">P</div>
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-tighter">PRESENCIA</h3>
+                        <div class="space-y-4 text-sm leading-relaxed text-[#B0BEC5]">
+                            <p><strong class="text-[#1A237E] uppercase text-[10px] block mb-1">Ejecución Absoluta</strong> Intervención quirúrgica. Impacto total con la mínima fuerza.</p>
+                            <p class="italic">"Hacer una cosa magistral."</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARQUETIPO Section -->
+        <section id="arquetipo" class="py-32 relative reveal">
+            <div class="container mx-auto px-4">
+                <div class="arquetipo-border p-12 md:p-24 rounded-[5rem] max-w-6xl mx-auto flex flex-col md:flex-row gap-20 items-center">
+                    <div class="w-full md:w-1/3 text-center">
+                        <div class="text-[12rem] mb-12 drop-shadow-[0_0_30px_rgba(255,179,0,0.3)]">🦎</div>
+                        <h2 class="text-4xl font-black text-white uppercase tracking-tighter leading-tight font-orbitron title-magistral text-glow-mandala">LA DECODIFICADORA MAGISTRAL</h2>
+                    </div>
+                    <div class="w-full md:w-2/3 space-y-12">
+                        <div>
+                            <h4 class="text-[#D5006C] font-black uppercase tracking-[0.4em] text-xs mb-6 italic">Superpoder</h4>
+                            <p class="text-3xl text-white font-light leading-snug italic border-l-4 border-[#D5006C] pl-8">
+                                "Visión de Rayos X Sistémica. Capacidad para mirar un negocio desordenado y ver instantáneamente los hilos de flujo que fallan bajo el caos."
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-white/10 pt-12">
+                            <div>
+                                <h4 class="text-[#FFB300] font-bold uppercase tracking-widest text-[10px] mb-4">Filosofía</h4>
+                                <p class="text-sm leading-relaxed">"El caos no es el enemigo; es información no procesada esperando a la Decodificadora."</p>
+                            </div>
+                            <div>
+                                <h4 class="text-[#FFB300] font-bold uppercase tracking-widest text-[10px] mb-4">Diferenciador</h4>
+                                <p class="text-sm leading-relaxed">Arreglamos la máquina que genera el negocio. Soberanía real vs parches temporales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ECOSISTEMA: DADO Y BLOG -->
+        <section id="ecosistema" class="py-32 bg-black/40 reveal">
+            <div class="container mx-auto px-4">
+                <h2 class="text-5xl font-black mb-24 text-center text-white uppercase italic tracking-tighter title-magistral">
+                    Ecosistema de <span class="text-[#FFB300]">Soberanía</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                    <div class="glass-card p-14 rounded-[4rem] border-l-8 border-[#D5006C] flex flex-col justify-between group overflow-hidden">
+                        <div>
+                            <div class="text-xs font-mono text-[#D5006C] mb-8 uppercase tracking-[0.6em] font-black">Laboratorio Táctico</div>
+                            <h3 class="text-5xl font-black text-white mb-8 uppercase italic font-orbitron">Dado Magistral</h3>
+                            <p class="text-[#B0BEC5] text-xl leading-relaxed mb-12 font-light">
+                                ¿Bloqueo estratégico? Lanza el dado de metodologías y rompe el sistema con una nueva perspectiva Rosa Rebelde.
+                            </p>
+                        </div>
+                        <button class="btn-magistral py-6 w-full rounded-2xl font-black uppercase tracking-widest shadow-2xl text-sm" onclick="alert('Lanzando Dado... [Simulación de Entropía]')">
+                            Lanzar Dado <i class="fas fa-dice-d20 ml-2"></i>
                         </button>
                     </div>
+
+                    <div class="glass-card p-14 rounded-[4rem] border-l-8 border-[#1A237E] flex flex-col justify-between group overflow-hidden">
+                        <div>
+                            <div class="text-xs font-mono text-[#1A237E] mb-8 uppercase tracking-[0.6em] font-black">Editorial Terminal</div>
+                            <h3 class="text-5xl font-black text-white mb-8 uppercase italic font-orbitron">Bitácora Tinta</h3>
+                            <p class="text-[#B0BEC5] text-xl leading-relaxed mb-12 font-light">
+                                Notas tácticas desde el penthouse del búnker. Teoría SRAP, IA local y tácticas del Top 1%.
+                            </p>
+                        </div>
+                        <a href="https://decodificadorachalamandramagis.blogspot.com/" target="_blank" class="border-2 border-[#1A237E] text-[#1A237E] hover:bg-[#1A237E] hover:text-white text-center py-6 w-full rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-4 text-sm">
+                            <i class="fas fa-terminal"></i> Acceder a Bitácora
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="py-32 relative">
-        <div class="container mx-auto px-4">
-            <h2 class="text-5xl font-black mb-20 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#00FFEA] to-[#39FF14] uppercase italic tracking-tighter">
-                Ecosistema de Soberanía
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                
-                <div class="glass-card p-12 rounded-[3rem] border-l-8 border-[#FF003C] flex flex-col justify-between group will-change-gpu">
-                    <div>
-                        <div class="text-xs font-mono text-[#FF003C] mb-6 uppercase tracking-[0.4em]">Laboratorio</div>
-                        <h3 class="text-4xl font-black text-white mb-6 uppercase italic">Dado de Metodologías</h3>
-                        <p class="text-gray-400 text-lg leading-relaxed mb-10">¿Bloqueo estratégico? Lanza el dado y deja que la Chalamandra dicte tu siguiente movimiento magistral.</p>
+        <!-- 3D Experience -->
+        <section id="experiencia" class="py-32 reveal">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8 text-center md:text-left">
+                    <div class="max-w-2xl">
+                        <h2 class="text-5xl font-black text-white uppercase tracking-tighter italic title-magistral">Visualización <span class="text-[#FFB300]">Nodal</span></h2>
+                        <p class="text-[#B0BEC5] mt-4 text-lg font-light italic">
+                            Observa la transición de la entropía urbana a la red nodal de la soberanía cognitiva.
+                        </p>
                     </div>
-                    <a href="./metodologias/index.html" class="btn-magistral text-center py-5 w-full rounded-2xl font-bold uppercase tracking-widest text-white">LANZAR DADO</a>
+                    <div class="text-right">
+                        <span id="demo-status" class="block text-sm font-mono font-black text-[#FF0000] uppercase tracking-widest mb-1 animate-pulse">ESTADO: CAOS URBANO</span>
+                        <span class="text-[11px] text-[#FFB300] font-mono opacity-60 uppercase">Chalamandra Neural Hub 4.5.1</span>
+                    </div>
                 </div>
 
-                <div class="glass-card p-12 rounded-[3rem] border-l-8 border-[#00FFEA] flex flex-col justify-between group">
-                    <div>
-                        <div class="text-xs font-mono text-[#00FFEA] mb-6 uppercase tracking-[0.4em]">Editorial</div>
-                        <h3 class="text-4xl font-black text-white mb-6 uppercase italic">BLOGchal Magis</h3>
-                        <p class="text-gray-400 text-lg leading-relaxed mb-10">Notas desde el penthouse. Teoría SRAP, IA local y tácticas para el Top 1% de pensadores.</p>
+                <div class="glass-card p-3 rounded-[3.5rem] overflow-hidden shadow-2xl">
+                    <div id="canvas-container">
+                        <div class="absolute bottom-10 left-10 right-10 z-20 flex flex-col md:flex-row justify-between items-center gap-8">
+                            <div class="bg-[#050505]/95 backdrop-blur-3xl p-10 rounded-[2.5rem] border border-white/10 max-w-md shadow-2xl">
+                                <h5 class="text-[#FFB300] font-black uppercase tracking-[0.3em] text-[10px] mb-4">Análisis de Búnker</h5>
+                                <p id="demo-desc" class="text-base text-[#B0BEC5] leading-relaxed font-light italic">
+                                    Infoxicación detectada. El flujo está bloqueado por el ruido. Iniciar protocolo SRAP para estabilizar la red estructural.
+                                </p>
+                            </div>
+                            
+                            <button id="toggle-demo" class="btn-magistral font-black py-7 px-20 rounded-full tracking-[0.2em] text-sm uppercase shadow-2xl active:scale-95 transition-all">
+                                TRANSFORMAR EN CLARIDAD
+                            </button>
+                        </div>
                     </div>
-                    <a href="https://decodificadorachalamandramagis.blogspot.com/" target="_blank" class="border-2 border-[#00FFEA] text-[#00FFEA] hover:bg-[#00FFEA] hover:text-black text-center py-5 w-full rounded-2xl font-bold uppercase tracking-widest transition-all">ACCEDER A BITÁCORA</a>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="py-20 border-t border-white/5 bg-black/20">
+    <footer class="py-24 border-t border-white/5 bg-black/90">
         <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-600 text-xs font-mono tracking-widest uppercase">
-                © 2026 Insightify Chalamandra • Hecho con 🔥 y 🦎 • Privacidad Zero-Egress
+            <div class="mb-10 text-5xl grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">🦎</div>
+            <p class="text-[#B0BEC5] text-[11px] font-mono tracking-[0.6em] uppercase font-black">
+                © 2026 Insightify Chalamandra • Magistral • Privacidad Zero-Egress
             </p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // UX: Barra de Progreso
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('scroll-progress').style.width = scrolled + "%";
+            });
+
+            // UX: Revelado al scroll
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                reveals.forEach(reveal => {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    if (elementTop < windowHeight - elementVisible) reveal.classList.add('active');
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+
+            // Three.js Logic
             const container = document.getElementById('canvas-container');
             const toggleBtn = document.getElementById('toggle-demo');
             const statusText = document.getElementById('demo-status');
             const descText = document.getElementById('demo-desc');
 
-            let scene, camera, renderer, chaosParticles, clarityNetwork;
+            let scene, camera, renderer, particles, networkLines;
+            let mouseX = 0, mouseY = 0;
             let isClarity = false;
+            let transitionFactor = 0;
 
-            function init() {
+            const PARTICLE_COUNT = 3000; 
+            const chaosPositions = new Float32Array(PARTICLE_COUNT * 3);
+            const clarityPositions = new Float32Array(PARTICLE_COUNT * 3);
+            const currentPositions = new Float32Array(PARTICLE_COUNT * 3);
+
+            function createNodeTexture() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 128; canvas.height = 128;
+                const ctx = canvas.getContext('2d');
+                const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+                grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                grad.addColorStop(0.3, 'rgba(255, 255, 255, 0.8)');
+                grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctx.fillStyle = grad;
+                ctx.arc(64, 64, 62, 0, Math.PI * 2);
+                ctx.fill();
+                return new THREE.CanvasTexture(canvas);
+            }
+
+            function init3D() {
                 scene = new THREE.Scene();
-                scene.fog = new THREE.FogExp2(0x050510, 0.05);
-                camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 100);
-                camera.position.z = 12;
+                camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 1, 1000);
+                camera.position.z = 50;
 
-                renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                renderer = new THREE.WebGLRenderer({ antialias: true });
                 renderer.setSize(container.clientWidth, container.clientHeight);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 container.appendChild(renderer.domElement);
 
-                createChaos();
-                createClarity();
+                // Setup Particle Data
+                for(let i=0; i < PARTICLE_COUNT; i++) {
+                    const i3 = i * 3;
+                    chaosPositions[i3] = (Math.random() - 0.5) * 120;
+                    chaosPositions[i3+1] = (Math.random() - 0.5) * 120;
+                    chaosPositions[i3+2] = (Math.random() - 0.5) * 120;
 
-                window.addEventListener('resize', onWindowResize);
-                toggleBtn.addEventListener('click', toggleMode);
-                animate();
-            }
+                    const phi = Math.acos(-1 + (2 * i) / PARTICLE_COUNT);
+                    const theta = Math.sqrt(PARTICLE_COUNT * Math.PI) * phi;
+                    const r = 24;
+                    clarityPositions[i3] = r * Math.cos(theta) * Math.sin(phi);
+                    clarityPositions[i3+1] = r * Math.sin(theta) * Math.sin(phi);
+                    clarityPositions[i3+2] = r * Math.cos(phi);
 
-            function createChaos() {
+                    currentPositions[i3] = chaosPositions[i3];
+                    currentPositions[i3+1] = chaosPositions[i3+1];
+                    currentPositions[i3+2] = chaosPositions[i3+2];
+                }
+
+                // Points Geometry
                 const geo = new THREE.BufferGeometry();
-                const count = 2500;
-                const pos = new Float32Array(count * 3);
-                for(let i=0; i<count*3; i++) pos[i] = (Math.random() - 0.5) * 35;
-                geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-                const mat = new THREE.PointsMaterial({ size: 0.1, color: 0xFF003C, transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending });
-                chaosParticles = new THREE.Points(geo, mat);
-                scene.add(chaosParticles);
-            }
+                geo.setAttribute('position', new THREE.BufferAttribute(currentPositions, 3));
+                const mat = new THREE.PointsMaterial({
+                    size: 2.2, map: createNodeTexture(), transparent: true, opacity: 1, 
+                    blending: THREE.AdditiveBlending, depthWrite: false, color: 0xFF0000 
+                });
+                particles = new THREE.Points(geo, mat);
+                scene.add(particles);
 
-            function createClarity() {
-                clarityNetwork = new THREE.Group();
-                const nodeGeo = new THREE.SphereGeometry(0.12, 12, 12);
-                const nodeMat = new THREE.MeshBasicMaterial({ color: 0x39FF14 });
-                const radius = 6;
-                const count = 50;
-                for(let i=0; i<count; i++){
-                    const mesh = new THREE.Mesh(nodeGeo, nodeMat);
-                    const phi = Math.acos(-1 + (2 * i) / count);
-                    const theta = Math.sqrt(count * Math.PI) * phi;
-                    mesh.position.setFromSphericalCoords(radius, phi, theta);
-                    clarityNetwork.add(mesh);
+                // Network Lines (NUEVA MEJORA: Conexiones Neuronales)
+                const lineIndices = [];
+                // Conectamos una fracción de las partículas para crear la "Red de Estructura"
+                for(let i=0; i<PARTICLE_COUNT; i+=25) {
+                    for(let j=0; j<6; j++) {
+                        const target = (i + Math.floor(Math.random() * 60)) % PARTICLE_COUNT;
+                        lineIndices.push(i, target);
+                    }
                 }
-                clarityNetwork.visible = false;
-                clarityNetwork.scale.set(0.1, 0.1, 0.1);
-                scene.add(clarityNetwork);
-            }
+                const lineGeo = new THREE.BufferGeometry();
+                lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(PARTICLE_COUNT * 3), 3));
+                lineGeo.setIndex(lineIndices);
+                const lineMat = new THREE.LineBasicMaterial({
+                    color: 0x00FF5E,
+                    transparent: true,
+                    opacity: 0,
+                    blending: THREE.AdditiveBlending
+                });
+                networkLines = new THREE.LineSegments(lineGeo, lineMat);
+                scene.add(networkLines);
 
-            function toggleMode() {
-                isClarity = !isClarity;
-                if(isClarity) {
-                    statusText.innerText = "SISTEMA: CLARIDAD";
-                    statusText.style.color = "#39FF14";
-                    descText.innerText = "Estructura nodal detectada. Ruido filtrado. Insight disponible.";
-                    toggleBtn.innerText = "REINICIAR ESCANEO";
-                    chaosParticles.visible = false;
-                    clarityNetwork.visible = true;
-                    let s = 0.1;
-                    const interval = setInterval(() => {
-                        s += 0.1;
-                        clarityNetwork.scale.set(s,s,s);
-                        if(s >= 1) clearInterval(interval);
-                    }, 20);
-                } else {
-                    location.reload(); // Simplificado para reinicio limpio de WebGL
-                }
-            }
+                window.addEventListener('resize', () => {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                });
 
-            function animate() {
-                requestAnimationFrame(animate);
-                if(chaosParticles.visible) {
-                    chaosParticles.rotation.y += 0.003;
-                    chaosParticles.rotation.x += 0.001;
-                }
-                if(clarityNetwork.visible) {
-                    clarityNetwork.rotation.y -= 0.002;
-                }
-                renderer.render(scene, camera);
-            }
+                container.addEventListener('mousemove', (e) => {
+                    const rect = container.getBoundingClientRect();
+                    mouseX = (e.clientX - rect.left - rect.width/2) / 70;
+                    mouseY = (e.clientY - rect.top - rect.height/2) / 70;
+                });
 
-            function onWindowResize() {
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
-            }
+                toggleBtn.addEventListener('click', () => {
+                    isClarity = !isClarity;
+                    if(isClarity) {
+                        toggleBtn.innerText = "REINICIAR ESCANEO";
+                        statusText.innerText = "ESTADO: CLARIDAD MAGISTRAL";
+                        statusText.style.color = "#00FF5E";
+                        statusText.classList.remove('animate-pulse');
+                        descText.innerHTML = "<strong class='text-white uppercase text-[10px] block mb-2'>Informe de Búnker:</strong> Red nodal estabilizada mediante Framework SRAP. Estructura de soberanía cognitiva detectada.";
+                        particles.material.color.set(0x00FF5E);
+                    } else {
+                        toggleBtn.innerText = "TRANSFORMAR EN CLARIDAD";
+                        statusText.innerText = "ESTADO: CAOS URBANO";
+                        statusText.style.color = "#FF0000";
+                        statusText.classList.add('animate-pulse');
+                        descText.innerText = "Infoxicación detectada. El flujo cognitivo está bloqueado por el ruido urbano. Iniciar protocolo.";
+                        particles.material.color.set(0xFF0000);
+                    }
+                });
 
-            init();
+                const anim = () => {
+                    requestAnimationFrame(anim);
+                    const target = isClarity ? 1 : 0;
+                    transitionFactor += (target - transitionFactor) * 0.05;
+                    
+                    const pos = particles.geometry.attributes.position.array;
+                    const linePos = networkLines.geometry.attributes.position.array;
+                    
+                    for(let i=0; i<PARTICLE_COUNT; i++) {
+                        const i3 = i*3;
+                        const lerpVal = 0.08;
+                        const tx = (chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor);
+                        const ty = (chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor);
+                        const tz = (chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor);
+                        
+                        pos[i3] += (tx - pos[i3]) * lerpVal;
+                        pos[i3+1] += (ty - pos[i3+1]) * lerpVal;
+                        pos[i3+2] += (tz - pos[i3+2]) * lerpVal;
+                        
+                        // Sincronizamos las líneas con las partículas
+                        linePos[i3] = pos[i3];
+                        linePos[i3+1] = pos[i3+1];
+                        linePos[i3+2] = pos[i3+2];
+                    }
+                    
+                    particles.geometry.attributes.position.needsUpdate = true;
+                    networkLines.geometry.attributes.position.needsUpdate = true;
+                    
+                    // La red solo aparece en modo claridad
+                    networkLines.material.opacity = transitionFactor * 0.35;
+                    
+                    particles.rotation.y += 0.0025;
+                    networkLines.rotation.y += 0.0025;
+                    
+                    camera.position.x += (mouseX - camera.position.x) * 0.05;
+                    camera.position.y += (-mouseY - camera.position.y) * 0.05;
+                    camera.lookAt(scene.position);
+                    renderer.render(scene, camera);
+                };
+                anim();
+            }
+            init3D();
         });
     </script>
 </body>

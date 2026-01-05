@@ -149,10 +149,10 @@
                 <span class="text-xl md:text-2xl font-bold text-white tracking-widest font-orbitron uppercase">CHALAMANDRA MAGISTRAL</span>
             </a>
             <div class="hidden md:flex space-x-8 font-bold text-[10px] tracking-[0.3em] text-[#B0BEC5]">
+                <a href="#experiencia" class="hover:text-[#FFB300] transition-colors uppercase">Búnker 3D</a>
                 <a href="#srap" class="hover:text-[#FFB300] transition-colors uppercase">Protocolo SRAP</a>
                 <a href="#arquetipo" class="hover:text-[#FFB300] transition-colors uppercase">La Decodificadora</a>
                 <a href="#ecosistema" class="hover:text-[#FFB300] transition-colors uppercase">Ecosistema</a>
-                <a href="#experiencia" class="hover:text-[#FFB300] transition-colors uppercase">Búnker 3D</a>
             </div>
             <a href="#experiencia" class="btn-magistral font-black rounded-lg text-[10px] px-6 py-2.5 text-center tracking-tighter uppercase">
                 INICIAR PROYECCIÓN
@@ -188,6 +188,41 @@
                 </div>
             </div>
         </header>
+
+        <!-- 3D Experience (Movida debajo del botón de inicio) -->
+        <section id="experiencia" class="py-32 reveal">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8 text-center md:text-left">
+                    <div class="max-w-2xl">
+                        <h2 class="text-5xl font-black text-white uppercase tracking-tighter italic title-magistral">Visualización <span class="text-[#FFB300]">Nodal</span></h2>
+                        <p class="text-[#B0BEC5] mt-4 text-lg font-light italic">
+                            Observa la transición de la entropía urbana a la red nodal de la soberanía cognitiva.
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <span id="demo-status" class="block text-sm font-mono font-black text-[#FF0000] uppercase tracking-widest mb-1 animate-pulse">ESTADO: CAOS URBANO</span>
+                        <span class="text-[11px] text-[#FFB300] font-mono opacity-60 uppercase">Chalamandra Neural Hub 4.5.1</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-3 rounded-[3.5rem] overflow-hidden shadow-2xl">
+                    <div id="canvas-container">
+                        <div class="absolute bottom-10 left-10 right-10 z-20 flex flex-col md:flex-row justify-between items-center gap-8">
+                            <div class="bg-[#050505]/95 backdrop-blur-3xl p-10 rounded-[2.5rem] border border-white/10 max-w-md shadow-2xl">
+                                <h5 class="text-[#FFB300] font-black uppercase tracking-[0.3em] text-[10px] mb-4">Análisis de Búnker</h5>
+                                <p id="demo-desc" class="text-base text-[#B0BEC5] leading-relaxed font-light italic">
+                                    Infoxicación detectada. El flujo está bloqueado por el ruido. Iniciar protocolo SRAP para estabilizar la red estructural.
+                                </p>
+                            </div>
+                            
+                            <button id="toggle-demo" class="btn-magistral font-black py-7 px-20 rounded-full tracking-[0.2em] text-sm uppercase shadow-2xl active:scale-95 transition-all">
+                                TRANSFORMAR EN CLARIDAD
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- SRAP Section -->
         <section id="srap" class="py-32 bg-black/60 relative reveal">
@@ -307,41 +342,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- 3D Experience -->
-        <section id="experiencia" class="py-32 reveal">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8 text-center md:text-left">
-                    <div class="max-w-2xl">
-                        <h2 class="text-5xl font-black text-white uppercase tracking-tighter italic title-magistral">Visualización <span class="text-[#FFB300]">Nodal</span></h2>
-                        <p class="text-[#B0BEC5] mt-4 text-lg font-light italic">
-                            Observa la transición de la entropía urbana a la red nodal de la soberanía cognitiva.
-                        </p>
-                    </div>
-                    <div class="text-right">
-                        <span id="demo-status" class="block text-sm font-mono font-black text-[#FF0000] uppercase tracking-widest mb-1 animate-pulse">ESTADO: CAOS URBANO</span>
-                        <span class="text-[11px] text-[#FFB300] font-mono opacity-60 uppercase">Chalamandra Neural Hub 4.5.1</span>
-                    </div>
-                </div>
-
-                <div class="glass-card p-3 rounded-[3.5rem] overflow-hidden shadow-2xl">
-                    <div id="canvas-container">
-                        <div class="absolute bottom-10 left-10 right-10 z-20 flex flex-col md:flex-row justify-between items-center gap-8">
-                            <div class="bg-[#050505]/95 backdrop-blur-3xl p-10 rounded-[2.5rem] border border-white/10 max-w-md shadow-2xl">
-                                <h5 class="text-[#FFB300] font-black uppercase tracking-[0.3em] text-[10px] mb-4">Análisis de Búnker</h5>
-                                <p id="demo-desc" class="text-base text-[#B0BEC5] leading-relaxed font-light italic">
-                                    Infoxicación detectada. El flujo está bloqueado por el ruido. Iniciar protocolo SRAP para estabilizar la red estructural.
-                                </p>
-                            </div>
-                            
-                            <button id="toggle-demo" class="btn-magistral font-black py-7 px-20 rounded-full tracking-[0.2em] text-sm uppercase shadow-2xl active:scale-95 transition-all">
-                                TRANSFORMAR EN CLARIDAD
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer class="py-24 border-t border-white/5 bg-black/90">
@@ -445,9 +445,8 @@
                 particles = new THREE.Points(geo, mat);
                 scene.add(particles);
 
-                // Network Lines (NUEVA MEJORA: Conexiones Neuronales)
+                // Conexiones Neuronales
                 const lineIndices = [];
-                // Conectamos una fracción de las partículas para crear la "Red de Estructura"
                 for(let i=0; i<PARTICLE_COUNT; i+=25) {
                     for(let j=0; j<6; j++) {
                         const target = (i + Math.floor(Math.random() * 60)) % PARTICLE_COUNT;
@@ -516,7 +515,6 @@
                         pos[i3+1] += (ty - pos[i3+1]) * lerpVal;
                         pos[i3+2] += (tz - pos[i3+2]) * lerpVal;
                         
-                        // Sincronizamos las líneas con las partículas
                         linePos[i3] = pos[i3];
                         linePos[i3+1] = pos[i3+1];
                         linePos[i3+2] = pos[i3+2];
@@ -525,7 +523,6 @@
                     particles.geometry.attributes.position.needsUpdate = true;
                     networkLines.geometry.attributes.position.needsUpdate = true;
                     
-                    // La red solo aparece en modo claridad
                     networkLines.material.opacity = transitionFactor * 0.35;
                     
                     particles.rotation.y += 0.0025;

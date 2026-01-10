@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <meta name="description" content="Oráculo Chalamandra: Una herramienta interactiva para decodificar decisiones complejas usando marcos de pensamiento como 6 Sombreros, 5 Porqués y más.">
     <title>Oráculo Chalamandra - Decodifica tu decisión</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>">
@@ -101,5 +102,465 @@
 
     <script src="./assets/js/data.min.js"></script>
     <script src="./assets/js/main.min.js"></script>
+=======
+    <title>Insightify Chalamandra | Transformando Caos en Claridad Magistral</title>
+    
+    <meta name="description" content="Decodificación Magistral. Implementamos el Framework SRAP para transformar el caos en soberanía cognitiva. IA Local para mentes del Top 1%.">
+    <meta name="keywords" content="Decodificación Magistral, Framework SRAP, Soberanía Cognitiva, IA Local, Consultoría Estratégica, Chalamandra">
+    <meta name="author" content="Insightify Chalamandra">
+    
+    <meta property="og:title" content="Insightify Chalamandra | Magistral Pro">
+    <meta property="og:description" content="Transformando el Caos en Claridad Magistral. La metodología SRAP para la soberanía mental.">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --chala-mandala: #FFB300;
+            --chala-rosa:    #D5006C;
+            --chala-verde:   #00FF5E;
+            --chala-tinta:   #050505;
+            --chala-rojo:    #FF0000;
+            --chala-azul:    #1A237E;
+            --chala-gris:    #B0BEC5;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--chala-tinta);
+            color: var(--chala-gris);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .font-orbitron { font-family: 'Orbitron', sans-serif; }
+
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(to right, var(--chala-mandala), var(--chala-rosa));
+            z-index: 1000;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 179, 0, 0.08), transparent);
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            pointer-events: none;
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        .text-glow-mandala { text-shadow: 0 0 20px var(--chala-mandala); }
+        .text-glow-verde { text-shadow: 0 0 20px var(--chala-verde); }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(5, 5, 5, 0.95) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 179, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-magistral {
+            background: linear-gradient(90deg, var(--chala-rosa), var(--chala-rojo));
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(213, 0, 108, 0.3);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-magistral:hover {
+            box-shadow: 0 0 30px var(--chala-rosa);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 75vh;
+            min-height: 400px;
+            max-height: 800px;
+            overflow: hidden;
+            border-radius: 2.5rem;
+            background: #000;
+            border: 2px solid rgba(255, 179, 0, 0.15);
+        }
+
+        .arquetipo-border {
+            border: 1px solid transparent;
+            background: linear-gradient(var(--chala-tinta), var(--chala-tinta)) padding-box,
+                        linear-gradient(45deg, var(--chala-rosa), var(--chala-mandala)) border-box;
+        }
+
+        .bg-urban {
+            background-image: radial-gradient(circle at 2px 2px, rgba(176, 190, 197, 0.05) 1px, transparent 0);
+            background-size: 50px 50px;
+        }
+
+        .title-magistral {
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            font-weight: 900;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban">
+    <div id="scroll-progress"></div>
+    <div class="scanline"></div>
+
+    <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-[#1A237E]/95 backdrop-blur-xl">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4 md:px-8">
+            <a href="#" class="flex items-center space-x-3 group">
+                <span class="text-3xl">🦎</span>
+                <span class="text-xl md:text-2xl font-bold text-white tracking-widest font-orbitron uppercase">CHALAMANDRA MAGISTRAL</span>
+            </a>
+            <div class="hidden md:flex space-x-8 font-bold text-[10px] tracking-[0.3em] text-[#B0BEC5]">
+                <a href="#experiencia" class="hover:text-[#FFB300] transition-colors uppercase">Búnker 3D</a>
+                <a href="#srap" class="hover:text-[#FFB300] transition-colors uppercase">Protocolo SRAP</a>
+                <a href="#arquetipo" class="hover:text-[#FFB300] transition-colors uppercase">La Decodificadora</a>
+                <a href="#ecosistema" class="hover:text-[#FFB300] transition-colors uppercase">Ecosistema</a>
+            </div>
+            <a href="#experiencia" class="btn-magistral font-black rounded-lg text-[10px] px-6 py-2.5 text-center tracking-tighter uppercase">
+                INICIAR PROYECCIÓN
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <header class="relative min-h-screen flex items-center justify-center pt-24 px-4 overflow-hidden">
+            <div class="container mx-auto text-center z-10">
+                <div class="inline-block mb-8 px-6 py-2 rounded-full border border-[#FFB300]/30 bg-[#FFB300]/10 text-[#FFB300] text-[11px] font-black tracking-[0.5em] uppercase">
+                    Protocolo de Decodificación Magistral • v4.5.1
+                </div>
+                
+                <h1 class="text-6xl md:text-[8rem] font-black mb-10 leading-none tracking-tighter title-magistral">
+                    <span class="block text-white mb-2 font-light tracking-widest text-lg md:text-2xl opacity-60">TRANSFORMANDO EL</span>
+                    <span class="block text-[#FF0000] italic leading-tight">CAOS</span>
+                    <span class="block text-white text-xs md:text-base my-4 font-light tracking-[1.5em] opacity-30 italic">EN</span>
+                    <span class="block text-[#00FF5E] text-glow-verde leading-tight">CLARIDAD</span>
+                    <span class="block text-white mt-4 font-bold tracking-tighter text-3xl md:text-5xl opacity-90">MAGISTRAL</span>
+                </h1>
+                
+                <p class="text-base md:text-xl text-[#B0BEC5] mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+                    Bienvenido al búnker de la <span class="text-white font-bold">Soberanía Cognitiva</span>. 
+                    Implementamos el framework <span class="text-[#FFB300] font-bold italic">SRAP</span> para decodificar sistemas saturados y restaurar el flujo de la verdad estratégica.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="#experiencia" class="bg-[#FFB300] text-black font-black py-4 px-12 rounded-full uppercase tracking-widest text-xs hover:bg-white transition-all shadow-xl">
+                        Ver Proyección 3D
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <section id="experiencia" class="py-32 reveal">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8 text-center md:text-left">
+                    <div class="max-w-2xl">
+                        <h2 class="text-5xl font-black text-white uppercase tracking-tighter italic title-magistral">Visualización <span class="text-[#FFB300]">Nodal</span></h2>
+                        <p class="text-[#B0BEC5] mt-4 text-lg font-light italic">
+                            Observa la transición de la entropía urbana a la red nodal de la soberanía cognitiva.
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <span id="demo-status" class="block text-sm font-mono font-black text-[#FF0000] uppercase tracking-widest mb-1 animate-pulse">ESTADO: CAOS URBANO</span>
+                        <span class="text-[11px] text-[#FFB300] font-mono opacity-60 uppercase">Chalamandra Neural Hub 4.5.1</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-3 rounded-[3.5rem] overflow-hidden shadow-2xl">
+                    <div id="canvas-container">
+                        <div class="absolute bottom-10 left-10 right-10 z-20 flex flex-col md:flex-row justify-between items-center gap-8">
+                            <div class="bg-[#050505]/95 backdrop-blur-3xl p-10 rounded-[2.5rem] border border-white/10 max-w-md shadow-2xl">
+                                <h5 class="text-[#FFB300] font-black uppercase tracking-[0.3em] text-[10px] mb-4">Análisis de Búnker</h5>
+                                <p id="demo-desc" class="text-base text-[#B0BEC5] leading-relaxed font-light italic">
+                                    Infoxicación detectada. El flujo está bloqueado por el ruido. Iniciar protocolo SRAP para estabilizar la red estructural.
+                                </p>
+                            </div>
+                            <button id="toggle-demo" class="btn-magistral font-black py-7 px-20 rounded-full tracking-[0.2em] text-sm uppercase shadow-2xl active:scale-95 transition-all">
+                                TRANSFORMAR EN CLARIDAD
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="srap" class="py-32 bg-black/60 relative reveal">
+            <div class="container mx-auto px-4">
+                <div class="mb-24 text-center">
+                    <h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase italic title-magistral">
+                        Framework <span class="text-[#FFB300]">S.R.A.P.</span> ©
+                    </h2>
+                    <p class="text-[#B0BEC5] mt-6 max-w-2xl mx-auto border-t border-[#FFB300]/30 pt-8 text-lg font-light italic">
+                        Protocolo magistral de ingeniería inversa para sistemas de alta incertidumbre.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <article class="glass-card p-10 rounded-[2.5rem] border-t-4 border-[#FFB300]">
+                        <div class="text-6xl font-black text-[#FFB300] mb-8 font-orbitron">S</div>
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-tighter">SCAN</h3>
+                        <p class="text-sm leading-relaxed text-[#B0BEC5]">Lectura profunda de mercado y entorno emocional. ¿Qué es ruido y qué es señal?</p>
+                    </article>
+                    <article class="glass-card p-10 rounded-[2.5rem] border-t-4 border-[#D5006C]">
+                        <div class="text-6xl font-black text-[#D5006C] mb-8 font-orbitron">R</div>
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-tighter">RITMO</h3>
+                        <p class="text-sm leading-relaxed text-[#B0BEC5]">Sincronización con la velocidad real. Frenar para acelerar con solidez.</p>
+                    </article>
+                    <article class="glass-card p-10 rounded-[2.5rem] border-t-4 border-[#00FF5E]">
+                        <div class="text-6xl font-black text-[#00FF5E] mb-8 font-orbitron">A</div>
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-tighter">ANÁLISIS</h3>
+                        <p class="text-sm leading-relaxed text-[#B0BEC5]">Decodificación de la matriz e identificación de la causa raíz invisible.</p>
+                    </article>
+                    <article class="glass-card p-10 rounded-[2.5rem] border-t-4 border-[#1A237E]">
+                        <div class="text-6xl font-black text-[#1A237E] mb-8 font-orbitron">P</div>
+                        <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-tighter">PRESENCIA</h3>
+                        <p class="text-sm leading-relaxed text-[#B0BEC5]">Ejecución quirúrgica. Impacto total con la mínima fuerza necesaria.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="arquetipo" class="py-32 relative reveal">
+            <div class="container mx-auto px-4">
+                <div class="arquetipo-border p-12 md:p-24 rounded-[5rem] max-w-6xl mx-auto flex flex-col md:flex-row gap-20 items-center">
+                    <div class="w-full md:w-1/3 text-center">
+                        <div class="text-[12rem] mb-12 drop-shadow-[0_0_30px_rgba(255,179,0,0.3)]">🦎</div>
+                        <h2 class="text-4xl font-black text-white uppercase tracking-tighter leading-tight font-orbitron title-magistral text-glow-mandala">LA DECODIFICADORA MAGISTRAL</h2>
+                    </div>
+                    <div class="w-full md:w-2/3 space-y-12">
+                        <p class="text-3xl text-white font-light leading-snug italic border-l-4 border-[#D5006C] pl-8">
+                            "Visión de Rayos X Sistémica. Capacidad para mirar un negocio desordenado y ver instantáneamente los hilos de flujo que fallan bajo el caos."
+                        </p>
+                        <a href="documentos/archetype.md" target="_blank" class="btn-magistral font-black rounded-lg text-[10px] px-8 py-4 text-center tracking-widest uppercase inline-block mt-4">
+                            VER ARQUETIPO COMPLETO
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecosistema" class="py-32 bg-black/40 reveal">
+            <div class="container mx-auto px-4">
+                <h2 class="text-5xl font-black mb-24 text-center text-white uppercase italic tracking-tighter title-magistral">
+                    Ecosistema de <span class="text-[#FFB300]">Soberanía</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                    <div class="glass-card p-14 rounded-[4rem] border-l-8 border-[#D5006C] flex flex-col justify-between group">
+                        <div>
+                            <div class="text-xs font-mono text-[#D5006C] mb-8 uppercase tracking-[0.6em] font-black">Laboratorio Táctico</div>
+                            <h3 class="text-5xl font-black text-white mb-8 uppercase italic font-orbitron">Dado Magistral</h3>
+                            <p class="text-[#B0BEC5] text-xl leading-relaxed mb-12 font-light">Accede al Arcade SRAP ULTRA y rompe el sistema con una nueva perspectiva Rosa Rebelde.</p>
+                        </div>
+                        <a href="metodologias.html" class="btn-magistral py-6 w-full rounded-2xl font-black uppercase tracking-widest shadow-2xl text-sm">
+                            Lanzar Dado <i class="fas fa-dice-d20 ml-2"></i>
+                        </a>
+                    </div>
+
+                    <div class="glass-card p-14 rounded-[4rem] border-l-8 border-[#1A237E] flex flex-col justify-between group">
+                        <div>
+                            <div class="text-xs font-mono text-[#1A237E] mb-8 uppercase tracking-[0.6em] font-black">Editorial Terminal</div>
+                            <h3 class="text-5xl font-black text-white mb-8 uppercase italic font-orbitron">Bitácora Tinta</h3>
+                            <p class="text-[#B0BEC5] text-xl leading-relaxed mb-12 font-light">Notas tácticas desde el penthouse del búnker. Teoría SRAP e IA local.</p>
+                        </div>
+                        <a href="https://decodificadorachalamandramagis.blogspot.com/" target="_blank" class="border-2 border-[#1A237E] text-[#1A237E] hover:bg-[#1A237E] hover:text-white text-center py-6 w-full rounded-2xl font-black uppercase tracking-widest transition-all flex items-center justify-center gap-4 text-sm">
+                            <i class="fas fa-terminal"></i> Acceder a Bitácora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-24 border-t border-white/5 bg-black/90 text-center">
+        <div class="mb-10 text-5xl grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">🦎</div>
+        <p class="text-[#B0BEC5] text-[11px] font-mono tracking-[0.6em] uppercase font-black">
+            © 2026 Insightify Chalamandra • Magistral • Privacidad Zero-Egress
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Barra de Progreso
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('scroll-progress').style.width = scrolled + "%";
+            });
+
+            // Animaciones de Revelado
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                reveals.forEach(reveal => {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+
+            // Three.js Core
+            const container = document.getElementById('canvas-container');
+            const toggleBtn = document.getElementById('toggle-demo');
+            const statusText = document.getElementById('demo-status');
+            const descText = document.getElementById('demo-desc');
+
+            let scene, camera, renderer, particles, networkLines;
+            let mouseX = 0, mouseY = 0;
+            let isClarity = false;
+            let transitionFactor = 0;
+
+            const PARTICLE_COUNT = 3000; 
+            const chaosPositions = new Float32Array(PARTICLE_COUNT * 3);
+            const clarityPositions = new Float32Array(PARTICLE_COUNT * 3);
+            const currentPositions = new Float32Array(PARTICLE_COUNT * 3);
+
+            function createNodeTexture() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 128; canvas.height = 128;
+                const ctx = canvas.getContext('2d');
+                const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+                grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                grad.addColorStop(0.3, 'rgba(255, 255, 255, 0.8)');
+                grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctx.fillStyle = grad;
+                ctx.arc(64, 64, 62, 0, Math.PI * 2); ctx.fill();
+                return new THREE.CanvasTexture(canvas);
+            }
+
+            function init3D() {
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 1, 1000);
+                camera.position.z = 50;
+
+                renderer = new THREE.WebGLRenderer({ antialias: true });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                container.appendChild(renderer.domElement);
+
+                for(let i=0; i < PARTICLE_COUNT; i++) {
+                    const i3 = i * 3;
+                    chaosPositions[i3] = (Math.random() - 0.5) * 120;
+                    chaosPositions[i3+1] = (Math.random() - 0.5) * 120;
+                    chaosPositions[i3+2] = (Math.random() - 0.5) * 120;
+
+                    const phi = Math.acos(-1 + (2 * i) / PARTICLE_COUNT);
+                    const theta = Math.sqrt(PARTICLE_COUNT * Math.PI) * phi;
+                    const r = 24;
+                    clarityPositions[i3] = r * Math.cos(theta) * Math.sin(phi);
+                    clarityPositions[i3+1] = r * Math.sin(theta) * Math.sin(phi);
+                    clarityPositions[i3+2] = r * Math.cos(phi);
+
+                    currentPositions[i3] = chaosPositions[i3];
+                    currentPositions[i3+1] = chaosPositions[i3+1];
+                    currentPositions[i3+2] = chaosPositions[i3+2];
+                }
+
+                const geo = new THREE.BufferGeometry();
+                geo.setAttribute('position', new THREE.BufferAttribute(currentPositions, 3));
+                particles = new THREE.Points(geo, new THREE.PointsMaterial({
+                    size: 2.2, map: createNodeTexture(), transparent: true, opacity: 1, 
+                    blending: THREE.AdditiveBlending, depthWrite: false, color: 0xFF0000 
+                }));
+                scene.add(particles);
+
+                const lineIndices = [];
+                for(let i=0; i<PARTICLE_COUNT; i+=25) {
+                    for(let j=0; j<6; j++) lineIndices.push(i, (i + Math.floor(Math.random() * 60)) % PARTICLE_COUNT);
+                }
+                const lineGeo = new THREE.BufferGeometry();
+                lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(PARTICLE_COUNT * 3), 3));
+                lineGeo.setIndex(lineIndices);
+                networkLines = new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({
+                    color: 0x00FF5E, transparent: true, opacity: 0, blending: THREE.AdditiveBlending
+                }));
+                scene.add(networkLines);
+
+                container.addEventListener('mousemove', (e) => {
+                    const rect = container.getBoundingClientRect();
+                    mouseX = (e.clientX - rect.left - rect.width/2) / 70;
+                    mouseY = (e.clientY - rect.top - rect.height/2) / 70;
+                });
+
+                toggleBtn.addEventListener('click', () => {
+                    isClarity = !isClarity;
+                    if(isClarity) {
+                        toggleBtn.innerText = "REINICIAR ESCANEO";
+                        statusText.innerText = "ESTADO: CLARIDAD MAGISTRAL";
+                        statusText.style.color = "#00FF5E";
+                        descText.innerHTML = "Red nodal estabilizada. Estructura detectada.";
+                        particles.material.color.set(0x00FF5E);
+                    } else {
+                        toggleBtn.innerText = "TRANSFORMAR EN CLARIDAD";
+                        statusText.innerText = "ESTADO: CAOS URBANO";
+                        statusText.style.color = "#FF0000";
+                        descText.innerText = "Infoxicación detectada. Flujo bloqueado.";
+                        particles.material.color.set(0xFF0000);
+                    }
+                });
+
+                const anim = () => {
+                    requestAnimationFrame(anim);
+                    const target = isClarity ? 1 : 0;
+                    transitionFactor += (target - transitionFactor) * 0.05;
+                    const pos = particles.geometry.attributes.position.array;
+                    const lp = networkLines.geometry.attributes.position.array;
+                    for(let i=0; i<PARTICLE_COUNT; i++) {
+                        const i3 = i*3;
+                        pos[i3] += ((chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor) - pos[i3]) * 0.08;
+                        pos[i3+1] += ((chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor) - pos[i3+1]) * 0.08;
+                        pos[i3+2] += ((chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor) - pos[i3+2]) * 0.08;
+                        lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+                    }
+                    particles.geometry.attributes.position.needsUpdate = true;
+                    networkLines.geometry.attributes.position.needsUpdate = true;
+                    networkLines.material.opacity = transitionFactor * 0.35;
+                    particles.rotation.y += 0.0025; networkLines.rotation.y += 0.0025;
+                    camera.position.x += (mouseX - camera.position.x) * 0.05;
+                    camera.position.y += (-mouseY - camera.position.y) * 0.05;
+                    camera.lookAt(scene.position);
+                    renderer.render(scene, camera);
+                };
+                anim();
+            }
+            init3D();
+        });
+    </script>
+>>>>>>> 2e92c0a9926c7e976c48f8c2e044d19dbbabaf84
 </body>
 </html>

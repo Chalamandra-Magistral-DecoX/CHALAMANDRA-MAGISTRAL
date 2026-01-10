@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Oráculo Chalamandra (Demo): Prueba esta herramienta interactiva para decodificar decisiones.">
+    <title>Oráculo Chalamandra - DEMO</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>">
+    <link rel="stylesheet" href="./assets/css/style.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Oráculo Chalamandra [DEMO]</h1>
+            <p class="subtitle">Del caos al código: decodifica tu decisión</p>
+        </header>
+
+        <section class="card">
+            <h2>Elige tu método y contexto</h2>
+            <form id="oracle-form">
+                <div class="form-group">
+                    <label for="method">Método de pensamiento:</label>
+                    <select id="method" required>
+                        <option value="">Selecciona un método</option>
+                        <option value="6 Sombreros">6 Sombreros (De Bono)</option>
+                        <option value="5 Porqués">5 Porqués</option>
+                        <option value="Disney">Disney (Soñador/Realista/Crítico)</option>
+                        <option value="Paul-Elder">Paul-Elder (pensamiento crítico)</option>
+                        <option value="Covey">Covey (Urgente/Importante)</option>
+                        <option value="OODA">OODA (Observe-Orient-Decide-Act)</option>
+                        <option value="Árbol de decisiones">Árbol de decisiones</option>
+                        <option value="Cynefin">Cynefin (simple/complicado/complex/caótico)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="context">Contexto de aplicación:</label>
+                    <select id="context" required>
+                        <option value="">Selecciona un contexto</option>
+                        <option value="Decisión laboral">Decisión laboral</option>
+                        <option value="Relación de pareja">Relación de pareja</option>
+                        <option value="Parentalidad">Parentalidad</option>
+                        <option value="Ciberseguridad">Ciberseguridad (incidente o riesgo)</option>
+                        <option value="Cliente freelancer">Cliente freelancer</option>
+                        <option value="Autocuidado/bienestar">Autocuidado/bienestar</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="situation">Describe tu situación en 1-2 líneas:</label>
+                    <textarea id="situation" placeholder="Ejemplo: Estoy considerando cambiar de trabajo pero tengo miedo al cambio..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Generar preguntas personalizadas</button>
+            </form>
+        </section>
+
+        <section class="card hidden" id="result-section">
+            <h2>Tus preguntas personalizadas</h2>
+            <div id="questions-output"></div>
+
+            <div class="ritual-section">
+                <h3>Mini-ritual SRAP (Sincronización Ritmo-Acción Presente)</h3>
+                <ol>
+                    <li><strong>Pausa:</strong> Respira 4-6-4 (inhalar 4s, sostener 6s, exhalar 4s)</li>
+                    <li><strong>Ritmo:</strong> Escanea tu cuerpo y nota dónde sientes tensión o calma</li>
+                    <li><strong>Acción:</strong> Responde la primera pregunta que más resuene</li>
+                    <li><strong>Presente:</strong> Anota una micro-acción para las próximas 72h</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- CTA Section is hidden/removed or modified for Demo if needed, but keeping it same for now as 'reusing code' -->
+        <section class="cta-section hidden" id="cta-section">
+            <h3 class="cta-title">¿Quieres guardar este resultado y recibir más herramientas?</h3>
+            <div class="cta-buttons">
+                <button class="btn btn-secondary" id="email-cta">Enviar resultado a tu email</button>
+                <button class="btn btn-secondary" id="subscribe-cta">Suscríbete a Códigos Chalamandra</button>
+            </div>
+
+            <div class="glass-container">
+                <a href="https://ko-fi.com" target="_blank" class="glass-button">
+                    <span class="icon">⚡</span>
+                    <span class="text">Apoyar Proyecto</span>
+                </a>
+            </div>
+
+            <form class="hidden" id="email-form">
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <input type="email" id="user-email" placeholder="Tu email" required>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </section>
+
+        <footer>
+            <p>© 2023 Chalamandra Magistral | Storytelling + frameworks para decidir mejor</p>
+            <p><a href="#" style="color: #666;">Política de privacidad</a></p>
+        </footer>
+    </div>
+
+    <script src="./assets/js/data.min.js"></script>
+    <script src="./assets/js/main.min.js"></script>
+</body>
+</html>

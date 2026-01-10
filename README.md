@@ -1,50 +1,45 @@
 # Insightify Chalamandra | Magistral Pro
 
-**Bunker of Cognitive Sovereignty**
+**Identidad: Búnker de Soberanía Cognitiva**
 
-Insightify Chalamandra implements the proprietary **SRAP** methodology (Scan, Rhythm, Analysis, Presence) to transform chaos into clarity. This project utilizes a **Local First** hybrid architecture, integrating local processing with the Google Gemini API to provide strategic decoding for the top 1% of minds.
+Insightify Chalamandra no es solo un proyecto de código; es una manifestación digital de la metodología **SRAP** (Scan, Ritmo, Análisis, Presencia). Este repositorio actúa como el sistema nervioso central para la decodificación estratégica, diseñado para transformar el caos en claridad absoluta para mentes del top 1%.
 
-## Project Architecture
+Nuestra misión es implementar una arquitectura de "IA Local First" que respete la privacidad absoluta (Zero-Egress) mientras potencia la capacidad humana para ver los hilos invisibles que mueven los mercados y las emociones.
 
-The current architecture is a lightweight, frontend-focused stack that relies on CDNs for dependencies, ensuring a flat and simple structure.
+## Arquitectura de Identidad
+
+El siguiente diagrama ilustra el flujo de energía y navegación dentro del ecosistema digital de Chalamandra:
 
 ```mermaid
 graph TD
-    User[Usuario] --> Index[index.html]
-    User --> Metodos[metodologias.html]
-    Index --> Tailwind[CDN: Tailwind CSS]
-    Index --> Three[CDN: Three.js]
-    Index --> Fonts[CDN: Google Fonts]
-    Metodos --> Tailwind
-    Metodos --> Fonts
-    Index -->|Link| Metodos
-    Metodos -->|Link| Index
-    subgraph "Frontend Architecture"
-        Index
-        Metodos
+    Main[Insightify Chalamandra: Index 3D] --> Dice[Dado de Metodologías: metodologias.html]
+    Main --> Identity[Identidad: documentos/archetype.md]
+    Main --> Blog[Bitácora Tinta: Blogspot]
+
+    subgraph "Soberanía Cognitiva"
+    Identity
+    Dice
     end
-    subgraph "External Resources"
-        Tailwind
-        Three
-        Fonts
-    end
+
+    style Main fill:#FFB300,stroke:#000,stroke-width:4px
+    style Identity fill:#D5006C,color:#fff
+    style Dice fill:#00FF5E,stroke:#333
 ```
 
-## Key Components
+## Componentes del Ecosistema
 
-*   **index.html**: The main entry point, featuring the 3D "Neural Hub" visualization and the SRAP framework presentation.
-*   **metodologias.html**: A dedicated page for the "Dado Metodológico" and other interactive conceptual experiments.
-*   **docs/**: Contains project documentation and brand identity guidelines.
+*   **Index 3D (El Búnker)**: El punto de entrada visual. Una experiencia inmersiva que demuestra la transición del caos urbano a la estructura nodal organizada.
+*   **Dado de Metodologías**: Un laboratorio táctico interactivo (`metodologias.html`) donde el azar y la intuición se encuentran con herramientas de introspección profunda.
+*   **Identidad y Arquetipo**: Documentación viva (`documentos/archetype.md`) que define los principios inquebrantables de nuestra marca y filosofía.
+*   **Bitácora Tinta**: La voz editorial que conecta la teoría con la práctica en el mundo real.
 
-## Methodologies
+## Filosofía SRAP
 
-The core of the Insightify Chalamandra experience is the **SRAP Framework**:
-
-1.  **Scan**: Deep reading of the market and emotional environment.
-2.  **Ritmo (Rhythm)**: Synchronization with real speed.
-3.  **Análisis (Analysis)**: Decoding the matrix.
-4.  **Presencia (Presence)**: Surgical execution.
+1.  **S - Scan**: Escaneo profundo del entorno.
+2.  **R - Ritmo**: Sincronización estratégica.
+3.  **A - Análisis**: Decodificación de la raíz.
+4.  **P - Presencia**: Impacto y ejecución.
 
 ---
 
-*© 2026 Insightify Chalamandra. All rights reserved.*
+*© 2026 Insightify Chalamandra. Magistral Pro.*

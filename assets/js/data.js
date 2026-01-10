@@ -1,0 +1,145 @@
+// CONSTANTES Y CONFIGURACIÓN
+const HAT_COLORS = {
+    "Blanco": "#FFFFFF",
+    "Rojo": "#FF0000",
+    "Negro": "#000000",
+    "Amarillo": "#FFFF00",
+    "Verde": "#00FF00",
+    "Azul": "#0000FF"
+};
+
+const QUESTION_BANK = {
+    "6 Sombreros": {
+        "Blanco": [
+            "¿Qué hechos verificables tengo sobre [contexto] sin adjetivos?",
+            "¿Qué información falta medir o validar?",
+            "¿Qué datos objetivos respaldan o contradicen mi percepción?"
+        ],
+        "Rojo": [
+            "¿Qué siento ahora mismo sobre [contexto]?",
+            "¿Qué emoción podría estar protegiéndome o bloqueándome?",
+            "Si mi intuición tuviera voz, ¿qué me diría?"
+        ],
+        "Negro": [
+            "¿Cuál es la peor consecuencia plausible y qué probabilidad tiene?",
+            "¿Qué señal roja podría estar ignorando?",
+            "¿Qué obstáculo es más probable que ocurra?"
+        ],
+        "Amarillo": [
+            "¿Qué fortalezas ya existen aquí que no debo romper?",
+            "¿Qué ventaja puedo amplificar?",
+            "¿Qué oportunidad se esconde en esta situación?"
+        ],
+        "Verde": [
+            "¿Qué 3 opciones no obvias podrían mejorar [contexto]?",
+            "Si tuviera recursos ilimitados, ¿qué experimentaría?",
+            "¿Qué solución híbrida podría combinar lo mejor de diferentes enfoques?"
+        ],
+        "Azul": [
+            "¿Cuál es el criterio de éxito en una frase?",
+            "¿Cuál es el siguiente paso con fecha concreta?",
+            "¿Cómo mediré el progreso en 1 semana?"
+        ]
+    },
+    "5 Porqués": {
+        "Pregunta 1": ["¿Por qué ocurre [contexto]? (Causa inicial)"],
+        "Pregunta 2": ["¿Por qué la causa anterior es cierta? (Profundización)"],
+        "Pregunta 3": ["¿Por qué persiste esa condición? (Patrón)"],
+        "Pregunta 4": ["¿Por qué no se ha solucionado antes? (Sistema)"],
+        "Pregunta 5": ["¿Por qué esto es importante para mí? (Significado)"],
+        "Acción": ["¿Qué acción atacará la causa raíz esta semana?"]
+    },
+    "Disney": {
+        "Soñador": [
+            "Si todo saliera perfectamente bien en [contexto], ¿qué vería/oiría/sentiría?",
+            "Sin limitaciones, ¿cuál sería el resultado ideal?",
+            "¿Qué versión de mí mismo/a estaría viviendo en ese escenario?"
+        ],
+        "Realista": [
+            "¿Qué recursos reales tengo disponibles ahora mismo?",
+            "¿Qué obstáculo concreto puedo eliminar hoy?",
+            "¿Qué pasos prácticos me acercan 1% más a mi visión?"
+        ],
+        "Crítico": [
+            "¿Qué fallaría primero en mi plan?",
+            "¿Cómo puedo contener ese riesgo de manera barata?",
+            "¿Qué objeciones razonables podrían surgir?"
+        ]
+    },
+    "Paul-Elder": {
+        "Propósito": [
+            "¿Qué intento lograr realmente con [contexto]?",
+            "¿Cuál es mi objetivo principal y secundario?"
+        ],
+        "Información": [
+            "¿Qué evidencia sólida apoya mi postura?",
+            "¿Qué datos contradicen o matizan mi perspectiva?"
+        ],
+        "Inferencias": [
+            "¿Qué conclusiones estoy asumiendo sin verificación?",
+            "¿Qué conexiones doy por sentadas?"
+        ],
+        "Puntos de vista": [
+            "¿Qué perspectiva no he considerado?",
+            "¿Cómo vería esta situación alguien con valores opuestos?"
+        ],
+        "Implicaciones": [
+            "Si decido X, ¿qué efectos de segundo orden podrían surgir?",
+            "¿Qué puertas cierra y qué puertas abre esta decisión?"
+        ]
+    },
+    "Covey": {
+        "Identificación": ["Lista 5 tareas clave relacionadas con [contexto]"],
+        "Clasificación": [
+            "¿Cuáles son urgentes e importantes? (Cuadrante I)",
+            "¿Cuáles son importantes pero no urgentes? (Cuadrante II)",
+            "¿Cuáles son urgentes pero no importantes? (Cuadrante III)",
+            "¿Cuáles no son urgentes ni importantes? (Cuadrante IV)"
+        ],
+        "Acción": [
+            "¿Qué tarea del Cuadrante II debo agendar hoy?",
+            "¿Cómo puedo reducir el tiempo en Cuadrantes III y IV?"
+        ]
+    },
+    "OODA": {
+        "Observe": [
+            "¿Qué señales recientes han cambiado el mapa de [contexto]?",
+            "¿Qué datos nuevos han emergido?"
+        ],
+        "Orient": [
+            "¿Qué sesgo podría estar distorsionando mi lectura?",
+            "¿Qué modelos mentales estoy aplicando?"
+        ],
+        "Decide": [
+            "¿Qué decisión reversible puedo tomar ahora?",
+            "¿Cuál es la apuesta de menor riesgo?"
+        ],
+        "Act": [
+            "¿Qué trigger me dirá si debo cambiar de curso?",
+            "¿Qué acción inmediata prueba mi hipótesis?"
+        ]
+    },
+    "Árbol de decisiones": {
+        "Opción A": [
+            "Si elijo [Opción A], ¿qué beneficio espero?",
+            "¿Qué consecuencia negativa es posible?",
+            "¿Qué probabilidad tiene cada escenario?"
+        ],
+        "Opción B": [
+            "Si elijo [Opción B], ¿qué beneficio espero?",
+            "¿Qué consecuencia negativa es posible?",
+            "¿Qué probabilidad tiene cada escenario?"
+        ],
+        "Evaluación": [
+            "¿Eliges por expectativa de valor o por riesgo máximo aceptable?",
+            "¿Qué opción se alinea mejor con tus valores a largo plazo?"
+        ]
+    },
+    "Cynefin": {
+        "Diagnóstico": ["¿Es [contexto] simple, complicado, complejo o caótico?"],
+        "Simple": ["Aplica mejor práctica conocida"],
+        "Complicado": ["Consulta a un experto o analiza a fondo"],
+        "Complejo": ["Experimenta de manera segura y observa resultados"],
+        "Caótico": ["Actúa inmediatamente para estabilizar, luego busca patrones"]
+    }
+};

@@ -42,4 +42,4 @@ graph TD
 
 ---
 
-*© 2026 Insightify Chalamandra. Magistral Pro.*
+*© 2026 Chalamandra. Magistral .*

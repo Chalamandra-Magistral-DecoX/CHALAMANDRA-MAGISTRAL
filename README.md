@@ -1,4 +1,4 @@
-# Insightify Chalamandra | Magistral Pro
+# Chalamandra | Magistral Decox
 
 **Identidad: Búnker de Soberanía Cognitiva**
 

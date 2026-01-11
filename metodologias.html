@@ -86,6 +86,93 @@
 
         .tool-view { display: none; }
         .tool-view.active { display: block; }
+        
+        /* Mejoras visuales */
+        .method-icon {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .method-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .method-card:hover::before {
+            opacity: 1;
+        }
+        
+        .pastelote-card::before { background: linear-gradient(90deg, var(--rosa), #ff0066); }
+        .looks-card::before { background: linear-gradient(90deg, var(--purple), #6600cc); }
+        .mochila-card::before { background: linear-gradient(90deg, var(--verde), #00cc66); }
+        .mapa-card::before { background: linear-gradient(90deg, #3399ff, #0066ff); }
+        .cancha-card::before { background: linear-gradient(90deg, #ff8500, #cc5500); }
+        .altar-card::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
+        .laberinto-card::before { background: linear-gradient(90deg, #10b981, #059669); }
+        
+        /* Interacciones mejoradas */
+        .emotion-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .emotion-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 100%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .emotion-btn:active::after {
+            transform: translate(-50%, -50%) scale(20);
+        }
+        
+        /* Canvas para Mapa del Caos */
+        #chaos-canvas {
+            touch-action: none;
+            cursor: crosshair;
+        }
+        
+        /* Drag and drop para La Cancha */
+        .draggable {
+            cursor: move;
+            user-select: none;
+            transition: transform 0.2s ease;
+        }
+        
+        .draggable.dragging {
+            opacity: 0.7;
+            transform: scale(1.05);
+            z-index: 100;
+        }
+        
+        /* Efecto de fuego para El Altar */
+        @keyframes fire {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(1deg); }
+        }
+        
+        .fire-effect {
+            animation: fire 0.5s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="p-6 md:p-12">
@@ -129,44 +216,57 @@
                 </div>
             </div>
 
-            <!-- Grid de Herramientas -->
+            <!-- Grid de Herramientas - NOMBRES ORIGINALES RESPETADOS -->
             <div class="w-full lg:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div class="bg-zinc-900/60 border border-pink-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-pink-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('pastelote')">
-                    <i class="fas fa-chart-pie text-pink-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                <!-- El Pastelote Emocional -->
+                <div class="method-card pastelote-card bg-zinc-900/60 border border-pink-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-pink-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('pastelote')">
+                    <i class="fas fa-chart-pie text-pink-500 text-3xl mb-3 group-hover:scale-110 transition-transform method-icon"></i>
                     <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600 text-xl uppercase italic">Pastelote</h2>
-                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium mt-1">Emocional</p>
                 </div>
-                <div class="bg-zinc-900/60 border border-purple-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-purple-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('looks')">
-                    <i class="fas fa-sparkles text-purple-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                
+                <!-- Los 6 Looks de la Tercia -->
+                <div class="method-card looks-card bg-zinc-900/60 border border-purple-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-purple-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('looks')">
+                    <i class="fas fa-sparkles text-purple-500 text-3xl mb-3 group-hover:scale-110 transition-transform method-icon"></i>
                     <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600 text-xl uppercase italic">6 Looks</h2>
-                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium mt-1">de la Tercia</p>
                 </div>
-                <div class="bg-zinc-900/60 border border-green-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-green-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('mochila')">
-                    <i class="fas fa-shopping-bag text-green-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
-                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 text-xl uppercase italic">Mochila</h2>
-                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                
+                <!-- Kit del Malandro (INV) -->
+                <div class="method-card mochila-card bg-zinc-900/60 border border-green-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-green-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('mochila')">
+                    <i class="fas fa-shopping-bag text-green-500 text-3xl mb-3 group-hover:scale-110 transition-transform method-icon"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 text-xl uppercase italic">Kit</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium mt-1">del Malandro</p>
                 </div>
-                <div class="bg-zinc-900/60 border border-blue-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-blue-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('mapa')">
-                    <i class="fas fa-map text-blue-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
-                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 text-xl uppercase italic">Mapa Caos</h2>
-                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                
+                <!-- El Mapa del Caos (TAGGER) -->
+                <div class="method-card mapa-card bg-zinc-900/60 border border-blue-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-blue-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('mapa')">
+                    <i class="fas fa-map text-blue-500 text-3xl mb-3 group-hover:scale-110 transition-transform method-icon"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 text-xl uppercase italic">Mapa</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium mt-1">del Caos</p>
                 </div>
-                <div class="bg-zinc-900/60 border border-orange-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-orange-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('cancha')">
-                    <i class="fas fa-bullseye text-orange-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
-                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 text-xl uppercase italic">La Cancha</h2>
-                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                
+                <!-- Terreno de Ideas -->
+                <div class="method-card cancha-card bg-zinc-900/60 border border-orange-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-orange-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('cancha')">
+                    <i class="fas fa-bullseye text-orange-500 text-3xl mb-3 group-hover:scale-110 transition-transform method-icon"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 text-xl uppercase italic">Terreno</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium mt-1">de Ideas</p>
                 </div>
-                <div class="bg-zinc-900/60 border border-red-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-red-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('altar')">
-                    <i class="fas fa-fire text-red-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
-                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600 text-xl uppercase italic">El Altar</h2>
-                    <p class="text-[10px] text-zinc-500 uppercase font-medium">Ficha Técnica</p>
+                
+                <!-- El Altar de lo Roto -->
+                <div class="method-card altar-card bg-zinc-900/60 border border-red-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-red-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('altar')">
+                    <i class="fas fa-fire text-red-500 text-3xl mb-3 group-hover:scale-110 transition-transform method-icon"></i>
+                    <h2 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600 text-xl uppercase italic">Altar</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase font-medium mt-1">de lo Roto</p>
                 </div>
-                <div class="col-span-2 md:col-span-3 bg-zinc-800/20 border border-emerald-500/20 rounded-3xl p-6 shadow-xl hover:border-emerald-500/60 transition-all cursor-pointer flex items-center justify-between" onclick="changeView('laberinto')">
+                
+                <!-- Laberinto de la Trampa -->
+                <div class="col-span-2 md:col-span-3 method-card laberinto-card bg-zinc-800/20 border border-emerald-500/20 rounded-3xl p-6 shadow-xl hover:border-emerald-500/60 transition-all cursor-pointer flex items-center justify-between" onclick="changeView('laberinto')">
                     <div class="flex items-center gap-4">
-                        <i class="fas fa-shoe-prints text-emerald-400 text-3xl"></i>
+                        <i class="fas fa-shoe-prints text-emerald-400 text-3xl method-icon"></i>
                         <div>
                             <h2 class="font-black text-emerald-400 text-xl uppercase italic">Laberinto de la Trampa</h2>
-                            <p class="text-[10px] text-zinc-500 uppercase font-medium">Estrategia Mental</p>
+                            <p class="text-[10px] text-zinc-500 uppercase font-medium">Encuentra llaves de autoconocimiento</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-right text-zinc-700"></i>
@@ -179,135 +279,344 @@
         </footer>
     </div>
 
-    <!-- Vistas de Herramientas -->
+    <!-- VISTAS DE HERRAMIENTAS - MANTENIENDO NOMBRES ORIGINALES -->
 
-    <!-- El Pastelote -->
+    <!-- El Pastelote Emocional -->
     <div id="view-pastelote" class="tool-view max-w-2xl mx-auto fade-in">
         <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
-            <i class="fas fa-chevron-left"></i> Volver
+            <i class="fas fa-chevron-left"></i> Volver al Dashboard
         </button>
         <div class="bg-zinc-900 border-2 border-pink-500/40 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
-            <h2 class="text-4xl font-black italic text-pink-500 mb-6 uppercase tracking-tighter">El Pastelote</h2>
-            <p class="text-zinc-400 mb-6 text-sm">¿Qué rebanada te vas a comer hoy? Haz clic en una emoción para procesar su ciclo.</p>
-            <div class="grid grid-cols-2 gap-3 mb-8">
-                <button onclick="showToast('Analiza: ¿Qué alimentó tu Enojo hoy?')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Enojo</button>
-                <button onclick="showToast('Analiza: ¿Qué momento te dio Ternura?')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Ternura</button>
-                <button onclick="showToast('Analiza: Celebra tu Gozo del día.')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Gozo</button>
-                <button onclick="showToast('Analiza: Suelta ese Drama Queen interno.')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Drama</button>
-                <button onclick="showToast('Analiza: ¿Qué Duda te detiene?')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Duda</button>
-                <button onclick="showToast('Analiza: Abraza tu Miedo.')" class="h-20 bg-zinc-800/50 rounded-2xl font-black text-pink-300 border border-zinc-700 hover:border-pink-500 transition-all uppercase italic text-xs">Miedo</button>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-4xl font-black italic text-pink-500 uppercase tracking-tighter">El Pastelote Emocional</h2>
+                <span class="text-xs text-pink-300/60 font-bold italic">🍰 LIBERA POR REBANADAS</span>
             </div>
-            <textarea class="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-sm focus:border-pink-500 outline-none h-32 text-white" placeholder="Escribe aquí tu reflexión del barrio..."></textarea>
+            
+            <p class="text-zinc-400 mb-6 text-sm">¿Qué rebanada te vas a comer hoy? Haz clic en una emoción para procesar su ciclo.</p>
+            
+            <div class="grid grid-cols-2 gap-3 mb-8">
+                <button onclick="processEmotion('Enojo', '¿Qué alimentó tu enojo hoy?')" class="emotion-btn h-20 bg-gradient-to-br from-red-900/40 to-zinc-800/50 rounded-2xl font-black text-red-300 border border-red-800/30 hover:border-red-500 hover:bg-red-900/30 transition-all uppercase italic text-sm group">
+                    <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">😤</div>
+                    ENFADO
+                </button>
+                
+                <button onclick="processEmotion('Ternura', '¿Qué momento te dio ternura hoy?')" class="emotion-btn h-20 bg-gradient-to-br from-pink-900/40 to-zinc-800/50 rounded-2xl font-black text-pink-300 border border-pink-800/30 hover:border-pink-500 hover:bg-pink-900/30 transition-all uppercase italic text-sm group">
+                    <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">🥰</div>
+                    TERNURA
+                </button>
+                
+                <button onclick="processEmotion('Gozo', '¿Qué te hizo sentir gozo hoy?')" class="emotion-btn h-20 bg-gradient-to-br from-yellow-900/40 to-zinc-800/50 rounded-2xl font-black text-yellow-300 border border-yellow-800/30 hover:border-yellow-500 hover:bg-yellow-900/30 transition-all uppercase italic text-sm group">
+                    <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">😄</div>
+                    GOZO
+                </button>
+                
+                <button onclick="processEmotion('Drama', '¿Qué drama estás soltando hoy?')" class="emotion-btn h-20 bg-gradient-to-br from-purple-900/40 to-zinc-800/50 rounded-2xl font-black text-purple-300 border border-purple-800/30 hover:border-purple-500 hover:bg-purple-900/30 transition-all uppercase italic text-sm group">
+                    <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">🎭</div>
+                    DRAMA
+                </button>
+                
+                <button onclick="processEmotion('Duda', '¿Qué duda te está deteniendo?')" class="emotion-btn h-20 bg-gradient-to-br from-blue-900/40 to-zinc-800/50 rounded-2xl font-black text-blue-300 border border-blue-800/30 hover:border-blue-500 hover:bg-blue-900/30 transition-all uppercase italic text-sm group">
+                    <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">🤔</div>
+                    DUDA
+                </button>
+                
+                <button onclick="processEmotion('Miedo', '¿Qué miedo necesitas abrazar hoy?')" class="emotion-btn h-20 bg-gradient-to-br from-gray-900/40 to-zinc-800/50 rounded-2xl font-black text-gray-300 border border-gray-800/30 hover:border-gray-500 hover:bg-gray-900/30 transition-all uppercase italic text-sm group">
+                    <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">😨</div>
+                    MIEDO
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <label class="text-xs text-zinc-500 uppercase font-bold mb-2 block">Reflexión del barrio:</label>
+                <textarea id="pastelote-reflection" class="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-sm focus:border-pink-500 focus:ring-1 focus:ring-pink-500 outline-none h-32 text-white transition-all" placeholder="Describe esta rebanada emocional... ¿Dónde la sientes? ¿Qué textura tiene?"></textarea>
+            </div>
+            
+            <div class="flex gap-3">
+                <button onclick="saveReflection('pastelote')" class="flex-1 bg-pink-600 hover:bg-pink-500 text-white font-black italic uppercase py-3 rounded-2xl transition-all shadow-xl">
+                    Guardar Rebanada
+                </button>
+                <button onclick="clearPastelote()" class="px-6 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold uppercase py-3 rounded-2xl transition-all">
+                    Limpiar
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- 6 Looks -->
+    <!-- Los 6 Looks de la Tercia -->
     <div id="view-looks" class="tool-view max-w-2xl mx-auto fade-in">
         <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
-            <i class="fas fa-chevron-left"></i> Volver
+            <i class="fas fa-chevron-left"></i> Volver al Dashboard
         </button>
         <div class="bg-zinc-900 border-2 border-purple-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <h2 class="text-4xl font-black italic text-purple-500 mb-6 uppercase tracking-tighter">6 Looks Mentales</h2>
-            <p class="text-zinc-400 mb-6 text-sm">Cambia de outfit cognitivo para ver tu situación desde otra esquina.</p>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-zinc-100 text-black p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Cuáles son los datos fríos?')">
-                    <div class="font-black text-xs uppercase italic">Bibliotecaria</div>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-4xl font-black italic text-purple-500 uppercase tracking-tighter">Los 6 Looks de la Tercia</h2>
+                <span class="text-xs text-purple-300/60 font-bold italic">🎩 CAMBIA DE PERSPECTIVA</span>
+            </div>
+            
+            <p class="text-zinc-400 mb-6 text-sm">Cambia de outfit cognitivo para ver tu situación desde otra esquina. Selecciona un look:</p>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="look-option bg-zinc-100 text-black p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform border-2 border-transparent hover:border-purple-500" onclick="selectLook('Bibliotecaria')">
+                    <div class="text-3xl mb-2">📚</div>
+                    <div class="font-black text-sm uppercase italic mb-1">Bibliotecaria</div>
+                    <div class="text-[10px] text-zinc-600">Datos, hechos, lógica</div>
                 </div>
-                <div class="bg-red-500 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Qué grita tu herida?')">
-                    <div class="font-black text-xs uppercase italic">Drama Queen</div>
+                
+                <div class="look-option bg-red-500 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform border-2 border-transparent hover:border-red-300" onclick="selectLook('Drama Queen')">
+                    <div class="text-3xl mb-2">🎭</div>
+                    <div class="font-black text-sm uppercase italic mb-1">Drama Queen</div>
+                    <div class="text-[10px] text-red-200">Emoción, intensidad, pasión</div>
                 </div>
-                <div class="bg-zinc-950 text-white border border-zinc-800 p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Qué es lo peor que pasará?')">
-                    <div class="font-black text-xs uppercase italic">Hater</div>
+                
+                <div class="look-option bg-zinc-950 text-white border border-zinc-800 p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform border-2 border-transparent hover:border-zinc-400" onclick="selectLook('Hater')">
+                    <div class="text-3xl mb-2">😒</div>
+                    <div class="font-black text-sm uppercase italic mb-1">Hater</div>
+                    <div class="text-[10px] text-zinc-400">Crítica, escepticismo, duda</div>
                 </div>
-                <div class="bg-yellow-400 text-black p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Qué es lo que sí sirve?')">
-                    <div class="font-black text-xs uppercase italic">Optimista</div>
+                
+                <div class="look-option bg-yellow-400 text-black p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform border-2 border-transparent hover:border-yellow-600" onclick="selectLook('Optimista')">
+                    <div class="text-3xl mb-2">🌟</div>
+                    <div class="font-black text-sm uppercase italic mb-1">Optimista</div>
+                    <div class="text-[10px] text-yellow-800">Posibilidad, esperanza, luz</div>
                 </div>
-                <div class="bg-green-500 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Qué idea loca harías?')">
-                    <div class="font-black text-xs uppercase italic">Creativa</div>
+                
+                <div class="look-option bg-green-500 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform border-2 border-transparent hover:border-green-300" onclick="selectLook('Creativa')">
+                    <div class="text-3xl mb-2">🎨</div>
+                    <div class="font-black text-sm uppercase italic mb-1">Creativa</div>
+                    <div class="text-[10px] text-green-200">Innovación, conexiones, juego</div>
                 </div>
-                <div class="bg-blue-600 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform" onclick="showToast('Pregunta: ¿Cuál es la orden de hoy?')">
-                    <div class="font-black text-xs uppercase italic">Jefa</div>
+                
+                <div class="look-option bg-blue-600 text-white p-5 rounded-2xl text-center cursor-pointer hover:scale-105 transition-transform border-2 border-transparent hover:border-blue-300" onclick="selectLook('Jefa')">
+                    <div class="text-3xl mb-2">👑</div>
+                    <div class="font-black text-sm uppercase italic mb-1">Jefa</div>
+                    <div class="text-[10px] text-blue-200">Acción, decisión, liderazgo</div>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-4 bg-purple-900/20 border border-purple-800/30 rounded-2xl">
+                <div class="text-xs text-purple-400 uppercase font-bold mb-2">Pregunta desde este look:</div>
+                <div id="look-question" class="text-sm italic text-zinc-300">Selecciona un look para ver la pregunta...</div>
+            </div>
+            
+            <div class="mt-6">
+                <label class="text-xs text-zinc-500 uppercase font-bold mb-2 block">Tu respuesta desde este look:</label>
+                <textarea id="looks-answer" class="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-sm focus:border-purple-500 outline-none h-24 text-white" placeholder="¿Qué ves desde esta perspectiva?"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kit del Malandro (INV) -->
+    <div id="view-mochila" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver al Dashboard
+        </button>
+        <div class="bg-zinc-900 border-2 border-green-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-4xl font-black italic text-green-500 uppercase tracking-tighter">Kit del Malandro</h2>
+                <span class="text-xs text-green-300/60 font-bold italic">🎒 INVENTARIO DE SUPERPODERES</span>
+            </div>
+            
+            <p class="text-zinc-400 mb-6 text-sm">¿Qué herramientas llevas hoy en tu mochila para enfrentar el barrio? Activa las que necesites:</p>
+            
+            <div class="grid grid-cols-4 gap-3 mb-8" id="backpack-grid">
+                <!-- Los ítems se generan dinámicamente -->
+            </div>
+            
+            <div class="p-4 bg-green-900/20 border border-green-800/30 rounded-2xl mb-6">
+                <div class="text-xs text-green-400 uppercase font-bold mb-2">Kit activado:</div>
+                <div id="active-kit" class="text-sm text-zinc-300">Ninguna herramienta activada aún</div>
+            </div>
+            
+            <button onclick="equipKit()" class="w-full bg-green-600 hover:bg-green-500 text-white font-black italic uppercase py-4 rounded-2xl transition-all shadow-xl">
+                Equipar Kit Seleccionado
+            </button>
+        </div>
+    </div>
+
+    <!-- El Mapa del Caos (TAGGER) -->
+    <div id="view-mapa" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver al Dashboard
+        </button>
+        <div class="bg-zinc-900 border-2 border-blue-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-4xl font-black italic text-blue-500 uppercase tracking-tighter">El Mapa del Caos</h2>
+                <span class="text-xs text-blue-300/60 font-bold italic">🗺️ TAGGER DE REALIDAD</span>
+            </div>
+            
+            <p class="text-zinc-400 mb-6 text-sm">Marca tu territorio mental. Dibuja rutas, zonas de peligro y lugares seguros:</p>
+            
+            <div class="relative mb-6">
+                <canvas id="chaos-canvas" class="w-full h-96 bg-black border-2 border-zinc-800 rounded-2xl"></canvas>
+                <div class="absolute top-4 left-4 flex gap-2">
+                    <button onclick="setMapTool('route')" class="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-lg">Ruta 🛣️</button>
+                    <button onclick="setMapTool('danger')" class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-lg">Peligro ⚠️</button>
+                    <button onclick="setMapTool('safe')" class="px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-lg">Seguro 🏠</button>
+                    <button onclick="setMapTool('resource')" class="px-3 py-1 bg-yellow-600 text-white text-xs font-bold rounded-lg">Recurso 💎</button>
+                </div>
+                <div class="absolute top-4 right-4">
+                    <button onclick="clearCanvas()" class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs font-bold rounded-lg">Limpiar</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4 text-center text-xs">
+                <div class="p-3 bg-zinc-800/50 rounded-xl">
+                    <div class="text-blue-400 font-bold mb-1">Zona de Flujo</div>
+                    <div class="text-zinc-500">Donde todo fluye natural</div>
+                </div>
+                <div class="p-3 bg-zinc-800/50 rounded-xl">
+                    <div class="text-red-400 font-bold mb-1">Bloqueo Actual</div>
+                    <div class="text-zinc-500">Paredes que estás escalando</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- El Altar -->
+    <!-- Terreno de Ideas -->
+    <div id="view-cancha" class="tool-view max-w-2xl mx-auto fade-in">
+        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
+            <i class="fas fa-chevron-left"></i> Volver al Dashboard
+        </button>
+        <div class="bg-zinc-900 border-2 border-orange-500/40 rounded-[2.5rem] p-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-4xl font-black italic text-orange-500 uppercase tracking-tighter">Terreno de Ideas</h2>
+                <span class="text-xs text-orange-300/60 font-bold italic">⚽ ESTRATEGIA CREATIVA</span>
+            </div>
+            
+            <p class="text-zinc-400 mb-6 text-sm">Posiciona tus ideas como un equipo de primera división. Arrastra los elementos:</p>
+            
+            <div class="relative h-80 bg-gradient-to-br from-orange-950/30 to-emerald-950/30 border-2 border-white/10 rounded-3xl overflow-hidden mb-6" id="cancha-container">
+                <!-- Elementos draggables -->
+                <div class="draggable absolute top-10 left-10 bg-pink-500 p-3 rounded-lg text-[10px] font-black italic shadow-2xl cursor-move" data-type="idea">
+                    <div class="text-lg">💡</div>
+                    <div>SOLUCIÓN CRACK</div>
+                </div>
+                
+                <div class="draggable absolute bottom-10 right-10 bg-blue-500 p-3 rounded-lg text-[10px] font-black italic shadow-2xl cursor-move" data-type="obstacle">
+                    <div class="text-lg">🛡️</div>
+                    <div>DEFENSA DE MIEDOS</div>
+                </div>
+                
+                <div class="draggable absolute top-20 right-20 bg-green-500 p-3 rounded-lg text-[10px] font-black italic shadow-2xl cursor-move" data-type="resource">
+                    <div class="text-lg">⚡</div>
+                    <div>ENERGÍA DISPONIBLE</div>
+                </div>
+                
+                <div class="draggable absolute bottom-20 left-20 bg-purple-500 p-3 rounded-lg text-[10px] font-black italic shadow-2xl cursor-move" data-type="goal">
+                    <div class="text-lg">🎯</div>
+                    <div>META FINAL</div>
+                </div>
+                
+                <!-- Zonas de la cancha -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-dashed border-white/10 w-40 h-40 rounded-full flex items-center justify-center">
+                    <span class="text-[10px] text-white/20 font-black uppercase italic">Centro del Flow</span>
+                </div>
+                
+                <div class="absolute top-0 left-0 w-1/3 h-full border-r border-dashed border-white/5"></div>
+                <div class="absolute top-0 right-0 w-1/3 h-full border-l border-dashed border-white/5"></div>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <div class="text-sm text-zinc-500 italic">Arrastra las ideas para crear tu estrategia</div>
+                <button onclick="saveStrategy()" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-6 rounded-xl">
+                    Guardar Formación
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- El Altar de lo Roto -->
     <div id="view-altar" class="tool-view max-w-2xl mx-auto fade-in">
         <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
-            <i class="fas fa-chevron-left"></i> Volver
+            <i class="fas fa-chevron-left"></i> Volver al Dashboard
         </button>
         <div class="bg-zinc-900 border-2 border-red-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <h2 class="text-4xl font-black italic text-red-500 mb-6 uppercase tracking-tighter">El Altar</h2>
-            <p class="text-zinc-400 mb-6 text-sm">Honra lo que se rompió. Escribe lo que dejas ir para transmutarlo en luz.</p>
-            <textarea id="altar-text" class="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-sm focus:border-red-500 outline-none h-48 mb-6 text-white transition-all duration-1000" placeholder="¿Qué estás soltando hoy, mi chama?"></textarea>
-            <button onclick="burnRitual()" class="w-full bg-red-600 hover:bg-red-500 text-white font-black italic uppercase py-4 rounded-2xl transition-all shadow-xl">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-4xl font-black italic text-red-500 uppercase tracking-tighter">El Altar de lo Roto</h2>
+                <span class="text-xs text-red-300/60 font-bold italic">✨ RITUAL DE TRANSFORMACIÓN</span>
+            </div>
+            
+            <p class="text-zinc-400 mb-6 text-sm">Honra lo que se rompió para transmutarlo en luz. Escribe lo que dejas ir:</p>
+            
+            <div class="mb-6">
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <button onclick="addToAltar('Hábito viejo')" class="p-3 bg-red-900/30 border border-red-800/30 rounded-xl text-red-300 hover:bg-red-800/40 transition-all text-sm font-bold">
+                        🕰️ Hábito viejo
+                    </button>
+                    <button onclick="addToAltar('Creencias limitantes')" class="p-3 bg-red-900/30 border border-red-800/30 rounded-xl text-red-300 hover:bg-red-800/40 transition-all text-sm font-bold">
+                        🔒 Creencias limitantes
+                    </button>
+                    <button onclick="addToAltar('Relación tóxica')" class="p-3 bg-red-900/30 border border-red-800/30 rounded-xl text-red-300 hover:bg-red-800/40 transition-all text-sm font-bold">
+                        💔 Relación tóxica
+                    </button>
+                    <button onclick="addToAltar('Miedo al fracaso')" class="p-3 bg-red-900/30 border border-red-800/30 rounded-xl text-red-300 hover:bg-red-800/40 transition-all text-sm font-bold">
+                        😨 Miedo al fracaso
+                    </button>
+                </div>
+            </div>
+            
+            <textarea id="altar-text" class="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-sm focus:border-red-500 outline-none h-48 mb-6 text-white transition-all duration-300" placeholder="¿Qué estás soltando hoy, mi chama? Describe lo que se rompió y lo que nace de sus cenizas..."></textarea>
+            
+            <div class="flex items-center justify-center mb-6">
+                <div class="text-center">
+                    <div class="text-4xl mb-2 fire-effect">🔥</div>
+                    <div class="text-xs text-red-400 font-bold">EL FUEGO TRANSFORMA</div>
+                </div>
+            </div>
+            
+            <button onclick="burnRitual()" class="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-black italic uppercase py-4 rounded-2xl transition-all shadow-xl">
                 Encender Llama Ritual
             </button>
         </div>
     </div>
 
-    <!-- La Mochila -->
-    <div id="view-mochila" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
-            <i class="fas fa-chevron-left"></i> Volver
-        </button>
-        <div class="bg-zinc-900 border-2 border-green-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <h2 class="text-4xl font-black italic text-green-500 mb-6 uppercase tracking-tighter">La Mochila</h2>
-            <p class="text-zinc-400 mb-6 text-sm">¿Qué superpoderes llevas hoy en tu inventario para enfrentar el barrio?</p>
-            <div class="grid grid-cols-4 gap-2 mb-8" id="backpack-grid">
-                <!-- Se generan botones de inventario -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Mapa Caos -->
-    <div id="view-mapa" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
-            <i class="fas fa-chevron-left"></i> Volver
-        </button>
-        <div class="bg-zinc-900 border-2 border-blue-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <h2 class="text-4xl font-black italic text-blue-500 mb-6 uppercase tracking-tighter">Mapa del Caos</h2>
-            <div class="w-full aspect-video bg-black border-2 border-zinc-800 rounded-[2rem] relative flex items-center justify-center overflow-hidden">
-                <div class="absolute top-6 left-6 text-red-500 font-black italic text-[10px] uppercase">Peligro 🚩</div>
-                <div class="absolute bottom-6 right-6 text-green-500 font-black italic text-[10px] uppercase">Seguro 🏠</div>
-                <div class="text-zinc-800 font-black italic text-5xl uppercase opacity-20 rotate-12 select-none">Flow Map</div>
-            </div>
-            <p class="mt-6 text-center text-zinc-500 italic text-sm">Visualiza tus rutas de escape y detecta tus callejones sin salida.</p>
-        </div>
-    </div>
-
-    <!-- La Cancha -->
-    <div id="view-cancha" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
-            <i class="fas fa-chevron-left"></i> Volver
-        </button>
-        <div class="bg-zinc-900 border-2 border-orange-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <h2 class="text-4xl font-black italic text-orange-500 mb-6 uppercase tracking-tighter">La Cancha</h2>
-            <div class="w-full h-80 bg-emerald-950/20 border-2 border-white/10 rounded-3xl relative overflow-hidden">
-                <div class="absolute top-10 left-10 bg-pink-500 p-2 rounded-lg text-[10px] font-black italic shadow-2xl cursor-move">SOLUCIÓN CRACK</div>
-                <div class="absolute bottom-10 right-10 bg-blue-500 p-2 rounded-lg text-[10px] font-black italic shadow-2xl cursor-move">DEFENSA DE MIEDOS</div>
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-white/10 w-32 h-32 rounded-full flex items-center justify-center">
-                    <span class="text-[10px] text-white/10 font-black uppercase italic">Centro del Flow</span>
-                </div>
-            </div>
-            <p class="mt-6 text-center text-zinc-500 italic text-sm">Posiciona tus ideas como un equipo de primera división.</p>
-        </div>
-    </div>
-
-    <!-- Laberinto -->
+    <!-- Laberinto de la Trampa -->
     <div id="view-laberinto" class="tool-view max-w-2xl mx-auto fade-in">
         <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
-            <i class="fas fa-chevron-left"></i> Volver
+            <i class="fas fa-chevron-left"></i> Volver al Dashboard
         </button>
         <div class="bg-zinc-900 border-2 border-emerald-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <h2 class="text-4xl font-black italic text-emerald-500 mb-6 uppercase tracking-tighter">Laberinto</h2>
-            <div class="bg-zinc-800/30 p-6 rounded-2xl border border-emerald-500/20 mb-6">
-                <p class="text-sm italic font-medium">"Topaste con pared: Sientes que tu bloqueo es más grande que tus ganas."</p>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-4xl font-black italic text-emerald-500 uppercase tracking-tighter">Laberinto de la Trampa</h2>
+                <span class="text-xs text-emerald-300/60 font-bold italic">🧭 ESTRATEGIA MENTAL</span>
             </div>
-            <div class="space-y-2">
-                <button onclick="showToast('¡Esa grieta era la clave! Tu curiosidad te liberó.')" class="w-full p-4 bg-zinc-800 hover:bg-emerald-500/20 rounded-xl text-left text-xs font-bold uppercase italic border border-zinc-700">A. Buscas una grieta (Curiosidad)</button>
-                <button onclick="showToast('El silencio disolvió el muro. Laberinto superado.')" class="w-full p-4 bg-zinc-800 hover:bg-emerald-500/20 rounded-xl text-left text-xs font-bold uppercase italic border border-zinc-700">B. Meditas ante el muro (Aceptación)</button>
+            
+            <div class="bg-zinc-800/30 p-6 rounded-2xl border border-emerald-500/20 mb-6">
+                <p class="text-sm italic font-medium mb-4">"Topaste con pared: Sientes que tu bloqueo es más grande que tus ganas."</p>
+                <div class="text-xs text-emerald-400 font-bold">¿Cuál es tu próxima jugada?</div>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+                <button onclick="selectLaberintoOption('curiosidad')" class="w-full p-4 bg-gradient-to-r from-emerald-900/40 to-zinc-800 hover:from-emerald-800/50 hover:to-zinc-700 rounded-xl text-left text-sm font-bold uppercase italic border border-emerald-700/30 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="text-xl group-hover:scale-125 transition-transform">🔍</div>
+                            <div>
+                                <div class="text-emerald-300">Buscar una grieta</div>
+                                <div class="text-[10px] text-emerald-600 font-normal mt-1">(Curiosidad)</div>
+                            </div>
+                        </div>
+                        <div class="text-emerald-500/60 text-xs">→</div>
+                    </div>
+                </button>
+                
+                <button onclick="selectLaberintoOption('aceptacion')" class="w-full p-4 bg-gradient-to-r from-emerald-900/40 to-zinc-800 hover:from-emerald-800/50 hover:to-zinc-700 rounded-xl text-left text-sm font-bold uppercase italic border border-emerald-700/30 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="text-xl group-hover:scale-125 transition-transform">🧘</div>
+                            <div>
+                                <div class="text-emerald-300">Meditar ante el muro</div>
+                                <div class="text-[10px] text-emerald-600 font-normal mt-1">(Aceptación)</div>
+                            </div>
+                        </div>
+                        <div class="text-emerald-500/60 text-xs">→</div>
+                    </div>
+                </button>
+            </div>
+            
+            <div id="laberinto-result" class="hidden p-4 bg-emerald-900/20 border border-emerald-800/30 rounded-2xl">
+                <div class="text-xs text-emerald-400 uppercase font-bold mb-2">Solución encontrada:</div>
+                <div id="laberinto-message" class="text-sm italic text-zinc-300"></div>
             </div>
         </div>
     </div>
@@ -315,17 +624,38 @@
     <script>
         // --- Navegación ---
         function changeView(viewId) {
-            document.querySelectorAll('.tool-view').forEach(view => view.classList.remove('active'));
-            const target = document.getElementById('view-' + viewId) || document.getElementById('main-menu');
-            target.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.querySelectorAll('.tool-view').forEach(view => {
+                view.classList.remove('active');
+                view.classList.remove('fade-in');
+            });
+            
+            setTimeout(() => {
+                const target = document.getElementById('view-' + viewId) || document.getElementById('main-menu');
+                target.classList.add('active');
+                target.classList.add('fade-in');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Inicializar herramientas específicas
+                if (viewId === 'mapa') initCanvas();
+                if (viewId === 'cancha') initDraggable();
+                if (viewId === 'mochila') initMochila();
+            }, 50);
         }
 
         // --- Toast System ---
-        function showToast(msg) {
+        function showToast(msg, type = 'info') {
             const toast = document.getElementById('toast');
+            const colors = {
+                'info': 'rgba(255, 77, 158, 0.9)',
+                'success': 'rgba(0, 255, 153, 0.9)',
+                'warning': 'rgba(255, 133, 0, 0.9)',
+                'error': 'rgba(239, 68, 68, 0.9)'
+            };
+            
             toast.innerText = msg;
+            toast.style.background = colors[type] || colors['info'];
             toast.classList.add('show');
+            
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
@@ -333,12 +663,12 @@
         let isRolling = false;
         let lastSuggestion = null;
         const tools = [
-            { id: 'pastelote', name: 'Pastelote', color: 'pink', rotations: {x: 0, y: 0} },
-            { id: 'looks', name: '6 Looks', color: 'purple', rotations: {x: 0, y: 180} },
-            { id: 'mochila', name: 'Mochila', color: 'green', rotations: {x: 0, y: -90} },
-            { id: 'mapa', name: 'Mapa Caos', color: 'blue', rotations: {x: 0, y: 90} },
-            { id: 'cancha', name: 'Cancha', color: 'orange', rotations: {x: -90, y: 0} },
-            { id: 'altar', name: 'El Altar', color: 'red', rotations: {x: 90, y: 0} }
+            { id: 'pastelote', name: 'Pastelote Emocional', color: 'pink', rotations: {x: 0, y: 0} },
+            { id: 'looks', name: '6 Looks de la Tercia', color: 'purple', rotations: {x: 0, y: 180} },
+            { id: 'mochila', name: 'Kit del Malandro', color: 'green', rotations: {x: 0, y: -90} },
+            { id: 'mapa', name: 'Mapa del Caos', color: 'blue', rotations: {x: 0, y: 90} },
+            { id: 'cancha', name: 'Terreno de Ideas', color: 'orange', rotations: {x: -90, y: 0} },
+            { id: 'altar', name: 'El Altar de lo Roto', color: 'red', rotations: {x: 90, y: 0} }
         ];
 
         function rollDice() {
@@ -373,6 +703,8 @@
                 suggLink.innerText = "Abrir " + selection.name + " →";
                 suggLink.className = `text-sm font-black uppercase italic hover:underline text-${selection.color}-400`;
                 suggDiv.classList.remove('hidden');
+                
+                showToast(`El dado sugiere: ${selection.name}`, 'success');
             }, 2000);
         }
 
@@ -380,29 +712,392 @@
             if (lastSuggestion) changeView(lastSuggestion);
         }
 
-        // --- Altar Ritual ---
-        function burnRitual() {
-            const ta = document.getElementById('altar-text');
-            if (!ta.value.trim()) {
-                showToast("Escribe algo para soltar, mi chama.");
+        // --- El Pastelote Emocional ---
+        let currentEmotion = null;
+        
+        function processEmotion(emotion, question) {
+            currentEmotion = emotion;
+            document.getElementById('pastelote-reflection').placeholder = `Reflexiona sobre tu ${emotion.toLowerCase()}...`;
+            showToast(question, 'info');
+            
+            // Efecto visual en los botones
+            document.querySelectorAll('.emotion-btn').forEach(btn => {
+                btn.classList.remove('border-pink-500', 'bg-pink-900/30');
+            });
+            event.target.classList.add('border-pink-500', 'bg-pink-900/30');
+        }
+        
+        function saveReflection() {
+            const reflection = document.getElementById('pastelote-reflection').value;
+            if (!reflection.trim() || !currentEmotion) {
+                showToast("Selecciona una emoción y escribe tu reflexión", 'warning');
                 return;
             }
-            ta.style.filter = "blur(15px)";
-            ta.style.opacity = "0.2";
-            showToast("Ritual completado. Has honrado el cierre.");
+            
+            showToast(`Reflexión sobre ${currentEmotion} guardada`, 'success');
+            clearPastelote();
+        }
+        
+        function clearPastelote() {
+            document.getElementById('pastelote-reflection').value = '';
+            currentEmotion = null;
+            document.querySelectorAll('.emotion-btn').forEach(btn => {
+                btn.classList.remove('border-pink-500', 'bg-pink-900/30');
+            });
         }
 
-        // --- Mochila Init ---
-        const items = ['💣 Audacia', '🕶️ Estilo', '❤️ Lealtad', '🔥 Aguante', '🧿 Calma', '💰 Valor', '🧠 Maña', '⚡ Chispa'];
-        const grid = document.getElementById('backpack-grid');
-        items.forEach(item => {
-            const btn = document.createElement('button');
-            btn.innerText = item;
-            btn.className = "aspect-square bg-zinc-800 border border-zinc-700 rounded-xl flex flex-col items-center justify-center text-[9px] font-black uppercase hover:border-green-500 transition-all";
-            btn.onclick = () => btn.classList.toggle('bg-green-500/20');
-            grid.appendChild(btn);
-        });
+        // --- Los 6 Looks de la Tercia ---
+        const lookQuestions = {
+            'Bibliotecaria': '¿Cuáles son los datos fríos y hechos concretos de esta situación?',
+            'Drama Queen': '¿Qué es lo más dramático que podría pasar? ¿Y lo más glorioso?',
+            'Hater': '¿Qué es lo peor que podría pasar? ¿Qué crítica constructiva tienes?',
+            'Optimista': '¿Qué es lo mejor que podría salir de esto? ¿Qué oportunidades ves?',
+            'Creativa': '¿Qué solución loca, fuera de la caja, se te ocurre?',
+            'Jefa': '¿Cuál es la primera acción concreta que tomarías ahora mismo?'
+        };
+        
+        function selectLook(look) {
+            document.getElementById('look-question').textContent = lookQuestions[look];
+            document.getElementById('looks-answer').placeholder = `Escribe tu respuesta desde la perspectiva ${look.toLowerCase()}...`;
+            
+            // Efecto visual
+            document.querySelectorAll('.look-option').forEach(opt => {
+                opt.classList.remove('border-purple-500');
+            });
+            event.target.classList.add('border-purple-500');
+            
+            showToast(`Vistiendo el look: ${look}`, 'success');
+        }
 
+        // --- Kit del Malandro (INV) ---
+        const inventoryItems = [
+            { emoji: '💣', name: 'Audacia', desc: 'Para tomar riesgos calculados' },
+            { emoji: '🕶️', name: 'Estilo', desc: 'Tu manera única de hacer las cosas' },
+            { emoji: '❤️', name: 'Lealtad', desc: 'A ti mismo y a tus valores' },
+            { emoji: '🔥', name: 'Aguante', desc: 'Resistencia emocional' },
+            { emoji: '🧿', name: 'Calma', desc: 'Mantenerse centrado en la tormenta' },
+            { emoji: '💰', name: 'Valor', desc: 'Reconocer tu propio precio' },
+            { emoji: '🧠', name: 'Maña', desc: 'Inteligencia callejera' },
+            { emoji: '⚡', name: 'Chispa', desc: 'Inspiración y energía creativa' }
+        ];
+        
+        let selectedItems = [];
+        
+        function initMochila() {
+            const grid = document.getElementById('backpack-grid');
+            grid.innerHTML = '';
+            
+            inventoryItems.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.innerHTML = `
+                    <div class="text-2xl mb-1">${item.emoji}</div>
+                    <div class="text-[9px] font-black uppercase">${item.name}</div>
+                `;
+                btn.className = "aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 border border-zinc-700 rounded-xl flex flex-col items-center justify-center text-white hover:border-green-500 transition-all hover:scale-105";
+                btn.onclick = () => toggleItem(index, btn);
+                grid.appendChild(btn);
+            });
+        }
+        
+        function toggleItem(index, btn) {
+            const item = inventoryItems[index];
+            
+            if (selectedItems.includes(index)) {
+                // Deseleccionar
+                selectedItems = selectedItems.filter(i => i !== index);
+                btn.classList.remove('bg-green-500/20', 'border-green-500');
+                btn.classList.add('bg-gradient-to-br', 'from-zinc-800', 'to-zinc-900', 'border-zinc-700');
+            } else {
+                // Seleccionar
+                selectedItems.push(index);
+                btn.classList.add('bg-green-500/20', 'border-green-500');
+                btn.classList.remove('bg-gradient-to-br', 'from-zinc-800', 'to-zinc-900', 'border-zinc-700');
+            }
+            
+            updateActiveKit();
+        }
+        
+        function updateActiveKit() {
+            const activeDiv = document.getElementById('active-kit');
+            if (selectedItems.length === 0) {
+                activeDiv.textContent = "Ninguna herramienta activada aún";
+                return;
+            }
+            
+            const itemsList = selectedItems.map(i => inventoryItems[i].emoji + ' ' + inventoryItems[i].name).join(', ');
+            activeDiv.textContent = itemsList;
+        }
+        
+        function equipKit() {
+            if (selectedItems.length === 0) {
+                showToast("Selecciona al menos una herramienta", 'warning');
+                return;
+            }
+            
+            const count = selectedItems.length;
+            showToast(`Kit equipado con ${count} herramienta${count > 1 ? 's' : ''}`, 'success');
+        }
+
+        // --- El Mapa del Caos (TAGGER) ---
+        let canvas, ctx;
+        let currentTool = 'route';
+        let drawing = false;
+        let lastX = 0, lastY = 0;
+        
+        function initCanvas() {
+            canvas = document.getElementById('chaos-canvas');
+            ctx = canvas.getContext('2d');
+            
+            // Ajustar tamaño
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            // Dibujar fondo
+            drawBackground();
+            
+            // Event listeners
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // Touch support
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+        
+        function drawBackground() {
+            // Fondo negro
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Cuadrícula sutil
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            
+            for (let x = 0; x < canvas.width; x += 20) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            
+            for (let y = 0; y < canvas.height; y += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+        }
+        
+        function startDrawing(e) {
+            drawing = true;
+            const pos = getMousePos(e);
+            [lastX, lastY] = [pos.x, pos.y];
+        }
+        
+        function draw(e) {
+            if (!drawing) return;
+            
+            e.preventDefault();
+            const pos = getMousePos(e);
+            
+            // Configurar estilo según herramienta
+            switch(currentTool) {
+                case 'route':
+                    ctx.strokeStyle = '#3399ff';
+                    ctx.lineWidth = 3;
+                    break;
+                case 'danger':
+                    ctx.strokeStyle = '#ef4444';
+                    ctx.lineWidth = 4;
+                    break;
+                case 'safe':
+                    ctx.strokeStyle = '#10b981';
+                    ctx.lineWidth = 3;
+                    break;
+                case 'resource':
+                    ctx.strokeStyle = '#f59e0b';
+                    ctx.lineWidth = 5;
+                    break;
+            }
+            
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            
+            // Para recursos, dibujar un punto especial
+            if (currentTool === 'resource') {
+                ctx.fillStyle = '#f59e0b';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            [lastX, lastY] = [pos.x, pos.y];
+        }
+        
+        function stopDrawing() {
+            drawing = false;
+        }
+        
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            let x, y;
+            
+            if (e.type.includes('touch')) {
+                x = e.touches[0].clientX - rect.left;
+                y = e.touches[0].clientY - rect.top;
+            } else {
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
+            }
+            
+            return { x, y };
+        }
+        
+        function handleTouchStart(e) {
+            e.preventDefault();
+            startDrawing(e.touches[0]);
+        }
+        
+        function handleTouchMove(e) {
+            e.preventDefault();
+            draw(e.touches[0]);
+        }
+        
+        function setMapTool(tool) {
+            currentTool = tool;
+            showToast(`Herramienta: ${tool === 'route' ? 'Ruta' : tool === 'danger' ? 'Peligro' : tool === 'safe' ? 'Zona Segura' : 'Recurso'}`, 'info');
+        }
+        
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBackground();
+            showToast("Mapa limpiado", 'success');
+        }
+
+        // --- Terreno de Ideas ---
+        function initDraggable() {
+            const draggables = document.querySelectorAll('.draggable');
+            const container = document.getElementById('cancha-container');
+            
+            draggables.forEach(draggable => {
+                draggable.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    
+                    const shiftX = e.clientX - draggable.getBoundingClientRect().left;
+                    const shiftY = e.clientY - draggable.getBoundingClientRect().top;
+                    
+                    draggable.classList.add('dragging');
+                    
+                    function moveAt(pageX, pageY) {
+                        const containerRect = container.getBoundingClientRect();
+                        
+                        // Calcular posición relativa al contenedor
+                        let x = pageX - containerRect.left - shiftX;
+                        let y = pageY - containerRect.top - shiftY;
+                        
+                        // Limitar al contenedor
+                        x = Math.max(0, Math.min(x, containerRect.width - draggable.offsetWidth));
+                        y = Math.max(0, Math.min(y, containerRect.height - draggable.offsetHeight));
+                        
+                        draggable.style.left = x + 'px';
+                        draggable.style.top = y + 'px';
+                    }
+                    
+                    function onMouseMove(e) {
+                        moveAt(e.clientX, e.clientY);
+                    }
+                    
+                    document.addEventListener('mousemove', onMouseMove);
+                    
+                    draggable.addEventListener('mouseup', () => {
+                        document.removeEventListener('mousemove', onMouseMove);
+                        draggable.classList.remove('dragging');
+                    }, { once: true });
+                });
+                
+                // Evitar arrastre nativo
+                draggable.ondragstart = () => false;
+            });
+        }
+        
+        function saveStrategy() {
+            showToast("Formación estratégica guardada", 'success');
+        }
+
+        // --- El Altar de lo Roto ---
+        function addToAltar(item) {
+            const textarea = document.getElementById('altar-text');
+            const currentText = textarea.value;
+            textarea.value = currentText + (currentText ? '\n' : '') + `• ${item}`;
+            showToast(`${item} añadido al altar`, 'info');
+        }
+        
+        function burnRitual() {
+            const textarea = document.getElementById('altar-text');
+            if (!textarea.value.trim()) {
+                showToast("Escribe algo para soltar, mi chama.", 'warning');
+                return;
+            }
+            
+            // Efecto visual
+            textarea.style.filter = "blur(15px)";
+            textarea.style.opacity = "0.2";
+            textarea.disabled = true;
+            
+            // Mostrar mensaje de transformación
+            setTimeout(() => {
+                showToast("✨ Ritual completado. Lo roto se ha transmutado en luz.", 'success');
+                
+                // Restaurar después de un tiempo
+                setTimeout(() => {
+                    textarea.style.filter = "";
+                    textarea.style.opacity = "";
+                    textarea.disabled = false;
+                    textarea.value = "";
+                }, 2000);
+            }, 500);
+        }
+
+        // --- Laberinto de la Trampa ---
+        function selectLaberintoOption(option) {
+            const resultDiv = document.getElementById('laberinto-result');
+            const messageDiv = document.getElementById('laberinto-message');
+            
+            let message = '';
+            if (option === 'curiosidad') {
+                message = "¡Esa grieta era la clave! Tu curiosidad encontró una salida donde solo veías pared. El laberinto empieza a revelar sus secretos.";
+            } else {
+                message = "El silencio ante el muro reveló que era solo una ilusión. Al aceptarlo sin lucha, se disolvió. Laberinto superado.";
+            }
+            
+            messageDiv.textContent = message;
+            resultDiv.classList.remove('hidden');
+            
+            showToast("Camino elegido en el laberinto", 'success');
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            initMochila();
+            
+            // Cerrar con ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activeView = document.querySelector('.tool-view.active');
+                    if (activeView.id !== 'main-menu') {
+                        changeView('menu');
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>

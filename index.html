@@ -627,7 +627,6 @@
 
                     let animationId;
                     const anim = () => {
-                        animationId = requestAnimationFrame(anim);
                         const target = isClarity ? 1 : 0;
                         transitionFactor += (target - transitionFactor) * 0.05;
                         const pos = particles.geometry.attributes.position.array;
@@ -648,8 +647,23 @@
                         camera.position.y += (-mouseY - camera.position.y) * 0.05;
                         camera.lookAt(scene.position);
                         renderer.render(scene, camera);
+                        animationId = requestAnimationFrame(anim);
                     };
-                    anim();
+
+                    // ⚡ Bolt Optimization: Pause animation when off-screen to save resources
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                if (!animationId) anim();
+                            } else {
+                                if (animationId) {
+                                    cancelAnimationFrame(animationId);
+                                    animationId = null;
+                                }
+                            }
+                        });
+                    }, { rootMargin: '200px' });
+                    observer.observe(container);
 
                     // Redimensionar responsivo
                     window.addEventListener('resize', () => {

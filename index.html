@@ -95,6 +95,18 @@
             transform: translateY(-2px) scale(1.02);
         }
 
+
+        .btn-outline-verde {
+            border: 2px solid var(--chala-verde);
+            color: var(--chala-verde);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-verde:hover {
+            background: var(--chala-verde);
+            color: var(--chala-tinta);
+        }
+
         #canvas-container {
             position: relative;
             width: 100%;
@@ -266,7 +278,7 @@
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
-<body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban">
+<body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban" data-hub-webhook="http://localhost:8787/api/hub/demanda-datos" data-celeron-webhook="http://localhost:8787/api/celeron/restart-zram">
     <div id="scroll-progress"></div>
     <div class="scanline"></div>
 
@@ -426,9 +438,9 @@
                     Ecosistema de <span class="text-[#FFB300]">Soberanía</span>
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 max-w-6xl mx-auto">
-                    <div class="glass-card p-6 md:p-14 rounded-3xl md:rounded-[4rem] border-l-8 border-[#D5006C] flex flex-col justify-between group">
+                    <div class="glass-card p-6 md:p-14 rounded-3xl md:rounded-[4rem] border-l-8 flex flex-col justify-between group" style="border-color: var(--chala-rosa);">
                         <div>
-                            <div class="text-xs font-mono text-[#D5006C] mb-4 md:mb-8 uppercase tracking-[0.6em] font-black">Laboratorio Táctico</div>
+                            <div class="text-xs font-mono mb-4 md:mb-8 uppercase tracking-[0.6em] font-black" style="color: var(--chala-rosa);">Laboratorio Táctico</div>
                             <h3 class="text-3xl md:text-5xl font-black text-white mb-4 md:mb-8 uppercase italic font-orbitron">Dado Magistral</h3>
                             <p class="text-[#B0BEC5] text-base md:text-xl leading-relaxed mb-6 md:mb-12 font-light">Accede al Arcade SRAP ULTRA y rompe el sistema con una nueva perspectiva Rosa Rebelde.</p>
                         </div>
@@ -437,13 +449,13 @@
                         </a>
                     </div>
 
-                    <div class="glass-card p-6 md:p-14 rounded-3xl md:rounded-[4rem] border-l-8 border-[#1A237E] flex flex-col justify-between group">
+                    <div class="glass-card p-6 md:p-14 rounded-3xl md:rounded-[4rem] border-l-8 flex flex-col justify-between group" style="border-color: var(--chala-verde);">
                         <div>
-                            <div class="text-xs font-mono text-[#1A237E] mb-4 md:mb-8 uppercase tracking-[0.6em] font-black">Editorial Terminal</div>
+                            <div class="text-xs font-mono mb-4 md:mb-8 uppercase tracking-[0.6em] font-black" style="color: var(--chala-verde);">Editorial Terminal</div>
                             <h3 class="text-3xl md:text-5xl font-black text-white mb-4 md:mb-8 uppercase italic font-orbitron">Bitácora Tinta</h3>
                             <p class="text-[#B0BEC5] text-base md:text-xl leading-relaxed mb-6 md:mb-12 font-light">Notas tácticas desde el penthouse del búnker. Teoría SRAP e IA local.</p>
                         </div>
-                        <a href="https://decodificadorachalamandramagis.blogspot.com/" target="_blank" class="border-2 border-[#1A237E] text-[#1A237E] hover:bg-[#1A237E] hover:text-white text-center py-4 md:py-6 w-full rounded-2xl font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 md:gap-4 text-xs md:text-sm">
+                        <a href="https://decodificadorachalamandramagis.blogspot.com/" target="_blank" class="btn-outline-verde text-center py-4 md:py-6 w-full rounded-2xl font-black uppercase tracking-widest flex items-center justify-center gap-2 md:gap-4 text-xs md:text-sm">
                             <i class="fas fa-terminal"></i> Acceder a Bitácora
                         </a>
                     </div>
@@ -483,6 +495,8 @@
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');
+            const hubWebhookUrl = document.body.dataset.hubWebhook;
+            const celeronWebhookUrl = document.body.dataset.celeronWebhook;
             const toggleBtnMobile = document.getElementById('toggle-demo-mobile');
             const toggleBtnDesktop = document.getElementById('toggle-demo-desktop');
             const statusText = document.getElementById('demo-status');
@@ -493,6 +507,41 @@
             let mouseX = 0, mouseY = 0;
             let isClarity = false;
             let transitionFactor = 0;
+
+            async function dispatchCeleronSignal({ requestZramRestart = false }) {
+                const requests = [
+                    fetch(hubWebhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            signal: 'demanda_datos',
+                            source: 'transformar_en_claridad',
+                            timestamp: new Date().toISOString(),
+                            refresh: 'visualizacion_nodal'
+                        })
+                    })
+                ];
+
+                if (requestZramRestart) {
+                    requests.push(
+                        fetch(celeronWebhookUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                command: 'sudo systemctl restart zramswap.service',
+                                source: 'transformar_en_claridad',
+                                timestamp: new Date().toISOString()
+                            })
+                        })
+                    );
+                }
+
+                try {
+                    await Promise.all(requests);
+                } catch (error) {
+                    console.warn('No se pudo enviar la señal al HUB/Celeron:', error);
+                }
+            }
 
             // Reducir partículas en móvil para mejor rendimiento
             const isMobile = window.innerWidth < 768;
@@ -625,9 +674,10 @@
                     if (toggleBtnDesktop) toggleButtons.push(toggleBtnDesktop);
                     
                     toggleButtons.forEach(btn => {
-                        btn.addEventListener('click', () => {
+                        btn.addEventListener('click', async () => {
                             isClarity = !isClarity;
                             updateUI();
+                            await dispatchCeleronSignal({ requestZramRestart: isClarity });
                         });
                     });
 

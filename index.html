@@ -266,7 +266,7 @@
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
-<body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban">
+<body class="antialiased selection:bg-[#FFB300] selection:text-black bg-urban" data-hub-webhook="http://localhost:8787/api/hub/demanda-datos" data-celeron-webhook="http://localhost:8787/api/celeron/restart-zram">
     <div id="scroll-progress"></div>
     <div class="scanline"></div>
 
@@ -483,6 +483,8 @@
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');
+            const hubWebhookUrl = document.body.dataset.hubWebhook;
+            const celeronWebhookUrl = document.body.dataset.celeronWebhook;
             const toggleBtnMobile = document.getElementById('toggle-demo-mobile');
             const toggleBtnDesktop = document.getElementById('toggle-demo-desktop');
             const statusText = document.getElementById('demo-status');
@@ -493,6 +495,41 @@
             let mouseX = 0, mouseY = 0;
             let isClarity = false;
             let transitionFactor = 0;
+
+            async function dispatchCeleronSignal({ requestZramRestart = false }) {
+                const requests = [
+                    fetch(hubWebhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            signal: 'demanda_datos',
+                            source: 'transformar_en_claridad',
+                            timestamp: new Date().toISOString(),
+                            refresh: 'visualizacion_nodal'
+                        })
+                    })
+                ];
+
+                if (requestZramRestart) {
+                    requests.push(
+                        fetch(celeronWebhookUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                command: 'sudo systemctl restart zramswap.service',
+                                source: 'transformar_en_claridad',
+                                timestamp: new Date().toISOString()
+                            })
+                        })
+                    );
+                }
+
+                try {
+                    await Promise.all(requests);
+                } catch (error) {
+                    console.warn('No se pudo enviar la señal al HUB/Celeron:', error);
+                }
+            }
 
             // Reducir partículas en móvil para mejor rendimiento
             const isMobile = window.innerWidth < 768;
@@ -625,9 +662,10 @@
                     if (toggleBtnDesktop) toggleButtons.push(toggleBtnDesktop);
                     
                     toggleButtons.forEach(btn => {
-                        btn.addEventListener('click', () => {
+                        btn.addEventListener('click', async () => {
                             isClarity = !isClarity;
                             updateUI();
+                            await dispatchCeleronSignal({ requestZramRestart: isClarity });
                         });
                     });
 

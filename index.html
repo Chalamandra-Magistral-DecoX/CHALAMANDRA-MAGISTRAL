@@ -461,25 +461,41 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Barra de Progreso
-            window.addEventListener('scroll', () => {
+            // ⚡ Bolt Optimization: Throttled scroll handler to reduce main thread blocking and layout thrashing
+            const scrollProgress = document.getElementById('scroll-progress');
+            const reveals = document.querySelectorAll('.reveal');
+            let ticking = false;
+
+            const onScroll = () => {
+                // Update Progress Bar
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrolled = (winScroll / height) * 100;
-                document.getElementById('scroll-progress').style.width = scrolled + "%";
-            });
+                if (scrollProgress) scrollProgress.style.width = scrolled + "%";
 
-            // Animaciones de Revelado
-            const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
+                // Reveal Animations
+                const windowHeight = window.innerHeight;
+                const elementVisible = 150;
+
+                reveals.forEach((reveal) => {
                     const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
                 });
+
+                ticking = false;
             };
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(onScroll);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // Initial check
+            onScroll();
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');

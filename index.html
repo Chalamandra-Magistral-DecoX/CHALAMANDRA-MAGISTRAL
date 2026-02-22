@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -634,18 +634,33 @@
                     let animationId;
                     const anim = () => {
                         const target = isClarity ? 1 : 0;
-                        transitionFactor += (target - transitionFactor) * 0.05;
+                        const diff = target - transitionFactor;
+                        transitionFactor += diff * 0.05;
+
+                        // ⚡ Bolt Optimization: Check if particles are settled to skip expensive loop
                         const pos = particles.geometry.attributes.position.array;
-                        const lp = networkLines.geometry.attributes.position.array;
-                        for(let i=0; i<PARTICLE_COUNT; i++) {
-                            const i3 = i*3;
-                            pos[i3] += ((chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor) - pos[i3]) * 0.08;
-                            pos[i3+1] += ((chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor) - pos[i3+1]) * 0.08;
-                            pos[i3+2] += ((chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor) - pos[i3+2]) * 0.08;
-                            lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+                        const i3_0 = 0;
+                        const targetX = chaosPositions[i3_0]*(1-transitionFactor) + clarityPositions[i3_0]*transitionFactor;
+                        const currentX = pos[i3_0];
+                        const dist = Math.abs(targetX - currentX);
+
+                        if (Math.abs(diff) > 0.001 || dist > 0.01) {
+                            const lp = networkLines.geometry.attributes.position.array;
+                            for(let i=0; i<PARTICLE_COUNT; i++) {
+                                const i3 = i*3;
+                                const tx = chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor;
+                                const ty = chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor;
+                                const tz = chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor;
+
+                                pos[i3] += (tx - pos[i3]) * 0.08;
+                                pos[i3+1] += (ty - pos[i3+1]) * 0.08;
+                                pos[i3+2] += (tz - pos[i3+2]) * 0.08;
+                                lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+                            }
+                            particles.geometry.attributes.position.needsUpdate = true;
+                            networkLines.geometry.attributes.position.needsUpdate = true;
                         }
-                        particles.geometry.attributes.position.needsUpdate = true;
-                        networkLines.geometry.attributes.position.needsUpdate = true;
+
                         networkLines.material.opacity = transitionFactor * 0.35;
                         particles.rotation.y += 0.0025;
                         networkLines.rotation.y += 0.0025;

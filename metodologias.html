@@ -65,7 +65,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Notificación Custom */
+        /* Notificación */
         #toast {
             position: fixed;
             bottom: 20px;
@@ -86,18 +86,18 @@
 
         .tool-view { display: none; }
         .tool-view.active { display: block; }
-        
+
         /* Mejoras visuales */
         .method-icon {
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .method-card {
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        
+
         .method-card::before {
             content: '';
             position: absolute;
@@ -108,11 +108,8 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
-        .method-card:hover::before {
-            opacity: 1;
-        }
-        
+
+        .method-card:hover::before { opacity: 1; }
         .pastelote-card::before { background: linear-gradient(90deg, var(--rosa), #ff0066); }
         .looks-card::before { background: linear-gradient(90deg, var(--purple), #6600cc); }
         .mochila-card::before { background: linear-gradient(90deg, var(--verde), #00cc66); }
@@ -120,14 +117,13 @@
         .cancha-card::before { background: linear-gradient(90deg, #ff8500, #cc5500); }
         .altar-card::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
         .laberinto-card::before { background: linear-gradient(90deg, #10b981, #059669); }
-        
-        /* Interacciones mejoradas */
+
+        /* Interacciones */
         .emotion-btn {
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        
         .emotion-btn::after {
             content: '';
             position: absolute;
@@ -140,45 +136,44 @@
             transform: translate(-50%, -50%) scale(0);
             transition: transform 0.5s ease;
         }
-        
         .emotion-btn:active::after {
             transform: translate(-50%, -50%) scale(20);
         }
-        
-        /* Canvas para Mapa del Caos */
+
+        /* Canvas */
         #chaos-canvas {
             touch-action: none;
             cursor: crosshair;
         }
-        
-        /* Drag and drop para La Cancha */
+
+        /* Drag and drop */
         .draggable {
             cursor: move;
             user-select: none;
             transition: transform 0.2s ease;
         }
-        
         .draggable.dragging {
             opacity: 0.7;
             transform: scale(1.05);
             z-index: 100;
         }
-        
-        /* Efecto de fuego para El Altar */
-        @keyframes fire {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.05) rotate(1deg); }
-        }
-        
-        .fire-effect {
-            animation: fire 0.5s ease-in-out infinite;
+
+        /* Laberinto: llaves */
+        .key-item {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            border-radius: 999px;
+            padding: 0.25rem 0.75rem;
+            margin: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #10b981;
         }
     </style>
 
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
+    <!-- Vercel Web Analytics (opcional) -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body class="p-6 md:p-12">
@@ -186,6 +181,7 @@
     <!-- Notificación -->
     <div id="toast">¡Mensaje de barrio activado!</div>
 
+    <!-- ==================== MAIN MENU ==================== -->
     <div id="main-menu" class="tool-view active max-w-5xl mx-auto fade-in">
         <header class="text-center mb-10">
             <h1 class="text-5xl md:text-7xl font-bangers italic text-[#ff4d9e] mb-2 tracking-tighter drop-shadow-[0_0_15px_rgba(255,77,158,0.4)] uppercase">
@@ -208,7 +204,7 @@
                         <div class="dice-face face-3">🎒</div>
                         <div class="dice-face face-4">🗺️</div>
                         <div class="dice-face face-5">⚽</div>
-                        <div class="dice-face face-6">✨</div>
+                        <div class="dice-face face-6">🔥</div>
                     </div>
                 </div>
 
@@ -222,7 +218,7 @@
                 </div>
             </div>
 
-            <!-- Grid de Herramientas - NOMBRES ORIGINALES RESPETADOS -->
+            <!-- Grid de Herramientas -->
             <div class="w-full lg:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-4">
                 <!-- El Pastelote Emocional -->
                 <div class="method-card pastelote-card bg-zinc-900/60 border border-pink-500/20 rounded-3xl p-5 backdrop-blur-sm shadow-xl hover:border-pink-500/60 transition-all cursor-pointer group flex flex-col items-center text-center" onclick="changeView('pastelote')">
@@ -285,7 +281,7 @@
         </footer>
     </div>
 
-    <!-- VISTAS DE HERRAMIENTAS - MANTENIENDO NOMBRES ORIGINALES -->
+    <!-- ==================== VISTAS DE HERRAMIENTAS ==================== -->
 
     <!-- El Pastelote Emocional -->
     <div id="view-pastelote" class="tool-view max-w-2xl mx-auto fade-in">
@@ -425,7 +421,7 @@
             <p class="text-zinc-400 mb-6 text-sm">¿Qué herramientas llevas hoy en tu mochila para enfrentar el barrio? Activa las que necesites:</p>
             
             <div class="grid grid-cols-4 gap-3 mb-8" id="backpack-grid">
-                <!-- Los ítems se generan dinámicamente -->
+                <!-- Los ítems se generan dinámicamente con JS -->
             </div>
             
             <div class="p-4 bg-green-900/20 border border-green-800/30 rounded-2xl mb-6">
@@ -524,9 +520,6 @@
             
             <div class="flex justify-between items-center">
                 <div class="text-sm text-zinc-500 italic">Arrastra las ideas para crear tu estrategia</div>
-                <button onclick="saveStrategy()" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-6 rounded-xl">
-                    Guardar Formación
-                </button>
             </div>
         </div>
     </div>
@@ -536,47 +529,17 @@
         <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
             <i class="fas fa-chevron-left"></i> Volver al Dashboard
         </button>
-        <div class="bg-zinc-900 border-2 border-red-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-4xl font-black italic text-red-500 uppercase tracking-tighter">El Altar de lo Roto</h2>
-                <span class="text-xs text-red-300/60 font-bold italic">✨ RITUAL DE TRANSFORMACIÓN</span>
-            </div>
-            
-            <p class="text-zinc-400 mb-6 text-sm">Honra lo que se rompió para transmutarlo en luz. Escribe lo que dejas ir:</p>
-            
-            <div class="mb-6">
-                <div class="grid grid-cols-2 gap-3 mb-4">
-                    <button onclick="addToAltar('Hábito viejo')" class="p-3 bg-red-900/30 border border-red-800/30 rounded-xl text-red-300 hover:bg-red-800/40 transition-all text-sm font-bold">
-                        🕰️ Hábito viejo
-                    </button>
-                    <button onclick="addToAltar('Creencias limitantes')" class="p-3 bg-red-900/30 border border-red-800/30 rounded-xl text-red-300 hover:bg-red-800/40 transition-all text-sm font-bold">
-                        🔒 Creencias limitantes
-                    </button>
-                    <button onclick="addToAltar('Relación tóxica')" class="p-3 bg-red-900/30 border border-red-800/30 rounded-xl text-red-300 hover:bg-red-800/40 transition-all text-sm font-bold">
-                        💔 Relación tóxica
-                    </button>
-                    <button onclick="addToAltar('Miedo al fracaso')" class="p-3 bg-red-900/30 border border-red-800/30 rounded-xl text-red-300 hover:bg-red-800/40 transition-all text-sm font-bold">
-                        😨 Miedo al fracaso
-                    </button>
-                </div>
-            </div>
-            
-            <textarea id="altar-text" class="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-sm focus:border-red-500 outline-none h-48 mb-6 text-white transition-all duration-300" placeholder="¿Qué estás soltando hoy, mi chama? Describe lo que se rompió y lo que nace de sus cenizas..."></textarea>
-            
-            <div class="flex items-center justify-center mb-6">
-                <div class="text-center">
-                    <div class="text-4xl mb-2 fire-effect">🔥</div>
-                    <div class="text-xs text-red-400 font-bold">EL FUEGO TRANSFORMA</div>
-                </div>
-            </div>
-            
-            <button onclick="burnRitual()" class="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-black italic uppercase py-4 rounded-2xl transition-all shadow-xl">
-                Encender Llama Ritual
+        <div class="bg-zinc-900 border-2 border-red-500/40 rounded-[2.5rem] p-8 shadow-2xl text-center">
+            <i class="fas fa-fire text-6xl text-red-500 mb-4 fire-effect"></i>
+            <h2 class="text-4xl font-black italic text-red-500 uppercase mb-4">El Altar de lo Roto</h2>
+            <p class="text-zinc-400 mb-6">Aquí quemamos creencias limitantes y soltamos lo que ya no sirve.</p>
+            <button onclick="showToast('🔥 Quemando... liberado')" class="bg-red-600 hover:bg-red-500 text-white font-black italic uppercase py-3 px-8 rounded-2xl transition-all">
+                Prender Fuego
             </button>
         </div>
     </div>
 
-    <!-- Laberinto de la Trampa -->
+    <!-- Laberinto de la Trampa (ahora interactivo) -->
     <div id="view-laberinto" class="tool-view max-w-2xl mx-auto fade-in">
         <button onclick="changeView('menu')" class="flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-6 text-sm font-bold uppercase italic">
             <i class="fas fa-chevron-left"></i> Volver al Dashboard
@@ -584,526 +547,471 @@
         <div class="bg-zinc-900 border-2 border-emerald-500/40 rounded-[2.5rem] p-8 shadow-2xl">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-4xl font-black italic text-emerald-500 uppercase tracking-tighter">Laberinto de la Trampa</h2>
-                <span class="text-xs text-emerald-300/60 font-bold italic">🧭 ESTRATEGIA MENTAL</span>
+                <span class="text-xs text-emerald-300/60 font-bold italic">🔑 ENCUENTRA LLAVES</span>
             </div>
             
-            <div class="bg-zinc-800/30 p-6 rounded-2xl border border-emerald-500/20 mb-6">
-                <p class="text-sm italic font-medium mb-4">"Topaste con pared: Sientes que tu bloqueo es más grande que tus ganas."</p>
-                <div class="text-xs text-emerald-400 font-bold">¿Cuál es tu próxima jugada?</div>
+            <p class="text-zinc-400 mb-6 text-sm">Explora el laberinto y encuentra llaves de autoconocimiento. Cada vez que busques, aparecerá una nueva llave.</p>
+            
+            <div class="bg-black/40 border border-emerald-800/30 rounded-2xl p-6 mb-6 min-h-[120px]">
+                <div class="text-emerald-400 font-bold uppercase text-xs mb-3">Tus llaves:</div>
+                <div id="key-container" class="flex flex-wrap gap-2">
+                    <!-- Aquí se mostrarán las llaves encontradas -->
+                </div>
             </div>
             
-            <div class="space-y-3 mb-6">
-                <button onclick="selectLaberintoOption('curiosidad')" class="w-full p-4 bg-gradient-to-r from-emerald-900/40 to-zinc-800 hover:from-emerald-800/50 hover:to-zinc-700 rounded-xl text-left text-sm font-bold uppercase italic border border-emerald-700/30 transition-all group">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="text-xl group-hover:scale-125 transition-transform">🔍</div>
-                            <div>
-                                <div class="text-emerald-300">Buscar una grieta</div>
-                                <div class="text-[10px] text-emerald-600 font-normal mt-1">(Curiosidad)</div>
-                            </div>
-                        </div>
-                        <div class="text-emerald-500/60 text-xs">→</div>
-                    </div>
+            <div class="flex gap-3">
+                <button onclick="findKey()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-black italic uppercase py-4 rounded-2xl transition-all shadow-xl">
+                    Buscar Llave
                 </button>
-                
-                <button onclick="selectLaberintoOption('aceptacion')" class="w-full p-4 bg-gradient-to-r from-emerald-900/40 to-zinc-800 hover:from-emerald-800/50 hover:to-zinc-700 rounded-xl text-left text-sm font-bold uppercase italic border border-emerald-700/30 transition-all group">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="text-xl group-hover:scale-125 transition-transform">🧘</div>
-                            <div>
-                                <div class="text-emerald-300">Meditar ante el muro</div>
-                                <div class="text-[10px] text-emerald-600 font-normal mt-1">(Aceptación)</div>
-                            </div>
-                        </div>
-                        <div class="text-emerald-500/60 text-xs">→</div>
-                    </div>
+                <button onclick="resetKeys()" class="px-6 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold uppercase py-4 rounded-2xl transition-all">
+                    Reiniciar
                 </button>
-            </div>
-            
-            <div id="laberinto-result" class="hidden p-4 bg-emerald-900/20 border border-emerald-800/30 rounded-2xl">
-                <div class="text-xs text-emerald-400 uppercase font-bold mb-2">Solución encontrada:</div>
-                <div id="laberinto-message" class="text-sm italic text-zinc-300"></div>
             </div>
         </div>
     </div>
 
+    <!-- ==================== SCRIPT COMPLETO MEJORADO ==================== -->
     <script>
-        // --- Navegación ---
-        function changeView(viewId) {
-            document.querySelectorAll('.tool-view').forEach(view => {
-                view.classList.remove('active');
-                view.classList.remove('fade-in');
-            });
-            
-            setTimeout(() => {
-                const target = document.getElementById('view-' + viewId) || document.getElementById('main-menu');
-                target.classList.add('active');
-                target.classList.add('fade-in');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                // Inicializar herramientas específicas
-                if (viewId === 'mapa') initCanvas();
-                if (viewId === 'cancha') initDraggable();
-                if (viewId === 'mochila') initMochila();
-            }, 50);
-        }
-
-        // --- Toast System ---
-        function showToast(msg, type = 'info') {
-            const toast = document.getElementById('toast');
-            const colors = {
-                'info': 'rgba(255, 77, 158, 0.9)',
-                'success': 'rgba(0, 255, 153, 0.9)',
-                'warning': 'rgba(255, 133, 0, 0.9)',
-                'error': 'rgba(239, 68, 68, 0.9)'
-            };
-            
-            toast.innerText = msg;
-            toast.style.background = colors[type] || colors['info'];
-            toast.classList.add('show');
-            
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        // --- Lógica del Dado ---
-        let isRolling = false;
-        let lastSuggestion = null;
-        const tools = [
-            { id: 'pastelote', name: 'Pastelote Emocional', color: 'pink', rotations: {x: 0, y: 0} },
-            { id: 'looks', name: '6 Looks de la Tercia', color: 'purple', rotations: {x: 0, y: 180} },
-            { id: 'mochila', name: 'Kit del Malandro', color: 'green', rotations: {x: 0, y: -90} },
-            { id: 'mapa', name: 'Mapa del Caos', color: 'blue', rotations: {x: 0, y: 90} },
-            { id: 'cancha', name: 'Terreno de Ideas', color: 'orange', rotations: {x: -90, y: 0} },
-            { id: 'altar', name: 'El Altar de lo Roto', color: 'red', rotations: {x: 90, y: 0} }
-        ];
-
-        function rollDice() {
-            if (isRolling) return;
-            isRolling = true;
-            
-            const btn = document.getElementById('roll-btn');
+        (function() {
+            // ---------- VARIABLES GLOBALES ----------
             const dice = document.getElementById('dice');
-            const suggDiv = document.getElementById('dice-suggestion');
-            const rollText = document.getElementById('roll-text');
+            const suggestionDiv = document.getElementById('dice-suggestion');
+            const suggestionLink = document.getElementById('suggestion-link');
+            let suggestedView = '';
 
-            suggDiv.classList.add('hidden');
-            rollText.innerText = "Decodificando...";
-            btn.disabled = true;
+            // Flags para inicialización única
+            let canvasInitialized = false;
+            let dragInitialized = false;
 
-            const randomIdx = Math.floor(Math.random() * tools.length);
-            const selection = tools[randomIdx];
-            lastSuggestion = selection.id;
+            // Para el mapa del caos
+            let canvas, ctx;
+            let drawing = false;
+            let currentTool = 'route';
+            let lastX = 0, lastY = 0;
 
-            const extraSpins = 1440;
-            const targetX = selection.rotations.x + extraSpins;
-            const targetY = selection.rotations.y + extraSpins;
+            // Para el kit del malandro
+            const kitItems = [
+                { id: 1, name: '💪 VALENTÍA', selected: false },
+                { id: 2, name: '🧠 CLARIDAD', selected: false },
+                { id: 3, name: '🎨 CREATIVIDAD', selected: false },
+                { id: 4, name: '🔍 OBSERVACIÓN', selected: false },
+                { id: 5, name: '💬 COMUNICACIÓN', selected: false },
+                { id: 6, name: '🧘 PACIENCIA', selected: false },
+                { id: 7, name: '🔥 PASIÓN', selected: false },
+                { id: 8, name: '⚖️ EQUILIBRIO', selected: false }
+            ];
 
-            dice.style.transform = `rotateX(${targetX}deg) rotateY(${targetY}deg)`;
+            // Para el laberinto (llaves)
+            let keysFound = JSON.parse(localStorage.getItem('laberintoKeys')) || [];
+            const keyMessages = [
+                "Aceptación", "Paciencia", "Valentía", "Claridad", "Perdón", "Gratitud", 
+                "Humildad", "Confianza", "Creatividad", "Empatía", "Resiliencia", "Esperanza"
+            ];
 
-            setTimeout(() => {
-                isRolling = false;
-                btn.disabled = false;
-                rollText.innerText = "Chalamandrazo";
-                
-                const suggLink = document.getElementById('suggestion-link');
-                suggLink.innerText = "Abrir " + selection.name + " →";
-                suggLink.className = `text-sm font-black uppercase italic hover:underline text-${selection.color}-400`;
-                suggDiv.classList.remove('hidden');
-                
-                showToast(`El dado sugiere: ${selection.name}`, 'success');
-            }, 2000);
-        }
-
-        function openSuggestedView() {
-            if (lastSuggestion) changeView(lastSuggestion);
-        }
-
-        // --- El Pastelote Emocional ---
-        let currentEmotion = null;
-        
-        function processEmotion(emotion, question) {
-            currentEmotion = emotion;
-            document.getElementById('pastelote-reflection').placeholder = `Reflexiona sobre tu ${emotion.toLowerCase()}...`;
-            showToast(question, 'info');
-            
-            // Efecto visual en los botones
-            document.querySelectorAll('.emotion-btn').forEach(btn => {
-                btn.classList.remove('border-pink-500', 'bg-pink-900/30');
-            });
-            event.target.classList.add('border-pink-500', 'bg-pink-900/30');
-        }
-        
-        function saveReflection() {
-            const reflection = document.getElementById('pastelote-reflection').value;
-            if (!reflection.trim() || !currentEmotion) {
-                showToast("Selecciona una emoción y escribe tu reflexión", 'warning');
-                return;
-            }
-            
-            showToast(`Reflexión sobre ${currentEmotion} guardada`, 'success');
-            clearPastelote();
-        }
-        
-        function clearPastelote() {
-            document.getElementById('pastelote-reflection').value = '';
-            currentEmotion = null;
-            document.querySelectorAll('.emotion-btn').forEach(btn => {
-                btn.classList.remove('border-pink-500', 'bg-pink-900/30');
-            });
-        }
-
-        // --- Los 6 Looks de la Tercia ---
-        const lookQuestions = {
-            'Bibliotecaria': '¿Cuáles son los datos fríos y hechos concretos de esta situación?',
-            'Drama Queen': '¿Qué es lo más dramático que podría pasar? ¿Y lo más glorioso?',
-            'Hater': '¿Qué es lo peor que podría pasar? ¿Qué crítica constructiva tienes?',
-            'Optimista': '¿Qué es lo mejor que podría salir de esto? ¿Qué oportunidades ves?',
-            'Creativa': '¿Qué solución loca, fuera de la caja, se te ocurre?',
-            'Jefa': '¿Cuál es la primera acción concreta que tomarías ahora mismo?'
-        };
-        
-        function selectLook(look) {
-            document.getElementById('look-question').textContent = lookQuestions[look];
-            document.getElementById('looks-answer').placeholder = `Escribe tu respuesta desde la perspectiva ${look.toLowerCase()}...`;
-            
-            // Efecto visual
-            document.querySelectorAll('.look-option').forEach(opt => {
-                opt.classList.remove('border-purple-500');
-            });
-            event.target.classList.add('border-purple-500');
-            
-            showToast(`Vistiendo el look: ${look}`, 'success');
-        }
-
-        // --- Kit del Malandro (INV) ---
-        const inventoryItems = [
-            { emoji: '💣', name: 'Audacia', desc: 'Para tomar riesgos calculados' },
-            { emoji: '🕶️', name: 'Estilo', desc: 'Tu manera única de hacer las cosas' },
-            { emoji: '❤️', name: 'Lealtad', desc: 'A ti mismo y a tus valores' },
-            { emoji: '🔥', name: 'Aguante', desc: 'Resistencia emocional' },
-            { emoji: '🧿', name: 'Calma', desc: 'Mantenerse centrado en la tormenta' },
-            { emoji: '💰', name: 'Valor', desc: 'Reconocer tu propio precio' },
-            { emoji: '🧠', name: 'Maña', desc: 'Inteligencia callejera' },
-            { emoji: '⚡', name: 'Chispa', desc: 'Inspiración y energía creativa' }
-        ];
-        
-        let selectedItems = [];
-        
-        function initMochila() {
-            const grid = document.getElementById('backpack-grid');
-            grid.innerHTML = '';
-            
-            inventoryItems.forEach((item, index) => {
-                const btn = document.createElement('button');
-                btn.innerHTML = `
-                    <div class="text-2xl mb-1">${item.emoji}</div>
-                    <div class="text-[9px] font-black uppercase">${item.name}</div>
-                `;
-                btn.className = "aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 border border-zinc-700 rounded-xl flex flex-col items-center justify-center text-white hover:border-green-500 transition-all hover:scale-105";
-                btn.onclick = () => toggleItem(index, btn);
-                grid.appendChild(btn);
-            });
-        }
-        
-        function toggleItem(index, btn) {
-            const item = inventoryItems[index];
-            
-            if (selectedItems.includes(index)) {
-                // Deseleccionar
-                selectedItems = selectedItems.filter(i => i !== index);
-                btn.classList.remove('bg-green-500/20', 'border-green-500');
-                btn.classList.add('bg-gradient-to-br', 'from-zinc-800', 'to-zinc-900', 'border-zinc-700');
-            } else {
-                // Seleccionar
-                selectedItems.push(index);
-                btn.classList.add('bg-green-500/20', 'border-green-500');
-                btn.classList.remove('bg-gradient-to-br', 'from-zinc-800', 'to-zinc-900', 'border-zinc-700');
-            }
-            
-            updateActiveKit();
-        }
-        
-        function updateActiveKit() {
-            const activeDiv = document.getElementById('active-kit');
-            if (selectedItems.length === 0) {
-                activeDiv.textContent = "Ninguna herramienta activada aún";
-                return;
-            }
-            
-            const itemsList = selectedItems.map(i => inventoryItems[i].emoji + ' ' + inventoryItems[i].name).join(', ');
-            activeDiv.textContent = itemsList;
-        }
-        
-        function equipKit() {
-            if (selectedItems.length === 0) {
-                showToast("Selecciona al menos una herramienta", 'warning');
-                return;
-            }
-            
-            const count = selectedItems.length;
-            showToast(`Kit equipado con ${count} herramienta${count > 1 ? 's' : ''}`, 'success');
-        }
-
-        // --- El Mapa del Caos (TAGGER) ---
-        let canvas, ctx;
-        let currentTool = 'route';
-        let drawing = false;
-        let lastX = 0, lastY = 0;
-        
-        function initCanvas() {
-            canvas = document.getElementById('chaos-canvas');
-            ctx = canvas.getContext('2d');
-            
-            // Ajustar tamaño
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            
-            // Dibujar fondo
-            drawBackground();
-            
-            // Event listeners
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mouseout', stopDrawing);
-            
-            // Touch support
-            canvas.addEventListener('touchstart', handleTouchStart);
-            canvas.addEventListener('touchmove', handleTouchMove);
-            canvas.addEventListener('touchend', stopDrawing);
-        }
-        
-        function drawBackground() {
-            // Fondo negro
-            ctx.fillStyle = '#000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Cuadrícula sutil
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-            ctx.lineWidth = 1;
-            
-            for (let x = 0; x < canvas.width; x += 20) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-                ctx.stroke();
-            }
-            
-            for (let y = 0; y < canvas.height; y += 20) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-                ctx.stroke();
-            }
-        }
-        
-        function startDrawing(e) {
-            drawing = true;
-            const pos = getMousePos(e);
-            [lastX, lastY] = [pos.x, pos.y];
-        }
-        
-        function draw(e) {
-            if (!drawing) return;
-            
-            e.preventDefault();
-            const pos = getMousePos(e);
-            
-            // Configurar estilo según herramienta
-            switch(currentTool) {
-                case 'route':
-                    ctx.strokeStyle = '#3399ff';
-                    ctx.lineWidth = 3;
-                    break;
-                case 'danger':
-                    ctx.strokeStyle = '#ef4444';
-                    ctx.lineWidth = 4;
-                    break;
-                case 'safe':
-                    ctx.strokeStyle = '#10b981';
-                    ctx.lineWidth = 3;
-                    break;
-                case 'resource':
-                    ctx.strokeStyle = '#f59e0b';
-                    ctx.lineWidth = 5;
-                    break;
-            }
-            
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            
-            ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(pos.x, pos.y);
-            ctx.stroke();
-            
-            // Para recursos, dibujar un punto especial
-            if (currentTool === 'resource') {
-                ctx.fillStyle = '#f59e0b';
-                ctx.beginPath();
-                ctx.arc(pos.x, pos.y, 3, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            
-            [lastX, lastY] = [pos.x, pos.y];
-        }
-        
-        function stopDrawing() {
-            drawing = false;
-        }
-        
-        function getMousePos(e) {
-            const rect = canvas.getBoundingClientRect();
-            let x, y;
-            
-            if (e.type.includes('touch')) {
-                x = e.touches[0].clientX - rect.left;
-                y = e.touches[0].clientY - rect.top;
-            } else {
-                x = e.clientX - rect.left;
-                y = e.clientY - rect.top;
-            }
-            
-            return { x, y };
-        }
-        
-        function handleTouchStart(e) {
-            e.preventDefault();
-            startDrawing(e.touches[0]);
-        }
-        
-        function handleTouchMove(e) {
-            e.preventDefault();
-            draw(e.touches[0]);
-        }
-        
-        function setMapTool(tool) {
-            currentTool = tool;
-            showToast(`Herramienta: ${tool === 'route' ? 'Ruta' : tool === 'danger' ? 'Peligro' : tool === 'safe' ? 'Zona Segura' : 'Recurso'}`, 'info');
-        }
-        
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawBackground();
-            showToast("Mapa limpiado", 'success');
-        }
-
-        // --- Terreno de Ideas ---
-        function initDraggable() {
-            const draggables = document.querySelectorAll('.draggable');
-            const container = document.getElementById('cancha-container');
-            
-            draggables.forEach(draggable => {
-                draggable.addEventListener('mousedown', (e) => {
-                    e.preventDefault();
-                    
-                    const shiftX = e.clientX - draggable.getBoundingClientRect().left;
-                    const shiftY = e.clientY - draggable.getBoundingClientRect().top;
-                    
-                    draggable.classList.add('dragging');
-                    
-                    function moveAt(pageX, pageY) {
-                        const containerRect = container.getBoundingClientRect();
-                        
-                        // Calcular posición relativa al contenedor
-                        let x = pageX - containerRect.left - shiftX;
-                        let y = pageY - containerRect.top - shiftY;
-                        
-                        // Limitar al contenedor
-                        x = Math.max(0, Math.min(x, containerRect.width - draggable.offsetWidth));
-                        y = Math.max(0, Math.min(y, containerRect.height - draggable.offsetHeight));
-                        
-                        draggable.style.left = x + 'px';
-                        draggable.style.top = y + 'px';
-                    }
-                    
-                    function onMouseMove(e) {
-                        moveAt(e.clientX, e.clientY);
-                    }
-                    
-                    document.addEventListener('mousemove', onMouseMove);
-                    
-                    draggable.addEventListener('mouseup', () => {
-                        document.removeEventListener('mousemove', onMouseMove);
-                        draggable.classList.remove('dragging');
-                    }, { once: true });
-                });
-                
-                // Evitar arrastre nativo
-                draggable.ondragstart = () => false;
-            });
-        }
-        
-        function saveStrategy() {
-            showToast("Formación estratégica guardada", 'success');
-        }
-
-        // --- El Altar de lo Roto ---
-        function addToAltar(item) {
-            const textarea = document.getElementById('altar-text');
-            const currentText = textarea.value;
-            textarea.value = currentText + (currentText ? '\n' : '') + `• ${item}`;
-            showToast(`${item} añadido al altar`, 'info');
-        }
-        
-        function burnRitual() {
-            const textarea = document.getElementById('altar-text');
-            if (!textarea.value.trim()) {
-                showToast("Escribe algo para soltar, mi chama.", 'warning');
-                return;
-            }
-            
-            // Efecto visual
-            textarea.style.filter = "blur(15px)";
-            textarea.style.opacity = "0.2";
-            textarea.disabled = true;
-            
-            // Mostrar mensaje de transformación
-            setTimeout(() => {
-                showToast("✨ Ritual completado. Lo roto se ha transmutado en luz.", 'success');
-                
-                // Restaurar después de un tiempo
+            // ---------- FUNCIONES DE UTILIDAD ----------
+            function showToast(message) {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.classList.add('show');
                 setTimeout(() => {
-                    textarea.style.filter = "";
-                    textarea.style.opacity = "";
-                    textarea.disabled = false;
-                    textarea.value = "";
-                }, 2000);
-            }, 500);
-        }
-
-        // --- Laberinto de la Trampa ---
-        function selectLaberintoOption(option) {
-            const resultDiv = document.getElementById('laberinto-result');
-            const messageDiv = document.getElementById('laberinto-message');
-            
-            let message = '';
-            if (option === 'curiosidad') {
-                message = "¡Esa grieta era la clave! Tu curiosidad encontró una salida donde solo veías pared. El laberinto empieza a revelar sus secretos.";
-            } else {
-                message = "El silencio ante el muro reveló que era solo una ilusión. Al aceptarlo sin lucha, se disolvió. Laberinto superado.";
+                    toast.classList.remove('show');
+                }, 3000);
             }
-            
-            messageDiv.textContent = message;
-            resultDiv.classList.remove('hidden');
-            
-            showToast("Camino elegido en el laberinto", 'success');
-        }
 
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', function() {
-            initMochila();
-            
-            // Cerrar con ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const activeView = document.querySelector('.tool-view.active');
-                    if (activeView.id !== 'main-menu') {
-                        changeView('menu');
-                    }
+            // Cambio de vistas
+            window.changeView = function(viewId) {
+                document.querySelectorAll('.tool-view').forEach(view => {
+                    view.classList.remove('active');
+                });
+                if (viewId === 'menu') {
+                    document.getElementById('main-menu').classList.add('active');
+                } else {
+                    const target = document.getElementById(`view-${viewId}`);
+                    if (target) target.classList.add('active');
                 }
-            });
-        });
+
+                // Inicializar canvas solo una vez
+                if (viewId === 'mapa' && !canvasInitialized) {
+                    setTimeout(() => {
+                        initCanvas();
+                        canvasInitialized = true;
+                    }, 100);
+                }
+                // Inicializar drag & drop solo una vez
+                if (viewId === 'cancha' && !dragInitialized) {
+                    initDragAndDrop();
+                    dragInitialized = true;
+                }
+                // Actualizar vista de llaves si es laberinto
+                if (viewId === 'laberinto') {
+                    renderKeys();
+                }
+                // Cargar datos de pastelote si es necesario
+                if (viewId === 'pastelote') {
+                    loadPastelote();
+                }
+            };
+
+            // ---------- DADO MEJORADO ----------
+            window.rollDice = function() {
+                const btn = document.getElementById('roll-btn');
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+
+                // Herramientas disponibles en el dado (6, excluimos laberinto)
+                const tools = ['pastelote', 'looks', 'mochila', 'mapa', 'cancha', 'altar'];
+                const randomIndex = Math.floor(Math.random() * tools.length);
+                suggestedView = tools[randomIndex];
+
+                // Mapeo de caras (aproximado, para que la cara correspondiente quede arriba)
+                // No es exacto, pero para el efecto visual haremos varias rotaciones
+                const rotations = [
+                    { x: 0, y: 0 },      // cara 1 (pastelote)
+                    { x: 0, y: 180 },     // cara 2 (looks)
+                    { x: 0, y: 90 },      // cara 3 (mochila)
+                    { x: 0, y: -90 },     // cara 4 (mapa)
+                    { x: 90, y: 0 },      // cara 5 (cancha)
+                    { x: -90, y: 0 }      // cara 6 (altar)
+                ];
+
+                // Aplicar rotación correspondiente a la herramienta seleccionada
+                // Pero primero hacemos un efecto de varias vueltas
+                let spinCount = 3; // número de vueltas extra
+                let targetRot = rotations[randomIndex];
+                // Generar rotación con vueltas extras
+                let finalX = targetRot.x + 360 * spinCount;
+                let finalY = targetRot.y + 360 * spinCount;
+                // Añadir aleatoriedad para que no siempre sea igual
+                finalX += Math.floor(Math.random() * 30) - 15;
+                finalY += Math.floor(Math.random() * 30) - 15;
+
+                dice.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg)`;
+
+                // Después de la animación, mostrar sugerencia
+                setTimeout(() => {
+                    const toolNames = {
+                        pastelote: 'Pastelote Emocional',
+                        looks: '6 Looks de la Tercia',
+                        mochila: 'Kit del Malandro',
+                        mapa: 'Mapa del Caos',
+                        cancha: 'Terreno de Ideas',
+                        altar: 'Altar de lo Roto'
+                    };
+                    suggestionLink.textContent = toolNames[suggestedView];
+                    suggestionDiv.classList.remove('hidden');
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    showToast(`🎲 El destino te lleva a: ${toolNames[suggestedView]}`);
+                }, 2000);
+            };
+
+            window.openSuggestedView = function() {
+                if (suggestedView) {
+                    changeView(suggestedView);
+                    suggestionDiv.classList.add('hidden');
+                }
+            };
+
+            // ---------- PASTELOTE EMOCIONAL ----------
+            window.processEmotion = function(emotion, question) {
+                const answer = prompt(question, '');
+                if (answer !== null && answer.trim() !== '') {
+                    const textarea = document.getElementById('pastelote-reflection');
+                    textarea.value += `[${emotion}] ${answer}\n`;
+                    showToast(`🍰 Rebanada de ${emotion} procesada`);
+                }
+            };
+
+            window.saveReflection = function(view) {
+                if (view === 'pastelote') {
+                    const text = document.getElementById('pastelote-reflection').value;
+                    if (text.trim() === '') {
+                        showToast('Escribe algo antes de guardar');
+                        return;
+                    }
+                    localStorage.setItem('pasteloteReflection', text);
+                    showToast('🍰 Reflexión guardada en tu barrio');
+                }
+            };
+
+            window.clearPastelote = function() {
+                document.getElementById('pastelote-reflection').value = '';
+                localStorage.removeItem('pasteloteReflection');
+                showToast('🧹 Rebanadas limpias');
+            };
+
+            function loadPastelote() {
+                const saved = localStorage.getItem('pasteloteReflection');
+                if (saved) {
+                    document.getElementById('pastelote-reflection').value = saved;
+                }
+            }
+
+            // ---------- 6 LOOKS ----------
+            window.selectLook = function(look) {
+                const questions = {
+                    'Bibliotecaria': '¿Qué datos objetivos tienes sobre esta situación?',
+                    'Drama Queen': '¿Qué emoción es la más intensa aquí?',
+                    'Hater': '¿Qué críticas constructivas podrías hacer?',
+                    'Optimista': '¿Qué oportunidad se esconde en esto?',
+                    'Creativa': '¿De qué forma inusual podrías abordarlo?',
+                    'Jefa': '¿Qué acción concreta vas a tomar?'
+                };
+                document.getElementById('look-question').textContent = questions[look] || 'Selecciona un look válido';
+                showToast(`🎭 Look de ${look} activado`);
+            };
+
+            // ---------- KIT DEL MALANDRO ----------
+            function renderKitGrid() {
+                const grid = document.getElementById('backpack-grid');
+                if (!grid) return;
+                grid.innerHTML = '';
+                kitItems.forEach(item => {
+                    const btn = document.createElement('button');
+                    btn.className = `p-3 rounded-xl text-xs font-black italic uppercase transition-all ${item.selected ? 'bg-green-600 text-white' : 'bg-zinc-800 text-zinc-400'}`;
+                    btn.textContent = item.name;
+                    btn.onclick = () => {
+                        item.selected = !item.selected;
+                        renderKitGrid();
+                    };
+                    grid.appendChild(btn);
+                });
+            }
+
+            window.equipKit = function() {
+                const selected = kitItems.filter(i => i.selected).map(i => i.name);
+                if (selected.length === 0) {
+                    document.getElementById('active-kit').textContent = 'Ninguna herramienta activada aún';
+                    showToast('🎒 Selecciona al menos una herramienta');
+                } else {
+                    document.getElementById('active-kit').textContent = selected.join(' · ');
+                    showToast(`🎒 Kit equipado: ${selected.length} herramientas`);
+                }
+            };
+
+            // ---------- MAPA DEL CAOS (CANVAS) ----------
+            function initCanvas() {
+                canvas = document.getElementById('chaos-canvas');
+                if (!canvas) return;
+                ctx = canvas.getContext('2d');
+
+                function resizeCanvas() {
+                    const container = canvas.parentElement;
+                    canvas.width = container.clientWidth;
+                    canvas.height = 384;
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 2;
+                    ctx.lineCap = 'round';
+                }
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('mouseup', stopDrawing);
+                canvas.addEventListener('mouseout', stopDrawing);
+
+                canvas.addEventListener('touchstart', handleTouchStart);
+                canvas.addEventListener('touchmove', handleTouchMove);
+                canvas.addEventListener('touchend', stopDrawing);
+            }
+
+            function getCanvasCoordinates(e) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+
+                let clientX, clientY;
+                if (e.touches) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+
+                const x = (clientX - rect.left) * scaleX;
+                const y = (clientY - rect.top) * scaleY;
+                return { x, y };
+            }
+
+            function startDrawing(e) {
+                e.preventDefault();
+                drawing = true;
+                const coords = getCanvasCoordinates(e);
+                lastX = coords.x;
+                lastY = coords.y;
+            }
+
+            function draw(e) {
+                e.preventDefault();
+                if (!drawing) return;
+                const coords = getCanvasCoordinates(e);
+                const x = coords.x;
+                const y = coords.y;
+
+                switch (currentTool) {
+                    case 'route': ctx.strokeStyle = '#3b82f6'; break;
+                    case 'danger': ctx.strokeStyle = '#ef4444'; break;
+                    case 'safe': ctx.strokeStyle = '#10b981'; break;
+                    case 'resource': ctx.strokeStyle = '#f59e0b'; break;
+                }
+                ctx.lineWidth = 3;
+
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+
+                lastX = x;
+                lastY = y;
+            }
+
+            function stopDrawing() { drawing = false; }
+            function handleTouchStart(e) { e.preventDefault(); startDrawing(e); }
+            function handleTouchMove(e) { e.preventDefault(); draw(e); }
+
+            window.setMapTool = function(tool) {
+                currentTool = tool;
+                showToast(`🗺️ Herramienta: ${tool}`);
+            };
+
+            window.clearCanvas = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            };
+
+            // ---------- TERRENO DE IDEAS (DRAG & DROP) ----------
+            function initDragAndDrop() {
+                const draggables = document.querySelectorAll('.draggable');
+                const container = document.getElementById('cancha-container');
+
+                draggables.forEach(drag => {
+                    drag.addEventListener('mousedown', dragStart);
+                    drag.addEventListener('touchstart', dragStartTouch);
+                });
+
+                function dragStart(e) {
+                    e.preventDefault();
+                    draggedElement = this;
+                    const rect = this.getBoundingClientRect();
+                    offsetX = e.clientX - rect.left;
+                    offsetY = e.clientY - rect.top;
+                    this.classList.add('dragging');
+
+                    document.addEventListener('mousemove', dragMove);
+                    document.addEventListener('mouseup', dragEnd);
+                }
+
+                function dragStartTouch(e) {
+                    e.preventDefault();
+                    draggedElement = this;
+                    const touch = e.touches[0];
+                    const rect = this.getBoundingClientRect();
+                    offsetX = touch.clientX - rect.left;
+                    offsetY = touch.clientY - rect.top;
+                    this.classList.add('dragging');
+
+                    document.addEventListener('touchmove', dragMoveTouch);
+                    document.addEventListener('touchend', dragEndTouch);
+                }
+
+                function dragMove(e) {
+                    if (!draggedElement) return;
+                    e.preventDefault();
+                    const containerRect = container.getBoundingClientRect();
+                    let newX = e.clientX - offsetX - containerRect.left;
+                    let newY = e.clientY - offsetY - containerRect.top;
+
+                    newX = Math.max(0, Math.min(newX, containerRect.width - draggedElement.offsetWidth));
+                    newY = Math.max(0, Math.min(newY, containerRect.height - draggedElement.offsetHeight));
+
+                    draggedElement.style.left = newX + 'px';
+                    draggedElement.style.top = newY + 'px';
+                }
+
+                function dragMoveTouch(e) {
+                    if (!draggedElement) return;
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    const containerRect = container.getBoundingClientRect();
+                    let newX = touch.clientX - offsetX - containerRect.left;
+                    let newY = touch.clientY - offsetY - containerRect.top;
+
+                    newX = Math.max(0, Math.min(newX, containerRect.width - draggedElement.offsetWidth));
+                    newY = Math.max(0, Math.min(newY, containerRect.height - draggedElement.offsetHeight));
+
+                    draggedElement.style.left = newX + 'px';
+                    draggedElement.style.top = newY + 'px';
+                }
+
+                function dragEnd() {
+                    if (draggedElement) {
+                        draggedElement.classList.remove('dragging');
+                        draggedElement = null;
+                    }
+                    document.removeEventListener('mousemove', dragMove);
+                    document.removeEventListener('mouseup', dragEnd);
+                }
+
+                function dragEndTouch() {
+                    if (draggedElement) {
+                        draggedElement.classList.remove('dragging');
+                        draggedElement = null;
+                    }
+                    document.removeEventListener('touchmove', dragMoveTouch);
+                    document.removeEventListener('touchend', dragEndTouch);
+                }
+            }
+
+            // ---------- LABERINTO DE LA TRAMPA (LLAVES) ----------
+            function renderKeys() {
+                const container = document.getElementById('key-container');
+                if (!container) return;
+                container.innerHTML = '';
+                if (keysFound.length === 0) {
+                    container.innerHTML = '<div class="text-zinc-600 text-sm italic">Aún no tienes llaves. ¡Busca alguna!</div>';
+                } else {
+                    keysFound.forEach(key => {
+                        const span = document.createElement('span');
+                        span.className = 'key-item';
+                        span.textContent = `🔑 ${key}`;
+                        container.appendChild(span);
+                    });
+                }
+                // Guardar en localStorage
+                localStorage.setItem('laberintoKeys', JSON.stringify(keysFound));
+            }
+
+            window.findKey = function() {
+                // Elegir una llave aleatoria que no esté ya encontrada (opcional)
+                let availableKeys = keyMessages.filter(k => !keysFound.includes(k));
+                if (availableKeys.length === 0) {
+                    showToast('🎉 ¡Has encontrado todas las llaves! Eres un maestro del autoconocimiento.');
+                    return;
+                }
+                const randomKey = availableKeys[Math.floor(Math.random() * availableKeys.length)];
+                keysFound.push(randomKey);
+                renderKeys();
+                showToast(`🔑 Has encontrado la llave: ${randomKey}`);
+            };
+
+            window.resetKeys = function() {
+                keysFound = [];
+                renderKeys();
+                showToast('🗑️ Llaves reiniciadas');
+            };
+
+            // ---------- INICIALIZACIÓN ----------
+            window.onload = function() {
+                loadPastelote();
+                renderKitGrid();
+                renderKeys(); // por si hay guardadas
+                showToast('🐍🔥 Chalamandra activada');
+            };
+
+            // Exponer funciones globales
+            window.showToast = showToast;
+        })();
     </script>
 </body>
 </html>

@@ -461,25 +461,46 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Barra de Progreso
-            window.addEventListener('scroll', () => {
+            // ⚡ Bolt Optimization: Optimizando barra de progreso con requestAnimationFrame y passive listener
+            let isScrolling = false;
+            const progressBar = document.getElementById('scroll-progress');
+
+            const updateProgress = () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('scroll-progress').style.width = scrolled + "%";
-            });
-
-            // Animaciones de Revelado
-            const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
-                });
+                progressBar.style.width = ((winScroll / height) * 100) + "%";
+                isScrolling = false;
             };
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
+
+            window.addEventListener('scroll', () => {
+                if (!isScrolling) {
+                    window.requestAnimationFrame(updateProgress);
+                    isScrolling = true;
+                }
+            }, { passive: true });
+
+            // ⚡ Bolt Optimization: Optimizando animaciones de revelado con IntersectionObserver
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOptions = {
+                root: null,
+                rootMargin: '0px 0px -150px 0px',
+                threshold: 0
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    } else {
+                        // Optional: remove class to animate again on scroll up
+                        entry.target.classList.remove('active');
+                    }
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                revealObserver.observe(reveal);
+            });
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');

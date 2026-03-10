@@ -461,25 +461,57 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Barra de Progreso
-            window.addEventListener('scroll', () => {
+            // ⚡ Bolt Optimization: Throttle scroll progress with requestAnimationFrame and passive listener
+            // Prevents main thread blocking and layout thrashing during scroll
+            let isScrolling = false;
+            const progressBar = document.getElementById('scroll-progress');
+
+            const updateProgress = () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrolled = (winScroll / height) * 100;
-                document.getElementById('scroll-progress').style.width = scrolled + "%";
-            });
-
-            // Animaciones de Revelado
-            const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
-                });
+                progressBar.style.width = scrolled + "%";
+                isScrolling = false;
             };
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
+
+            window.addEventListener('scroll', () => {
+                if (!isScrolling) {
+                    window.requestAnimationFrame(updateProgress);
+                    isScrolling = true;
+                }
+            }, { passive: true });
+
+            // Set initial progress
+            updateProgress();
+
+            // ⚡ Bolt Optimization: Use IntersectionObserver instead of getBoundingClientRect on scroll
+            // Prevents synchronous layout calculations and excessive DOM querying on every scroll event
+            const reveals = document.querySelectorAll('.reveal');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -150px 0px',
+                threshold: 0
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Unobserve after revealing since animation only runs once
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            reveals.forEach(reveal => {
+                // Ensure elements already above the fold on page load/reload are revealed
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < window.innerHeight - 150) {
+                    reveal.classList.add('active');
+                } else {
+                    revealObserver.observe(reveal);
+                }
+            });
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');

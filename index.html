@@ -461,25 +461,33 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Barra de Progreso
+            // Barra de Progreso - ⚡ Bolt Optimization: Debounce scroll events
+            let ticking = false;
             window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('scroll-progress').style.width = scrolled + "%";
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                        const scrolled = (winScroll / height) * 100;
+                        document.getElementById('scroll-progress').style.width = scrolled + "%";
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
             });
 
-            // Animaciones de Revelado
-            const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
+            // Animaciones de Revelado - ⚡ Bolt Optimization: Use IntersectionObserver
+            const observerOptions = { rootMargin: '0px 0px -150px 0px', threshold: 0 };
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
                 });
-            };
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(reveal => revealObserver.observe(reveal));
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');

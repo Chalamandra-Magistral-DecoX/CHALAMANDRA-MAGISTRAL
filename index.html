@@ -462,24 +462,43 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Barra de Progreso
+            let scrollTimeout;
             window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('scroll-progress').style.width = scrolled + "%";
-            });
+                if (!scrollTimeout) {
+                    scrollTimeout = requestAnimationFrame(() => {
+                        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                        const scrolled = (winScroll / height) * 100;
+                        document.getElementById('scroll-progress').style.width = scrolled + "%";
+                        scrollTimeout = null;
+                    });
+                }
+            }, { passive: true });
 
             // Animaciones de Revelado
             const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
+
+            // Usamos IntersectionObserver para evitar escuchar constantemente el evento scroll
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
                 });
-            };
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
+            }, { rootMargin: '0px 0px -150px 0px' });
+
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+
+                // Si ya está visible al cargar, lo revelamos inmediatamente
+                if (elementTop < windowHeight - 150) {
+                    reveal.classList.add('active');
+                } else {
+                    revealObserver.observe(reveal);
+                }
+            });
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');
@@ -632,20 +651,32 @@
                     });
 
                     let animationId;
+                    let settledFrames = 0;
                     const anim = () => {
                         const target = isClarity ? 1 : 0;
                         transitionFactor += (target - transitionFactor) * 0.05;
-                        const pos = particles.geometry.attributes.position.array;
-                        const lp = networkLines.geometry.attributes.position.array;
-                        for(let i=0; i<PARTICLE_COUNT; i++) {
-                            const i3 = i*3;
-                            pos[i3] += ((chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor) - pos[i3]) * 0.08;
-                            pos[i3+1] += ((chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor) - pos[i3+1]) * 0.08;
-                            pos[i3+2] += ((chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor) - pos[i3+2]) * 0.08;
-                            lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+
+                        const isSettled = Math.abs(target - transitionFactor) < 0.001;
+                        if (isSettled) {
+                            settledFrames++;
+                        } else {
+                            settledFrames = 0;
                         }
-                        particles.geometry.attributes.position.needsUpdate = true;
-                        networkLines.geometry.attributes.position.needsUpdate = true;
+
+                        if (settledFrames <= 60) {
+                            const pos = particles.geometry.attributes.position.array;
+                            const lp = networkLines.geometry.attributes.position.array;
+                            for(let i=0; i<PARTICLE_COUNT; i++) {
+                                const i3 = i*3;
+                                pos[i3] += ((chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor) - pos[i3]) * 0.08;
+                                pos[i3+1] += ((chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor) - pos[i3+1]) * 0.08;
+                                pos[i3+2] += ((chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor) - pos[i3+2]) * 0.08;
+                                lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+                            }
+                            particles.geometry.attributes.position.needsUpdate = true;
+                            networkLines.geometry.attributes.position.needsUpdate = true;
+                        }
+
                         networkLines.material.opacity = transitionFactor * 0.35;
                         particles.rotation.y += 0.0025;
                         networkLines.rotation.y += 0.0025;

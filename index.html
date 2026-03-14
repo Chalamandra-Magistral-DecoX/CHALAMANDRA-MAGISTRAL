@@ -632,21 +632,35 @@
                     });
 
                     let animationId;
+                    let settledFrames = 0; // ⚡ Bolt Optimization: Track if animation has settled
                     const anim = () => {
                         const target = isClarity ? 1 : 0;
+                        const diff = Math.abs(target - transitionFactor);
+
                         transitionFactor += (target - transitionFactor) * 0.05;
-                        const pos = particles.geometry.attributes.position.array;
-                        const lp = networkLines.geometry.attributes.position.array;
-                        for(let i=0; i<PARTICLE_COUNT; i++) {
-                            const i3 = i*3;
-                            pos[i3] += ((chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor) - pos[i3]) * 0.08;
-                            pos[i3+1] += ((chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor) - pos[i3+1]) * 0.08;
-                            pos[i3+2] += ((chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor) - pos[i3+2]) * 0.08;
-                            lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+
+                        // ⚡ Bolt Optimization: Skip expensive geometry updates when settled
+                        if (diff > 0.001) {
+                            settledFrames = 0;
+                        } else {
+                            settledFrames++;
                         }
-                        particles.geometry.attributes.position.needsUpdate = true;
-                        networkLines.geometry.attributes.position.needsUpdate = true;
-                        networkLines.material.opacity = transitionFactor * 0.35;
+
+                        if (settledFrames <= 60) {
+                            const pos = particles.geometry.attributes.position.array;
+                            const lp = networkLines.geometry.attributes.position.array;
+                            for(let i=0; i<PARTICLE_COUNT; i++) {
+                                const i3 = i*3;
+                                pos[i3] += ((chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor) - pos[i3]) * 0.08;
+                                pos[i3+1] += ((chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor) - pos[i3+1]) * 0.08;
+                                pos[i3+2] += ((chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor) - pos[i3+2]) * 0.08;
+                                lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+                            }
+                            particles.geometry.attributes.position.needsUpdate = true;
+                            networkLines.geometry.attributes.position.needsUpdate = true;
+                            networkLines.material.opacity = transitionFactor * 0.35;
+                        }
+
                         particles.rotation.y += 0.0025;
                         networkLines.rotation.y += 0.0025;
                         camera.position.x += (mouseX - camera.position.x) * 0.05;

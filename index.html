@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -462,24 +462,41 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Barra de Progreso
+            let progressTicking = false;
             window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('scroll-progress').style.width = scrolled + "%";
-            });
+                if (!progressTicking) {
+                    window.requestAnimationFrame(() => {
+                        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                        const scrolled = (winScroll / height) * 100;
+                        document.getElementById('scroll-progress').style.width = scrolled + "%";
+                        progressTicking = false;
+                    });
+                    progressTicking = true;
+                }
+            }, { passive: true });
 
             // Animaciones de Revelado
             const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
+
+            // ⚡ Bolt Optimization: Replace synchronous scroll event and getBoundingClientRect() with IntersectionObserver
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
                 });
-            };
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
+            }, { rootMargin: '0px 0px -150px 0px' });
+
+            reveals.forEach(reveal => {
+                // Handle initial load edge case
+                if (reveal.getBoundingClientRect().top < window.innerHeight - 150) {
+                    reveal.classList.add('active');
+                } else {
+                    revealObserver.observe(reveal);
+                }
+            });
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');

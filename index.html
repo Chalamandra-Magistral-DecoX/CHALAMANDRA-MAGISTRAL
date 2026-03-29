@@ -461,25 +461,43 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Barra de Progreso
+            // Barra de Progreso optimizada con requestAnimationFrame
+            let ticking = false;
             window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('scroll-progress').style.width = scrolled + "%";
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                        const scrolled = (winScroll / height) * 100;
+                        document.getElementById('scroll-progress').style.width = scrolled + "%";
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // Animaciones de Revelado optimizadas con IntersectionObserver
+            const reveals = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // Handle edge cases: immediately reveal elements already above the fold
+                    if (entry.isIntersecting || entry.boundingClientRect.top < window.innerHeight - 150) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -150px 0px'
             });
 
-            // Animaciones de Revelado
-            const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
-                });
-            };
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
+            reveals.forEach(reveal => {
+                // Initial check for elements already in view before observer triggers
+                if (reveal.getBoundingClientRect().top < window.innerHeight - 150) {
+                    reveal.classList.add('active');
+                } else {
+                    revealObserver.observe(reveal);
+                }
+            });
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');

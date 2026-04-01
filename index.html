@@ -631,22 +631,58 @@
                         });
                     });
 
+                    let isStable = false;
                     let animationId;
                     const anim = () => {
                         const target = isClarity ? 1 : 0;
-                        transitionFactor += (target - transitionFactor) * 0.05;
-                        const pos = particles.geometry.attributes.position.array;
-                        const lp = networkLines.geometry.attributes.position.array;
-                        for(let i=0; i<PARTICLE_COUNT; i++) {
-                            const i3 = i*3;
-                            pos[i3] += ((chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor) - pos[i3]) * 0.08;
-                            pos[i3+1] += ((chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor) - pos[i3+1]) * 0.08;
-                            pos[i3+2] += ((chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor) - pos[i3+2]) * 0.08;
-                            lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+                        const diff = target - transitionFactor;
+
+                        // ⚡ Bolt Optimization: Skip expensive geometry updates when visually static
+                        if (Math.abs(diff) < 0.001) {
+                            if (!isStable) {
+                                // Snap to final state to avoid drift
+                                transitionFactor = target;
+                                const pos = particles.geometry.attributes.position.array;
+                                const lp = networkLines.geometry.attributes.position.array;
+
+                                for(let i=0; i<PARTICLE_COUNT; i++) {
+                                    const i3 = i*3;
+                                    // Force positions to exact target
+                                    const tx = chaosPositions[i3]*(1-target) + clarityPositions[i3]*target;
+                                    const ty = chaosPositions[i3+1]*(1-target) + clarityPositions[i3+1]*target;
+                                    const tz = chaosPositions[i3+2]*(1-target) + clarityPositions[i3+2]*target;
+
+                                    pos[i3] = tx; pos[i3+1] = ty; pos[i3+2] = tz;
+                                    lp[i3] = tx; lp[i3+1] = ty; lp[i3+2] = tz;
+                                }
+                                particles.geometry.attributes.position.needsUpdate = true;
+                                networkLines.geometry.attributes.position.needsUpdate = true;
+                                networkLines.material.opacity = target * 0.35;
+                                isStable = true;
+                            }
+                        } else {
+                            isStable = false;
+                            transitionFactor += diff * 0.05;
+                            const pos = particles.geometry.attributes.position.array;
+                            const lp = networkLines.geometry.attributes.position.array;
+
+                            for(let i=0; i<PARTICLE_COUNT; i++) {
+                                const i3 = i*3;
+                                const tx = chaosPositions[i3]*(1-transitionFactor) + clarityPositions[i3]*transitionFactor;
+                                const ty = chaosPositions[i3+1]*(1-transitionFactor) + clarityPositions[i3+1]*transitionFactor;
+                                const tz = chaosPositions[i3+2]*(1-transitionFactor) + clarityPositions[i3+2]*transitionFactor;
+
+                                pos[i3] += (tx - pos[i3]) * 0.08;
+                                pos[i3+1] += (ty - pos[i3+1]) * 0.08;
+                                pos[i3+2] += (tz - pos[i3+2]) * 0.08;
+
+                                lp[i3] = pos[i3]; lp[i3+1] = pos[i3+1]; lp[i3+2] = pos[i3+2];
+                            }
+                            particles.geometry.attributes.position.needsUpdate = true;
+                            networkLines.geometry.attributes.position.needsUpdate = true;
+                            networkLines.material.opacity = transitionFactor * 0.35;
                         }
-                        particles.geometry.attributes.position.needsUpdate = true;
-                        networkLines.geometry.attributes.position.needsUpdate = true;
-                        networkLines.material.opacity = transitionFactor * 0.35;
+
                         particles.rotation.y += 0.0025;
                         networkLines.rotation.y += 0.0025;
                         camera.position.x += (mouseX - camera.position.x) * 0.05;

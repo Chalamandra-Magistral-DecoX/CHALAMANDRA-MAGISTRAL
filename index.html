@@ -461,25 +461,34 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Barra de Progreso
+            // ⚡ Bolt Optimization: Use requestAnimationFrame for progress bar to prevent layout thrashing
+            // Expected Impact: Eliminates synchronous reflows on scroll, maintaining smooth 60fps
+            let isScrolling = false;
             window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('scroll-progress').style.width = scrolled + "%";
-            });
+                if (!isScrolling) {
+                    window.requestAnimationFrame(() => {
+                        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                        const scrolled = (winScroll / height) * 100;
+                        document.getElementById('scroll-progress').style.width = scrolled + "%";
+                        isScrolling = false;
+                    });
+                    isScrolling = true;
+                }
+            }, { passive: true });
 
-            // Animaciones de Revelado
+            // ⚡ Bolt Optimization: Replace scroll event listener with IntersectionObserver for reveal animations
+            // Expected Impact: Drastically reduces main thread work during scrolling, O(1) instead of O(N) element checks
             const reveals = document.querySelectorAll('.reveal');
-            const revealOnScroll = () => {
-                reveals.forEach(reveal => {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - 150) reveal.classList.add('active');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
                 });
-            };
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
+            }, { rootMargin: '0px 0px -150px 0px' });
+
+            reveals.forEach(reveal => revealObserver.observe(reveal));
 
             // Three.js Core - Optimizado para móvil
             const container = document.getElementById('canvas-container');

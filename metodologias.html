@@ -3,174 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chalamandra: Kit de Autoconocimiento</title>
+    <title>Chalamandra: Kit de Autoconocimiento & Dado Oráculo</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Bangers&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root { --rosa: #ff4d9e; --verde: #00ff99; --purple: #9933ff; --fondo: #080808; }
-        body {
-            background-color: var(--fondo);
-            font-family: 'Montserrat', sans-serif;
-            color: white;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(153, 51, 255, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(255, 77, 158, 0.1) 0%, transparent 40%);
-        }
-        .font-bangers { font-family: 'Bangers', cursive; }
-        .perspective-1000 { perspective: 1000px; }
-        .dice {
-            width: 120px; height: 120px;
-            position: relative; transform-style: preserve-3d;
-            transition: transform 2s cubic-bezier(0.17, 0.67, 0.14, 1.03);
-            transform: rotateX(-20deg) rotateY(-20deg);
-        }
-        .dice-face {
-            position: absolute; width: 120px; height: 120px;
-            border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 1rem;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; backface-visibility: hidden;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-        }
-        .face-1 { transform: rotateY(0deg) translateZ(60px); background: var(--rosa); }
-        .face-2 { transform: rotateY(180deg) translateZ(60px); background: var(--purple); }
-        .face-3 { transform: rotateY(90deg) translateZ(60px); background: var(--verde); }
-        .face-4 { transform: rotateY(-90deg) translateZ(60px); background: #3399ff; }
-        .face-5 { transform: rotateX(90deg) translateZ(60px); background: #ff8500; }
-        .face-6 { transform: rotateX(-90deg) translateZ(60px); background: #ef4444; }
-
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        #toast {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: rgba(255, 77, 158, 0.9); color: white; padding: 12px 24px;
-            border-radius: 50px; font-weight: 900; z-index: 5000;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        #toast.show { transform: translateX(-50%) translateY(0); }
-        .tool-view { display: none; }
-        .tool-view.active { display: block; }
-        .draggable { cursor: move; user-select: none; z-index: 10; transition: transform 0.1s; }
-        .dragging { opacity: 0.8; transform: scale(1.1); z-index: 100; }
-        .fire-effect { animation: fire 1s infinite alternate; }
-        @keyframes fire { from { box-shadow: 0 0 10px #ef4444; } to { box-shadow: 0 0 30px #ff8500; } }
-        canvas { touch-action: none; cursor: crosshair; }
-    </style>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body class="p-6 md:p-12">
+<body class="metodologias-body">
 
-    <div id="toast">¡Sincronía activada!</div>
+    <div id="toast">¡Bienvenido al Oráculo!</div>
 
-    <div id="view-menu" class="tool-view active max-w-5xl mx-auto fade-in">
-        <header class="text-center mb-10">
-            <h1 class="text-5xl md:text-7xl font-bangers italic text-[#ff4d9e] mb-2 uppercase tracking-tighter">CHALAMANDRA</h1>
-            <p class="text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">Dashboard de Introspección</p>
-        </header>
+    <header class="p-6 flex items-center justify-between border-b border-white/10 max-w-6xl mx-auto w-full">
+        <a href="index.html" class="flex items-center gap-3 text-white hover:text-[#00FF5E] transition-colors group">
+            <div class="w-10 h-10 rounded-lg bg-[#D5006C] flex items-center justify-center font-black text-xl group-hover:scale-105 transition-transform">
+                <i class="fas fa-arrow-left text-white text-sm"></i>
+            </div>
+            <div>
+                <span class="font-black tracking-wider block text-sm uppercase">← VOLVER AL BÚNKER 3D</span>
+                <span class="text-[10px] text-zinc-400 block -mt-1 font-mono">Chalamandra Magistral Decodificadora™</span>
+            </div>
+        </a>
 
-        <div class="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
-            <div class="w-full lg:w-1/3 bg-zinc-900/40 p-8 rounded-[2.5rem] border border-zinc-800 flex flex-col items-center">
-                <h3 class="font-black italic text-zinc-500 uppercase text-xs mb-8 tracking-widest">¿Qué toca hoy?</h3>
-                <div class="perspective-1000 mb-10">
-                    <div class="dice" id="dice">
-                        <div class="dice-face face-1">🍰</div>
-                        <div class="dice-face face-2">🎩</div>
-                        <div class="dice-face face-3">🎒</div>
-                        <div class="dice-face face-4">🗺️</div>
-                        <div class="dice-face face-5">⚽</div>
-                        <div class="dice-face face-6">🔥</div>
-                    </div>
-                </div>
-                <button onclick="rollDice()" class="w-full py-4 bg-gradient-to-r from-pink-600 to-purple-600 rounded-2xl font-black italic uppercase transition-all hover:scale-105 active:scale-95">
-                    Chalamandrazo
-                </button>
-                <div id="dice-suggestion" class="hidden mt-6 p-4 bg-zinc-800 border border-zinc-700 rounded-2xl text-center fade-in">
-                    <p class="text-[10px] text-zinc-500 uppercase font-bold mb-1">Destino:</p>
-                    <button id="suggestion-link" class="text-sm font-black uppercase italic hover:underline text-pink-400"></button>
+        <div class="flex items-center gap-4">
+            <a href="https://decodificadorachalamandramagis.blogspot.com/2026/05/me-cai-en-un-charco-y-encontre-un.html" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl border border-pink-500/30 bg-pink-500/10 text-pink-400 text-xs font-bold hover:bg-pink-500/20 transition-all">
+                <i class="fas fa-book-open"></i> Manifiesto
+            </a>
+            <a href="https://view.genially.com/6a0e244fbb4537e74872bde4" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-bold hover:bg-green-500/20 transition-all">
+                <i class="fas fa-cubes"></i> Genially 6 Looks
+            </a>
+        </div>
+    </header>
+
+    <div id="view-menu" class="tool-view active max-w-4xl mx-auto pt-8 px-4">
+        <div class="text-center mb-10">
+            <span class="px-4 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 font-bold text-xs uppercase tracking-widest inline-block mb-3">
+                LABORATORIO TÁCTICO & DECODIFICADOR
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-black italic tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-green-400 mb-4">
+                DADO DE METODOLOGÍAS
+            </h1>
+            <p class="text-zinc-400 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+                Chalamandra Magistral Decodificadora™ es una marca personal y laboratorio creativo dedicado a decodificar problemas, ideas y sistemas complejos. Selecciona una herramienta o tira el dado para consultar al Oráculo.
+            </p>
+        </div>
+
+        <div class="flex flex-col items-center justify-center mb-12">
+            <div class="perspective-1000 mb-8 cursor-pointer" onclick="rollDice()">
+                <div id="dice" class="dice">
+                    <div class="dice-face face-1">🎂</div>
+                    <div class="dice-face face-2">🎒</div>
+                    <div class="dice-face face-3">🗺️</div>
+                    <div class="dice-face face-4">🏟️</div>
+                    <div class="dice-face face-5">🔥</div>
+                    <div class="dice-face face-6">🎭</div>
                 </div>
             </div>
 
-            <div class="w-full lg:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div class="bg-zinc-900/60 border border-pink-500/20 rounded-3xl p-5 hover:border-pink-500 cursor-pointer text-center transition-all" onclick="changeView('pastelote')">
-                    <i class="fas fa-chart-pie text-pink-500 text-3xl mb-3"></i>
-                    <h2 class="font-black text-pink-400 text-xl uppercase italic">Pastelote</h2>
-                </div>
-                <div class="bg-zinc-900/60 border border-purple-500/20 rounded-3xl p-5 hover:border-purple-500 cursor-pointer text-center transition-all" onclick="changeView('looks')">
-                    <i class="fas fa-sparkles text-purple-500 text-3xl mb-3"></i>
-                    <h2 class="font-black text-purple-400 text-xl uppercase italic">6 Looks</h2>
-                </div>
-                <div class="bg-zinc-900/60 border border-green-500/20 rounded-3xl p-5 hover:border-green-500 cursor-pointer text-center transition-all" onclick="changeView('mochila')">
-                    <i class="fas fa-shopping-bag text-green-500 text-3xl mb-3"></i>
-                    <h2 class="font-black text-green-400 text-xl uppercase italic">Mochila</h2>
-                </div>
-                <div class="bg-zinc-900/60 border border-blue-500/20 rounded-3xl p-5 hover:border-blue-500 cursor-pointer text-center transition-all" onclick="changeView('mapa')">
-                    <i class="fas fa-map text-blue-500 text-3xl mb-3"></i>
-                    <h2 class="font-black text-blue-400 text-xl uppercase italic">Mapa</h2>
-                </div>
-                <div class="bg-zinc-900/60 border border-orange-500/20 rounded-3xl p-5 hover:border-orange-500 cursor-pointer text-center transition-all" onclick="changeView('cancha')">
-                    <i class="fas fa-bullseye text-orange-500 text-3xl mb-3"></i>
-                    <h2 class="font-black text-orange-400 text-xl uppercase italic">Terreno</h2>
-                </div>
-                <div class="bg-zinc-900/60 border border-red-500/20 rounded-3xl p-5 hover:border-red-500 cursor-pointer text-center transition-all" onclick="changeView('altar')">
-                    <i class="fas fa-fire text-red-500 text-3xl mb-3"></i>
-                    <h2 class="font-black text-red-400 text-xl uppercase italic">Altar</h2>
-                </div>
+            <button onclick="rollDice()" class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-black text-lg uppercase tracking-wider shadow-lg hover:scale-105 transition-all flex items-center gap-3">
+                <i class="fas fa-dice text-xl"></i> TIRAR DADO ORÁCULO
+            </button>
+
+            <div id="dice-suggestion" class="mt-6 hidden text-center fade-in">
+                <p class="text-xs text-zinc-400 uppercase font-mono mb-2">El Oráculo sugiere:</p>
+                <button id="suggestion-link" class="px-6 py-3 bg-green-500 text-black font-black uppercase rounded-2xl text-sm italic hover:bg-green-400 transition-all"></button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
+            <div onclick="changeView('pastelote')" class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl cursor-pointer hover:border-pink-500 transition-all text-center group">
+                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🎂</div>
+                <h3 class="font-black text-sm uppercase text-pink-400 mb-1">Pastelote</h3>
+                <p class="text-[10px] text-zinc-500">Divide problemas complejos en rebanadas digeribles.</p>
+            </div>
+
+            <div onclick="changeView('mochila')" class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl cursor-pointer hover:border-green-500 transition-all text-center group">
+                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🎒</div>
+                <h3 class="font-black text-sm uppercase text-green-400 mb-1">Mochila SRAP</h3>
+                <p class="text-[10px] text-zinc-500">Equipa tus habilidades y recursos estratégicos.</p>
+            </div>
+
+            <div onclick="changeView('mapa')" class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl cursor-pointer hover:border-blue-500 transition-all text-center group">
+                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🗺️</div>
+                <h3 class="font-black text-sm uppercase text-blue-400 mb-1">Mapa del Caos</h3>
+                <p class="text-[10px] text-zinc-500">Lienzo interactivo para mapear zonas seguras y peligros.</p>
+            </div>
+
+            <div onclick="changeView('cancha')" class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl cursor-pointer hover:border-orange-500 transition-all text-center group">
+                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🏟️</div>
+                <h3 class="font-black text-sm uppercase text-orange-400 mb-1">Terreno de Ideas</h3>
+                <p class="text-[10px] text-zinc-500">Acomoda y organiza estratégicamente tus conceptos.</p>
+            </div>
+
+            <div onclick="changeView('altar')" class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl cursor-pointer hover:border-red-500 transition-all text-center group">
+                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🔥</div>
+                <h3 class="font-black text-sm uppercase text-red-400 mb-1">Altar de lo Roto</h3>
+                <p class="text-[10px] text-zinc-500">Quema y suelta lo que ya no sirve en tu sistema.</p>
+            </div>
+
+            <div onclick="changeView('looks')" class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl cursor-pointer hover:border-purple-500 transition-all text-center group">
+                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🎭</div>
+                <h3 class="font-black text-sm uppercase text-purple-400 mb-1">Los 6 Looks</h3>
+                <p class="text-[10px] text-zinc-500">6 perspectivas críticas + Tablero Genially.</p>
             </div>
         </div>
     </div>
 
-    <div id="view-pastelote" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic">← Volver al Barrio</button>
+    <!-- TOOL VIEWS -->
+    <div id="view-pastelote" class="tool-view max-w-2xl mx-auto fade-in px-4">
+        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic hover:text-white transition-colors">← Volver al Menú</button>
         <div class="bg-zinc-900 border-2 border-pink-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <h2 class="text-4xl font-black italic text-pink-500 uppercase mb-6 text-center">Pastelote Emocional</h2>
-            <div class="space-y-4">
-                <div>
-                    <label class="text-[10px] text-zinc-500 font-bold uppercase">¿Qué rebanada te tragaste a la fuerza hoy?</label>
-                    <textarea class="w-full bg-black/40 border border-zinc-800 rounded-xl p-3 text-white focus:border-pink-500 outline-none h-20"></textarea>
-                </div>
-                <div>
-                    <label class="text-[10px] text-zinc-500 font-bold uppercase">¿A quién le estás regalando tu pastel?</label>
-                    <textarea class="w-full bg-black/40 border border-zinc-800 rounded-xl p-3 text-white focus:border-pink-500 outline-none h-20"></textarea>
-                </div>
+            <h2 class="text-4xl font-black italic text-pink-500 uppercase mb-4 text-center">El Pastelote</h2>
+            <p class="text-zinc-400 text-xs text-center mb-6">Elige cuántas partes tiene tu problema hoy:</p>
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <button onclick="showToast('Rebanada 1: El Gran Problema 🎂')" class="p-4 bg-pink-950/40 border border-pink-500/40 rounded-2xl font-black text-pink-300">Parte 1</button>
+                <button onclick="showToast('Rebanada 2: La Causa Raíz 🍰')" class="p-4 bg-pink-950/40 border border-pink-500/40 rounded-2xl font-black text-pink-300">Parte 2</button>
+                <button onclick="showToast('Rebanada 3: La Salida Estratégica ✨')" class="p-4 bg-pink-950/40 border border-pink-500/40 rounded-2xl font-black text-pink-300">Parte 3</button>
             </div>
-            <button onclick="showToast('Nutrición emocional guardada 🍰')" class="w-full mt-6 py-4 bg-pink-600 rounded-2xl font-black uppercase italic">Guardar Rebanadas</button>
         </div>
     </div>
 
-    <div id="view-mochila" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic">← Volver</button>
+    <div id="view-mochila" class="tool-view max-w-2xl mx-auto fade-in px-4">
+        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic hover:text-white transition-colors">← Volver al Menú</button>
         <div class="bg-zinc-900 border-2 border-green-500/40 rounded-[2.5rem] p-8 shadow-2xl">
-            <h2 class="text-4xl font-black italic text-green-500 uppercase mb-2 text-center">Mochila Malandra</h2>
-            <p class="text-[10px] text-zinc-500 text-center uppercase mb-8 italic">Equipa tus habilidades de supervivencia</p>
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <div class="p-4 bg-zinc-800 rounded-2xl border-2 border-transparent hover:border-green-500 cursor-pointer transition-all" onclick="togglePower(this)">
-                    <div class="text-2xl mb-2">🕶️</div>
-                    <h4 class="font-black text-xs uppercase text-green-400">Sangre Fría</h4>
-                    <p class="text-[9px] text-zinc-500">Neutraliza el drama ajeno.</p>
-                </div>
-                <div class="p-4 bg-zinc-800 rounded-2xl border-2 border-transparent hover:border-green-500 cursor-pointer transition-all" onclick="togglePower(this)">
-                    <div class="text-2xl mb-2">📢</div>
-                    <h4 class="font-black text-xs uppercase text-green-400">Voz de Mando</h4>
-                    <p class="text-[9px] text-zinc-500">Di "NO" sin culpas.</p>
-                </div>
+            <h2 class="text-4xl font-black italic text-green-500 uppercase mb-4 text-center">La Mochila SRAP</h2>
+            <div class="grid grid-cols-2 gap-4 mb-6">
                 <div class="p-4 bg-zinc-800 rounded-2xl border-2 border-transparent hover:border-green-500 cursor-pointer transition-all" onclick="togglePower(this)">
                     <div class="text-2xl mb-2">🔋</div>
                     <h4 class="font-black text-xs uppercase text-green-400">Modo Ahorro</h4>
-                    <p class="text-[9px] text-zinc-500">Cero energía para gente tonta.</p>
+                    <p class="text-[9px] text-zinc-500">Cero energía para distracciones.</p>
                 </div>
                 <div class="p-4 bg-zinc-800 rounded-2xl border-2 border-transparent hover:border-green-500 cursor-pointer transition-all" onclick="togglePower(this)">
                     <div class="text-2xl mb-2">🧿</div>
                     <h4 class="font-black text-xs uppercase text-green-400">Ojo Crítico</h4>
-                    <p class="text-[9px] text-zinc-500">Detecta las mentiras rápido.</p>
+                    <p class="text-[9px] text-zinc-500">Detecta inconsistencias al instante.</p>
                 </div>
             </div>
-            <button onclick="showToast('¡Kit equipado! Sal con todo 🎒')" class="w-full py-4 bg-green-600 rounded-2xl font-black uppercase italic">Equipar</button>
+            <button onclick="showToast('¡Kit equipado! Sal con todo 🎒')" class="w-full py-4 bg-green-600 hover:bg-green-500 rounded-2xl font-black uppercase italic text-black transition-colors">Equipar Mochila</button>
         </div>
     </div>
 
-    <div id="view-mapa" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic">← Volver</button>
+    <div id="view-mapa" class="tool-view max-w-2xl mx-auto fade-in px-4">
+        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic hover:text-white transition-colors">← Volver al Menú</button>
         <div class="bg-zinc-900 border-2 border-blue-500/40 rounded-[2.5rem] p-8 shadow-2xl">
             <h2 class="text-4xl font-black italic text-blue-500 uppercase mb-4 text-center">Mapa del Caos</h2>
             <div class="flex gap-2 justify-center mb-4">
@@ -182,20 +156,20 @@
         </div>
     </div>
 
-    <div id="view-cancha" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic">← Volver</button>
+    <div id="view-cancha" class="tool-view max-w-2xl mx-auto fade-in px-4">
+        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic hover:text-white transition-colors">← Volver al Menú</button>
         <div class="bg-zinc-900 border-2 border-orange-500/40 rounded-[2.5rem] p-8 shadow-2xl text-center">
             <h2 class="text-4xl font-black italic text-orange-500 uppercase mb-6">Terreno de Ideas</h2>
             <div id="cancha-container" class="relative h-80 bg-zinc-950 rounded-3xl border-2 border-dashed border-zinc-800 overflow-hidden">
-                <div class="draggable absolute top-10 left-10 bg-pink-500 p-3 rounded-xl font-black text-[10px] italic shadow-lg">💡 IDEA CRACK</div>
-                <div class="draggable absolute top-20 right-10 bg-blue-500 p-3 rounded-xl font-black text-[10px] italic shadow-lg">🛡️ DEFENSA</div>
-                <div class="draggable absolute bottom-10 left-20 bg-green-500 p-3 rounded-xl font-black text-[10px] italic shadow-lg">⚡ FLOW</div>
+                <div class="draggable absolute top-10 left-10 bg-pink-500 p-3 rounded-xl font-black text-[10px] italic shadow-lg cursor-grab">💡 IDEA CRACK</div>
+                <div class="draggable absolute top-20 right-10 bg-blue-500 p-3 rounded-xl font-black text-[10px] italic shadow-lg cursor-grab">🛡️ DEFENSA</div>
+                <div class="draggable absolute bottom-10 left-20 bg-green-500 p-3 rounded-xl font-black text-[10px] italic shadow-lg cursor-grab">⚡ FLOW</div>
             </div>
         </div>
     </div>
 
-    <div id="view-altar" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic">← Volver</button>
+    <div id="view-altar" class="tool-view max-w-2xl mx-auto fade-in px-4">
+        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic hover:text-white transition-colors">← Volver al Menú</button>
         <div class="bg-zinc-900 border-2 border-red-500/40 rounded-[2.5rem] p-8 shadow-2xl text-center">
             <h2 class="text-4xl font-black italic text-red-500 uppercase mb-6">El Altar de lo Roto</h2>
             <div class="flex justify-center mb-6">
@@ -204,20 +178,25 @@
                 </div>
             </div>
             <textarea id="burn-text" class="w-full bg-black border border-red-900/30 rounded-2xl p-4 text-red-200 mb-4 h-32 focus:border-red-500 outline-none" placeholder="Escribe lo que ya no sirve..."></textarea>
-            <button onclick="burnRelease()" class="w-full py-4 bg-red-600 font-black uppercase italic rounded-2xl shadow-xl">Quemar y Soltar</button>
+            <button onclick="burnRelease()" class="w-full py-4 bg-red-600 hover:bg-red-500 font-black uppercase italic rounded-2xl shadow-xl transition-colors">Quemar y Soltar</button>
         </div>
     </div>
 
-    <div id="view-looks" class="tool-view max-w-2xl mx-auto fade-in">
-        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic">← Volver</button>
+    <div id="view-looks" class="tool-view max-w-2xl mx-auto fade-in px-4">
+        <button onclick="changeView('menu')" class="mb-6 text-zinc-500 font-bold uppercase text-sm italic hover:text-white transition-colors">← Volver al Menú</button>
         <div class="bg-zinc-900 border-2 border-purple-500/40 rounded-[2.5rem] p-8">
             <h2 class="text-4xl font-black italic text-purple-500 uppercase text-center mb-6">Los 6 Looks</h2>
-            <div class="grid grid-cols-2 gap-4 italic text-center font-bold text-xs uppercase">
-                <div class="p-4 bg-white text-black rounded-xl">📚 Datos</div>
-                <div class="p-4 bg-red-600 text-white rounded-xl">🎭 Drama</div>
-                <div class="p-4 bg-zinc-800 text-zinc-400 rounded-xl">😒 Hater</div>
-                <div class="p-4 bg-yellow-400 text-black rounded-xl">🌟 Optimista</div>
+            <p class="text-zinc-400 text-xs text-center mb-6">Metodología de análisis somático y perspectivas múltiples:</p>
+            <div class="grid grid-cols-2 gap-4 italic text-center font-bold text-xs uppercase mb-8">
+                <div class="p-4 bg-white text-black rounded-xl">📚 Datos (Blanco)</div>
+                <div class="p-4 bg-red-600 text-white rounded-xl">🎭 Drama (Rojo)</div>
+                <div class="p-4 bg-zinc-800 text-zinc-300 rounded-xl">😒 Hater (Negro)</div>
+                <div class="p-4 bg-yellow-400 text-black rounded-xl">🌟 Optimista (Amarillo)</div>
             </div>
+
+            <a href="https://view.genially.com/6a0e244fbb4537e74872bde4" target="_blank" rel="noopener noreferrer" class="block w-full py-4 bg-purple-600 hover:bg-purple-500 text-white font-black text-center uppercase tracking-wider rounded-2xl transition-colors shadow-lg">
+                <i class="fas fa-external-link-alt mr-2"></i> Abrir Tablero Interactivo Genially
+            </a>
         </div>
     </div>
 
@@ -233,6 +212,7 @@
 
         function showToast(msj) {
             const t = document.getElementById('toast');
+            if (!t) return;
             t.innerText = msj;
             t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3000);
@@ -248,12 +228,14 @@
             
             const x = Math.floor(Math.random()*4+10)*90;
             const y = Math.floor(Math.random()*4+10)*90;
-            dice.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
+            if (dice) dice.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
             
             setTimeout(() => {
-                sug.classList.remove('hidden');
-                link.innerText = "IR A " + res.toUpperCase();
-                link.onclick = () => changeView(res);
+                if (sug && link) {
+                    sug.classList.remove('hidden');
+                    link.innerText = "IR A " + res.toUpperCase();
+                    link.onclick = () => changeView(res);
+                }
                 showToast("El destino manda ✨");
             }, 2000);
         }
@@ -269,6 +251,7 @@
         document.querySelectorAll('.draggable').forEach(el => {
             el.addEventListener('mousedown', (e) => {
                 const container = document.getElementById('cancha-container');
+                if (!container) return;
                 let shiftX = e.clientX - el.getBoundingClientRect().left;
                 let shiftY = e.clientY - el.getBoundingClientRect().top;
                 el.classList.add('dragging');
@@ -292,7 +275,7 @@
         // ALTAR
         function burnRelease() {
             const txt = document.getElementById('burn-text');
-            if(!txt.value.trim()) return showToast("Escribe algo para soltar...");
+            if(!txt || !txt.value.trim()) return showToast("Escribe algo para soltar...");
             txt.style.transition = "all 2s ease-out";
             txt.style.filter = "blur(20px) brightness(3)";
             txt.style.opacity = "0";
@@ -306,27 +289,27 @@
         let canvas, ctx, painting = false, color = 'blue';
         function initMapa() {
             canvas = document.getElementById('chaos-canvas');
+            if (!canvas) return;
             ctx = canvas.getContext('2d');
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
             canvas.addEventListener('mousedown', () => painting = true);
             canvas.addEventListener('mouseup', () => { painting = false; ctx.beginPath(); });
             canvas.addEventListener('mousemove', draw);
-            // Touch para móviles
             canvas.addEventListener('touchstart', (e) => { painting = true; draw(e.touches[0]); e.preventDefault(); });
             canvas.addEventListener('touchend', () => { painting = false; ctx.beginPath(); });
             canvas.addEventListener('touchmove', (e) => { draw(e.touches[0]); e.preventDefault(); });
         }
         function pincel(c) { color = c; showToast("Pincel " + c + " listo"); }
         function draw(e) {
-            if (!painting) return;
+            if (!painting || !canvas || !ctx) return;
             ctx.lineWidth = 10; ctx.lineCap = 'round'; ctx.strokeStyle = color;
             const rect = canvas.getBoundingClientRect();
             ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
             ctx.stroke(); ctx.beginPath();
             ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
         }
-        function limpiarMapa() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+        function limpiarMapa() { if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height); }
     </script>
 </body>
 </html>

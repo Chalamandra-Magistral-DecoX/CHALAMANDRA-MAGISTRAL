@@ -1,0 +1,287 @@
+/* === INDEX STYLES === */
+:root {
+            --chala-mandala: #FFB300;
+            --chala-rosa:    #D5006C;
+            --chala-verde:   #00FF5E;
+            --chala-tinta:   #050505;
+            --chala-rojo:    #FF0000;
+            --chala-azul:    #1A237E;
+            --chala-gris:    #B0BEC5;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--chala-tinta);
+            color: var(--chala-gris);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        h1, h2, h3, .font-orbitron { font-family: 'Orbitron', sans-serif; }
+
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(to right, var(--chala-mandala), var(--chala-rosa));
+            z-index: 1000;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 179, 0, 0.08), transparent);
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            pointer-events: none;
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        .text-glow-mandala { text-shadow: 0 0 20px var(--chala-mandala); }
+        .text-glow-verde { text-shadow: 0 0 20px var(--chala-verde); }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(5, 5, 5, 0.95) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 179, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-magistral {
+            background: linear-gradient(90deg, var(--chala-rosa), var(--chala-rojo));
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(213, 0, 108, 0.3);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-magistral:hover {
+            box-shadow: 0 0 30px var(--chala-rosa);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 75vh;
+            min-height: 400px;
+            max-height: 800px;
+            overflow: hidden;
+            border-radius: 2.5rem;
+            background: #000;
+            border: 2px solid rgba(255, 179, 0, 0.15);
+            touch-action: none;
+        }
+
+        .arquetipo-border {
+            border: 1px solid transparent;
+            background: linear-gradient(var(--chala-tinta), var(--chala-tinta)) padding-box,
+                        linear-gradient(45deg, var(--chala-rosa), var(--chala-mandala)) border-box;
+        }
+
+        .bg-urban {
+            background-image: radial-gradient(circle at 2px 2px, rgba(176, 190, 197, 0.05) 1px, transparent 0);
+            background-size: 50px 50px;
+        }
+
+        .title-magistral {
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            font-weight: 900;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Optimizaciones móviles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem !important;
+                line-height: 1.2 !important;
+            }
+
+            h2 {
+                font-size: 2.5rem !important;
+            }
+
+            .text-6xl { font-size: 2.5rem; }
+            .text-5xl { font-size: 2rem; }
+            .text-4xl { font-size: 1.75rem; }
+            .text-3xl { font-size: 1.5rem; }
+
+            .glass-card {
+                padding: 1.5rem !important;
+                border-radius: 1.5rem !important;
+            }
+
+            .btn-magistral {
+                padding: 0.75rem 1.5rem !important;
+                font-size: 0.75rem !important;
+            }
+
+            #canvas-container {
+                height: 60vh !important;
+                min-height: 350px !important;
+                border-radius: 1rem !important;
+            }
+
+            #canvas-container .absolute {
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+                right: auto !important;
+                padding: 1rem !important;
+                margin-top: 1rem !important;
+            }
+
+            .arquetipo-border {
+                padding: 1.5rem !important;
+                border-radius: 2rem !important;
+                margin: 0 1rem;
+            }
+
+            footer {
+                padding: 3rem 1rem !important;
+            }
+
+            /* Mejorar toques */
+            button, a {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            /* Ajustes específicos para la sección experiencia */
+            #experiencia .flex.flex-col.md\:flex-row {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+
+            #experiencia .text-right {
+                text-align: center !important;
+                margin-top: 1rem !important;
+            }
+
+            /* Reposicionar controles del canvas */
+            .canvas-controls {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+                margin-top: 1rem !important;
+                width: 100% !important;
+            }
+
+            .canvas-controls > div {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-bottom: 1rem !important;
+            }
+
+            .canvas-controls button {
+                width: 100% !important;
+                padding: 1rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem !important;
+            }
+
+            #canvas-container {
+                height: 50vh !important;
+                min-height: 300px !important;
+            }
+
+            .grid-cols-1 > * {
+                margin-bottom: 1rem;
+            }
+
+            /* Header ajustes */
+            header .text-6xl {
+                font-size: 2rem !important;
+            }
+
+            header .text-3xl {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        /* Clases específicas para los controles del canvas */
+        .canvas-info-box {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(3xl);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+/* === METODOLOGIAS STYLES === */
+:root { --rosa: #ff4d9e; --verde: #00ff99; --purple: #9933ff; --fondo: #080808; }
+        body {
+            background-color: var(--fondo);
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 10% 10%, rgba(153, 51, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(255, 77, 158, 0.1) 0%, transparent 40%);
+        }
+        .font-bangers { font-family: 'Bangers', cursive; }
+        .perspective-1000 { perspective: 1000px; }
+        .dice {
+            width: 120px; height: 120px;
+            position: relative; transform-style: preserve-3d;
+            transition: transform 2s cubic-bezier(0.17, 0.67, 0.14, 1.03);
+            transform: rotateX(-20deg) rotateY(-20deg);
+        }
+        .dice-face {
+            position: absolute; width: 120px; height: 120px;
+            border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; backface-visibility: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        .face-1 { transform: rotateY(0deg) translateZ(60px); background: var(--rosa); }
+        .face-2 { transform: rotateY(180deg) translateZ(60px); background: var(--purple); }
+        .face-3 { transform: rotateY(90deg) translateZ(60px); background: var(--verde); }
+        .face-4 { transform: rotateY(-90deg) translateZ(60px); background: #3399ff; }
+        .face-5 { transform: rotateX(90deg) translateZ(60px); background: #ff8500; }
+        .face-6 { transform: rotateX(-90deg) translateZ(60px); background: #ef4444; }
+
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: rgba(255, 77, 158, 0.9); color: white; padding: 12px 24px;
+            border-radius: 50px; font-weight: 900; z-index: 5000;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #toast.show { transform: translateX(-50%) translateY(0); }
+        .tool-view { display: none; }
+        .tool-view.active { display: block; }
+        .draggable { cursor: move; user-select: none; z-index: 10; transition: transform 0.1s; }
+        .dragging { opacity: 0.8; transform: scale(1.1); z-index: 100; }
+        .fire-effect { animation: fire 1s infinite alternate; }
+        @keyframes fire { from { box-shadow: 0 0 10px #ef4444; } to { box-shadow: 0 0 30px #ff8500; } }
+        canvas { touch-action: none; cursor: crosshair; }
